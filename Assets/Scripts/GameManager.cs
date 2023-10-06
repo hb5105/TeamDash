@@ -48,4 +48,63 @@ public class GameManager : MonoBehaviour
     {
         return playerProgress == targetWord;
     }
+    public void OnScoreZoneReached(int id)
+    {
+        res1 = scoreTextLeft.GetScore();
+        res2 = scoreTextRight.GetScore();
+        Debug.Log(res1);
+        Debug.Log(res2);
+        string curr = ballText.getText();
+        char currChar = curr[0];
+        int pos = word.IndexOf(currChar);
+
+        if (id == 1 && !res1.Contains(curr))
+        {
+            char[] res1Chars = res1.ToCharArray();
+            res1Chars[pos] = currChar;
+            res1 = new string(res1Chars);
+            if (res2.Contains(curr))
+            {
+                usedSet.Add(currChar); // add to usedSet
+                wordSet.Remove(currChar); // remove from wordSet
+            }
+        }
+        else if (id == 2 && !res2.Contains(curr))
+        {
+            char[] res2Chars = res2.ToCharArray();
+            res2Chars[pos] = currChar;
+            res2 = new string(res2Chars);
+            if (res1.Contains(curr))
+            {
+                usedSet.Add(currChar);
+                wordSet.Remove(currChar);
+            }
+        }
+        if (IsWordCompleted(res1, word))
+        {
+            // Display Game Over message and winner's name
+            gameOverText.text = "Game Over\nPlayer 1 Wins!";
+            isGameOver = true;
+        }
+        else if (IsWordCompleted(res2, word))
+        {
+            // Display Game Over message and winner's name
+            gameOverText.text = "Game Over\nPlayer 2 Wins!";
+            isGameOver = true;
+        }
+        UpdateScores(res1, res2);
+        if (!isGameOver)
+        {
+            if (wordSet.Count == 0)
+            {
+                Debug.LogWarning("All characters are used!");
+                return;
+            }
+            List<char> remainingChars = new List<char>(wordSet);
+            int idx = Random.Range(0, remainingChars.Count);
+            char nextChar = remainingChars[idx];
+            ballText.setText(nextChar.ToString());
+
+        }
+    }
 }
