@@ -420,6 +420,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3280608373634353051, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
+      propertyPath: moveSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3280608373634353051, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 914006082}
