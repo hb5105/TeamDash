@@ -5,7 +5,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     public Rigidbody2D rb2d;
-    public float maxInitialAngle = 0.67f;
+    public float maxInitialAngle = 0.3f;
     public float moveSpeed = 1f;
     public float maxStartY = 4f;
     public GameManager gameManager;
@@ -14,7 +14,8 @@ public class Ball : MonoBehaviour
 
     private void Start()
     {
-        InitialPush();
+        // Add a 5-second delay before starting the ball's movement.
+        Invoke(nameof(InitialPush), 2f);
     }
 
     // Moves the Ball to Random Angle in the Left Direction

@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 2918469102660581208}
-  maxInitialAngle: 0.67
-  moveSpeed: 4
+  maxInitialAngle: 0.3
+  moveSpeed: 6
   maxStartY: 0
   gameManager: {fileID: 0}
