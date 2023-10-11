@@ -10,6 +10,11 @@ public class GunMovement : MonoBehaviour
     private int currentIndex = 0;
     private float currentTargetRotation;
     private Vector3 initialPosition; // To store the initial local position of the gun
+    public KeyCode fireKey = KeyCode.Space;
+    public GameObject bulletPrefab; // Assign your Bullet Prefab here
+    public float bulletSpeed = 10f; // Adjust the speed as needed
+    private int bulletsFired = 0; // Track the number of bullets fired
+    private const int maxBullets = 3; // Maximum bullets allowed to fire
 
     void Start()
     {
@@ -21,14 +26,14 @@ public class GunMovement : MonoBehaviour
     {
         FollowParent(); // Make the gun follow the paddle
         RotateGun(); // Handle the gun rotation
-         if (Input.GetKeyDown(KeyCode.Space))
+         if (Input.GetKeyDown(fireKey) && bulletsFired < maxBullets)
         {
             FireBullet();
         }
     }
 
-    public GameObject bulletPrefab; // Assign your Bullet Prefab here
-    public float bulletSpeed = 10f; // Adjust the speed as needed
+
+    
 
     void FireBullet()
     {
@@ -37,7 +42,13 @@ public class GunMovement : MonoBehaviour
         
         // Get the Rigidbody2D component from the bullet and add force to it
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.AddForce(Vector2.right * bulletSpeed, ForceMode2D.Impulse);
+        if(fireKey == KeyCode.Space){
+            rb.AddForce(Vector2.right * bulletSpeed, ForceMode2D.Impulse);
+        }
+        else{
+            rb.AddForce(-Vector2.right * bulletSpeed, ForceMode2D.Impulse);
+        }
+        bulletsFired++;
     }
 
     void FollowParent()
