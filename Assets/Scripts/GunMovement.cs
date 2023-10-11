@@ -21,6 +21,23 @@ public class GunMovement : MonoBehaviour
     {
         FollowParent(); // Make the gun follow the paddle
         RotateGun(); // Handle the gun rotation
+         if (Input.GetKeyDown(KeyCode.Space))
+        {
+            FireBullet();
+        }
+    }
+
+    public GameObject bulletPrefab; // Assign your Bullet Prefab here
+    public float bulletSpeed = 10f; // Adjust the speed as needed
+
+    void FireBullet()
+    {
+        // Instantiate the bullet at the gun's position and rotation
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        
+        // Get the Rigidbody2D component from the bullet and add force to it
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        rb.AddForce(Vector2.right * bulletSpeed, ForceMode2D.Impulse);
     }
 
     void FollowParent()
