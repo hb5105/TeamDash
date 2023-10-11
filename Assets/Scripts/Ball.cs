@@ -11,6 +11,21 @@ public class Ball : MonoBehaviour
     public GameManager gameManager;
 
     private float startX = 0f;
+    private float minimumHorizontalVelocity = 0.5f;  // Adjust as needed
+    private float minimumVerticalVelocity = 0.5f;  
+    private void AdjustVelocity()
+    {
+        if (Mathf.Abs(rb2d.velocity.x) < minimumHorizontalVelocity)
+        {
+            float newVelocityX = (rb2d.velocity.x >= 0) ? minimumHorizontalVelocity : -minimumHorizontalVelocity;
+            rb2d.velocity = new Vector2(newVelocityX, rb2d.velocity.y);
+        }
+         if (Mathf.Abs(rb2d.velocity.y) < minimumVerticalVelocity)
+        {
+            float newVelocityY = (rb2d.velocity.y >= 0) ? minimumVerticalVelocity : -minimumVerticalVelocity;
+            rb2d.velocity = new Vector2(rb2d.velocity.x, newVelocityY);
+        }
+    }
 
     private void Start()
     {
@@ -51,6 +66,29 @@ public class Ball : MonoBehaviour
                 InitialPush();
             }
         }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {  
+    // Check if the ball collided with a paddle
+    Paddle paddle = collision.gameObject.GetComponent<Paddle>();
+    if (paddle)
+    { 
+        // Debug.Log("entered oncollision");
+        // Check if the paddle is tilted (rotation is not zero)
+        if (paddle.transform.rotation.z != 0)
+        {   Debug.Log("entered paddle flick");
+            // Increase the ball's speed
+            Debug.Log("Ball Velocity before collision: " + rb2d.velocity);
+            float speedMultiplier = 3f;  // Adjust as needed
+            rb2d.velocity = rb2d.velocity.normalized*moveSpeed*speedMultiplier;
+            Debug.Log("Ball Velocity after collision: " + rb2d.velocity);
+            AdjustVelocity();
+        }
+        else{
+            rb2d.velocity=rb2d.velocity.normalized*moveSpeed;
+            AdjustVelocity();
+        }
+    }
     }
 
     private void ResetBall()
