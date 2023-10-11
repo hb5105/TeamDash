@@ -48,8 +48,8 @@ public class GameManager : MonoBehaviour
     {
         return playerProgress == targetWord;
     }
-    public void OnScoreZoneReached(int id)
-    {
+    public void OnScoreZoneReached(int id,GameObject ballGameObject)
+    {   ballText=ballGameObject.GetComponentInChildren<BallText>();
         res1 = scoreTextLeft.GetScore();
         res2 = scoreTextRight.GetScore();
         Debug.Log(res1);

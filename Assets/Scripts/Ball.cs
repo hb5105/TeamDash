@@ -57,9 +57,10 @@ public class Ball : MonoBehaviour
          */
         ScoreZone scoreZone = collision.GetComponent<ScoreZone>();
         if (scoreZone)
-        {
+        {   
             // Send the GameManager the ScoreZone Id of the Game to add score to the player
-            gameManager.OnScoreZoneReached(scoreZone.id);
+            gameManager.OnScoreZoneReached(scoreZone.id,this.gameObject);
+            Debug.Log(GameObject.FindObjectsOfType<Ball>().Length);
             if (!GameManager.isGameOver)
             {
                 ResetBall();
@@ -67,6 +68,9 @@ public class Ball : MonoBehaviour
             }
         }
     }
+
+// This method checks if there are no other balls left in the scene
+
     private void OnCollisionEnter2D(Collision2D collision)
     {  
     // Check if the ball collided with a paddle
