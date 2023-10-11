@@ -123,6 +123,26 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &131192685 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2881682273807378213, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
+  m_PrefabInstance: {fileID: 6951435715380372524}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &131192687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131192685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9209d4ef93af940f595f9ef9ee1bb0ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerupDuration: 5
+  defaultSize: {x: 0, y: 0}
+  poweredUpSize: {x: 0, y: 0}
 --- !u!114 &356229167 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2963492528948077656, guid: 4d1975fb41d0962439dcf320a8531381, type: 3}
@@ -230,6 +250,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52343059526807d4fa3b71b70778de64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1928333231 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6238518024804945103, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
+  m_PrefabInstance: {fileID: 6951435715380372524}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1928333233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928333231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9209d4ef93af940f595f9ef9ee1bb0ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerupDuration: 5
+  defaultSize: {x: 0, y: 0}
+  poweredUpSize: {x: 0, y: 0}
 --- !u!1 &2129404670
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,6 +584,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5512581951623504694, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 6238518024804945103, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1928333233}
+    - targetCorrespondingSourceObject: {fileID: 2881682273807378213, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 131192687}
   m_SourcePrefab: {fileID: 100100000, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
 --- !u!50 &6951435715380372525 stripped
 Rigidbody2D:
