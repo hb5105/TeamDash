@@ -156,6 +156,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freezeDuration: 5
+--- !u!114 &323321163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323321155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ade1fb707fc4daeb2a7ebaf1426246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shiftDistance: 3
+  powerUpDuration: 5
+  maxYPosition: 4.5
+  minYPosition: -4.5
 --- !u!114 &356229167 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2963492528948077656, guid: 4d1975fb41d0962439dcf320a8531381, type: 3}
@@ -296,6 +312,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freezeDuration: 5
+--- !u!114 &1916832357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916832349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ade1fb707fc4daeb2a7ebaf1426246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shiftDistance: 3
+  powerUpDuration: 5
+  maxYPosition: 4.5
+  minYPosition: -4.5
 --- !u!1 &1977886569 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3726011635565434452, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
@@ -624,12 +656,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6238518024804945103, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 323321161}
+    - targetCorrespondingSourceObject: {fileID: 6238518024804945103, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 323321163}
     - targetCorrespondingSourceObject: {fileID: 2881682273807378213, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1916832356}
     - targetCorrespondingSourceObject: {fileID: 2881682273807378213, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1916832355}
+    - targetCorrespondingSourceObject: {fileID: 2881682273807378213, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1916832357}
   m_SourcePrefab: {fileID: 100100000, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
 --- !u!50 &6951435715380372525 stripped
 Rigidbody2D:
