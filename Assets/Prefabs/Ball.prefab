@@ -358,6 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1af555ae0e32caf4bbedbbf3bbcacac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  paddleParent: {fileID: 2626583911454885474, guid: bae470e07e40abc439149de281277017, type: 3}
   rb2d: {fileID: 2918469102660581208}
   maxInitialAngle: 0.67
   moveSpeed: 5
