@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Services.Analytics;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class Ball : MonoBehaviour
 {
+    public GameObject paddleParent;
     public Rigidbody2D rb2d;
     public float maxInitialAngle = 0.67f;
     public float moveSpeed = 1f;
     public float maxStartY = 4f;
     public GameManager gameManager;
 
+    private GameObject paddleLeft;
+    private GameObject paddleRight;
     private float startX = 0f;
     private float minimumHorizontalVelocity = 0.5f;  // Adjust as needed
     private float minimumVerticalVelocity = 0.5f;  
@@ -30,6 +35,10 @@ public class Ball : MonoBehaviour
     private void Start()
     {
         InitialPush();
+        //Paddle child objects, paddleLeft and paddleRight
+        paddleLeft = paddleParent.transform.Find("PaddleLeft").gameObject;
+        paddleRight = paddleParent.transform.Find("PaddleRight").gameObject;
+
     }
 
     // Moves the Ball to Random Angle in the Left Direction
@@ -60,6 +69,47 @@ public class Ball : MonoBehaviour
         {
             // Send the GameManager the ScoreZone Id of the Game to add score to the player
             gameManager.OnScoreZoneReached(scoreZone.id);
+            
+            //Analytics of Game
+            float yPosition = transform.position.y;
+            Rigidbody2D rbPaddleLeft = paddleLeft.GetComponent<Rigidbody2D>();
+            Rigidbody2D rbPaddleRight = paddleRight.GetComponent<Rigidbody2D>();
+            if (scoreZone.id == 1)
+            {
+                Dictionary<string, object> parameters = new Dictionary<string, object>()
+                {
+                    {"ball_position", yPosition},
+                    {"paddlePosition", paddleLeft.transform.position.y},
+                    {"ball_velocity", rb2d.velocity.magnitude},
+                    {"paddle_velocity", rbPaddleLeft.velocity.magnitude}
+                };
+                AnalyticsService.Instance.CustomData("player1Miss", parameters);
+                AnalyticsService.Instance.Flush();
+                Debug.Log("Unity analytics for player 1 miss triggered!");
+                /*Debug.Log("y-position: " + yPosition);
+                Debug.Log("paddle position: " + paddleLeft.transform.position.y);
+                Debug.Log("ball velocity: " + rb2d.velocity);
+                Debug.Log("paddle velocity: " + rbPaddleLeft.velocity);*/
+            }
+            else if (scoreZone.id == 2)
+            {
+                Dictionary<string, object> parameters = new Dictionary<string, object>()
+                {
+                    {"ball_position", yPosition},
+                    {"paddlePosition", paddleRight.transform.position.y},
+                    {"ball_velocity", rb2d.velocity.magnitude},
+                    {"paddle_velocity", rbPaddleRight.velocity.magnitude }
+                };
+                AnalyticsService.Instance.CustomData("player2Miss", parameters);
+                AnalyticsService.Instance.Flush();
+                Debug.Log("Unity analytics for player 2 miss triggered!");
+                /*Debug.Log("y-position: " + yPosition);
+                Debug.Log("paddle position: " + paddleRight.transform.position.y);
+                Debug.Log("ball velocity: " + rb2d.velocity);
+                Debug.Log("paddle velocity: " + rbPaddleRight.velocity);*/
+            }
+            
+
             if (!GameManager.isGameOver)
             {
                 ResetBall();
