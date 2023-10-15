@@ -14,7 +14,8 @@ public class GunMovement : MonoBehaviour
     public GameObject bulletPrefab; // Assign your Bullet Prefab here
     public float bulletSpeed = 10f; // Adjust the speed as needed
     private int bulletsFired = 0; // Track the number of bullets fired
-    private const int maxBullets = 3; // Maximum bullets allowed to fire
+    private const int maxBullets = 50; // Maximum bullets allowed to fire
+    public Transform firePoint;
 
     void Start()
     {
@@ -38,16 +39,18 @@ public class GunMovement : MonoBehaviour
     void FireBullet()
     {
         // Instantiate the bullet at the gun's position and rotation
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        //GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         
         // Get the Rigidbody2D component from the bullet and add force to it
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        if(fireKey == KeyCode.Space){
-            rb.AddForce(Vector2.right * bulletSpeed, ForceMode2D.Impulse);
+        // Use the firePoint's right direction to ensure the bullet moves in the direction the gun is pointing
+        Vector2 fireDirection = firePoint.right;
+        if (fireKey != KeyCode.Space)
+        {
+            fireDirection = -fireDirection; // Invert direction if needed, based on your logic
         }
-        else{
-            rb.AddForce(-Vector2.right * bulletSpeed, ForceMode2D.Impulse);
-        }
+        rb.AddForce(fireDirection * bulletSpeed, ForceMode2D.Impulse);
         bulletsFired++;
     }
 

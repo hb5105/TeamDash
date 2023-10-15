@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class Paddle : MonoBehaviour
 {
@@ -102,7 +104,16 @@ private bool IsTryingToTilt()
             }
         }
     }
-
+    
+    /*public void GoalAnalytics(float yPosition, string playerScoredOn)
+    {
+        Dictionary<string,object> eventData = new Dictionary<string, object>
+        {
+            {"yPosition", yPosition},
+            {"playerScoredOn", playerScoredOn}
+        };
+        Analytics.CustomEvent("goalScored", eventData);
+    }*/
 
     private void Update()
     {
