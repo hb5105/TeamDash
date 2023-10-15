@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour
     public string ballTag = "Ball";  // Assign the Ball tag in the Inspector.
     private BoxCollider2D bulletCollider;
 
+    public GameManager gameManager;
+
     void Start()
     {
         bulletCollider = GetComponent<BoxCollider2D>();
@@ -18,6 +20,7 @@ public class Bullet : MonoBehaviour
 
         if (collision.gameObject.CompareTag(ballTag))
         {
+            gameManager.SpawnNewBall(collision.gameObject);
             Destroy(collision.gameObject); // Destroy the ball
             Destroy(gameObject); // Destroy the bullet
         }
