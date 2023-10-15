@@ -5,16 +5,32 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     public Rigidbody2D rb2d;
-    public float maxInitialAngle = 0.67f;
+    public float maxInitialAngle = 0.3f;
     public float moveSpeed = 1f;
     public float maxStartY = 4f;
     public GameManager gameManager;
 
     private float startX = 0f;
+    private float minimumHorizontalVelocity = 0.5f;  // Adjust as needed
+    private float minimumVerticalVelocity = 0.5f;  
+    private void AdjustVelocity()
+    {
+        if (Mathf.Abs(rb2d.velocity.x) < minimumHorizontalVelocity)
+        {
+            float newVelocityX = (rb2d.velocity.x >= 0) ? minimumHorizontalVelocity : -minimumHorizontalVelocity;
+            rb2d.velocity = new Vector2(newVelocityX, rb2d.velocity.y);
+        }
+         if (Mathf.Abs(rb2d.velocity.y) < minimumVerticalVelocity)
+        {
+            float newVelocityY = (rb2d.velocity.y >= 0) ? minimumVerticalVelocity : -minimumVerticalVelocity;
+            rb2d.velocity = new Vector2(rb2d.velocity.x, newVelocityY);
+        }
+    }
 
     private void Start()
     {
-        InitialPush();
+        // Add a 5-second delay before starting the ball's movement.
+        Invoke(nameof(InitialPush), 2f);
     }
 
     // Moves the Ball to Random Angle in the Left Direction
@@ -53,19 +69,37 @@ public class Ball : MonoBehaviour
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
-   {
+    {  
+    // Check if the ball collided with a paddle
     Paddle paddle = collision.gameObject.GetComponent<Paddle>();
     if (paddle)
-    {
-           if(paddle.id ==1){
+    { 
+        // Debug.Log("entered oncollision");
+        // Check if the paddle is tilted (rotation is not zero)
+        if (paddle.transform.rotation.z != 0)
+        {   Debug.Log("entered paddle flick");
+            // Increase the ball's speed
+            Debug.Log("Ball Velocity before collision: " + rb2d.velocity);
+            float speedMultiplier = 3f;  // Adjust as needed
+            rb2d.velocity = rb2d.velocity.normalized*moveSpeed*speedMultiplier;
+            Debug.Log("Ball Velocity after collision: " + rb2d.velocity);
+            AdjustVelocity();
+        }
+        else{
+            rb2d.velocity=rb2d.velocity.normalized*moveSpeed;
+            AdjustVelocity();
+        }
+
+         if(paddle.id ==1){
                 this.GetComponent<SpriteRenderer>().color = Color.red;
            }
-           else{
+           if(paddle.id==2){
                 this.GetComponent<SpriteRenderer>().color = Color.blue;
             }
-        // ... rest of your existing code ...
+
     }
-  }
+    }
+
 
     private void ResetBall()
     {
