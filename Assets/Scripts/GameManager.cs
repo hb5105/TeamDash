@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
 
     public int scorePlayer1, scorePlayer2;
     public ScoreText scoreTextLeft, scoreTextRight;
+
+    public Ball ballPrefab;
+
     public BallText ballText;
     public WordGenerator wordGenerator;
     private TextMeshProUGUI textBox;
@@ -45,6 +48,31 @@ public class GameManager : MonoBehaviour
             wordSet.Add(c);
         }
         UpdateScores(res1, res2);
+    }
+       
+     public void SpawnNewBall(GameObject CurrentBall)
+    {   Debug.Log("spawning new");
+        GameObject newBall = Instantiate(CurrentBall, Vector2.zero, Quaternion.identity); // Spawning the ball at the center for now
+        // GameObject newBall = newBallComponent.gameObject;
+        Ball newBallComponent = newBall.GetComponent<Ball>();
+        BallText ballTextComponent = newBall.transform.GetChild(0).GetComponent<BallText>();
+        if (ballTextComponent == null)
+        {
+            Debug.LogError("No BallText component on the newly spawned ball.");
+            return;
+        }
+
+        ballTextComponent.ballTextObj = newBall.transform.Find("BallText").gameObject;
+
+        if (ballTextComponent.ballTextObj == null)
+        {
+            Debug.LogError("No BallText child object in the newly spawned ball.");
+            return;
+        }
+
+        ballTextComponent.Start(); 
+        newBallComponent.ResetBall();  // Set initial position
+        newBallComponent.InitialPush();// Initialize the ball text
     }
 
     private void Update()
@@ -85,8 +113,8 @@ public class GameManager : MonoBehaviour
     {
         return playerProgress == targetWord;
     }
-    public void OnScoreZoneReached(int id)
-    {
+    public void OnScoreZoneReached(int id,GameObject ballGameObject)
+    {   ballText=ballGameObject.GetComponentInChildren<BallText>();
         res1 = scoreTextLeft.GetScore();
         res2 = scoreTextRight.GetScore();
         Debug.Log(res1);

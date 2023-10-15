@@ -9,12 +9,38 @@ public class BallText : MonoBehaviour
     public GameManager gameManager;
     private TextMeshPro tmp;
 
+    // public void Start()
+    // {   
+    //     tmp = ballTextObj.GetComponent<TextMeshPro>();
+    //     int idx = Random.Range(0, gameManager.word.Length);
+    //     tmp.SetText(gameManager.word[idx].ToString().ToUpper());
+    // }
     public void Start()
+{
+    if (ballTextObj == null) 
     {
-        tmp = ballTextObj.GetComponent<TextMeshPro>();
-        int idx = Random.Range(0, gameManager.word.Length);
-        tmp.SetText(gameManager.word[idx].ToString().ToUpper());
+        Debug.LogError("ballTextObj is null!");
+        return;
     }
+    
+    tmp = ballTextObj.GetComponent<TextMeshPro>();
+    
+    if (tmp == null) 
+    {
+        Debug.LogError("tmp is null (TextMeshPro component not found)!");
+        return;
+    }
+
+    if (gameManager == null) 
+    {
+        Debug.LogError("gameManager is null!");
+        return;
+    }
+
+    int idx = Random.Range(0, gameManager.word.Length);
+    tmp.SetText(gameManager.word[idx].ToString().ToUpper());
+}
+
 
     public string getText()
     {
