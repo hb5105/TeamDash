@@ -8,7 +8,7 @@ public class Ball : MonoBehaviour
 {
     public GameObject paddleParent;
     public Rigidbody2D rb2d;
-    public float maxInitialAngle = 0.67f;
+    public float maxInitialAngle = 0.3f;
     public float moveSpeed = 1f;
     public float maxStartY = 4f;
     public GameManager gameManager;
@@ -39,6 +39,8 @@ public class Ball : MonoBehaviour
         paddleLeft = paddleParent.transform.Find("PaddleLeft").gameObject;
         paddleRight = paddleParent.transform.Find("PaddleRight").gameObject;
 
+        // Add a 5-second delay before starting the ball's movement.
+        Invoke(nameof(InitialPush), 2f);
     }
 
     // Moves the Ball to Random Angle in the Left Direction
@@ -138,6 +140,14 @@ public class Ball : MonoBehaviour
             rb2d.velocity=rb2d.velocity.normalized*moveSpeed;
             AdjustVelocity();
         }
+
+         if(paddle.id ==1){
+                this.GetComponent<SpriteRenderer>().color = Color.red;
+           }
+           if(paddle.id==2){
+                this.GetComponent<SpriteRenderer>().color = Color.blue;
+            }
+
     }
     }
 
