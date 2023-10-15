@@ -3,7 +3,18 @@ using System.Collections.Generic;
 using Unity.Services.Analytics;
 using UnityEngine;
 using UnityEngine.Analytics;
+using Proyecto26;
+using UnityEditor.Experimental.RestService;
 
+[System.Serializable]
+public class PlayerData
+    {
+        public int playerID;
+        public float ball_position;
+        public float ball_velocity;
+        public float paddlePosition;
+        public float paddle_velocity;
+    }
 public class Ball : MonoBehaviour
 {
     public GameObject paddleParent;
@@ -18,6 +29,8 @@ public class Ball : MonoBehaviour
     private float startX = 0f;
     private float minimumHorizontalVelocity = 0.5f;  // Adjust as needed
     private float minimumVerticalVelocity = 0.5f;  
+    
+    
     private void AdjustVelocity()
     {
         if (Mathf.Abs(rb2d.velocity.x) < minimumHorizontalVelocity)
@@ -78,7 +91,16 @@ public class Ball : MonoBehaviour
             Rigidbody2D rbPaddleRight = paddleRight.GetComponent<Rigidbody2D>();
             if (scoreZone.id == 1)
             {
-                Dictionary<string, object> parameters = new Dictionary<string, object>()
+                PlayerData playerData = new PlayerData();
+                playerData.playerID = 1;
+                playerData.ball_position = yPosition;
+                playerData.ball_velocity = rb2d.velocity.magnitude;
+                playerData.paddlePosition = paddleLeft.transform.position.y;
+                playerData.paddle_velocity = rbPaddleLeft.velocity.magnitude;
+                string json = JsonUtility.ToJson(playerData);
+                RestClient.Post("https://csci526-bee47-default-rtdb.firebaseio.com/.json", playerData);
+                
+                /*Dictionary<string, object> parameters = new Dictionary<string, object>()
                 {
                     {"ball_position", yPosition},
                     {"paddlePosition", paddleLeft.transform.position.y},
@@ -87,7 +109,7 @@ public class Ball : MonoBehaviour
                 };
                 AnalyticsService.Instance.CustomData("player1Miss", parameters);
                 AnalyticsService.Instance.Flush();
-                Debug.Log("Unity analytics for player 1 miss triggered!");
+                Debug.Log("Unity analytics for player 1 miss triggered!");*/
                 /*Debug.Log("y-position: " + yPosition);
                 Debug.Log("paddle position: " + paddleLeft.transform.position.y);
                 Debug.Log("ball velocity: " + rb2d.velocity);
@@ -95,7 +117,15 @@ public class Ball : MonoBehaviour
             }
             else if (scoreZone.id == 2)
             {
-                Dictionary<string, object> parameters = new Dictionary<string, object>()
+                PlayerData playerData = new PlayerData();
+                playerData.playerID = 2;
+                playerData.ball_position = yPosition;
+                playerData.ball_velocity = rb2d.velocity.magnitude;
+                playerData.paddlePosition = paddleRight.transform.position.y;
+                playerData.paddle_velocity = rbPaddleRight.velocity.magnitude;
+                string json = JsonUtility.ToJson(playerData);
+                RestClient.Post("https://csci526-bee47-default-rtdb.firebaseio.com/.json", playerData);
+                /*Dictionary<string, object> parameters = new Dictionary<string, object>()
                 {
                     {"ball_position", yPosition},
                     {"paddlePosition", paddleRight.transform.position.y},
@@ -104,7 +134,7 @@ public class Ball : MonoBehaviour
                 };
                 AnalyticsService.Instance.CustomData("player2Miss", parameters);
                 AnalyticsService.Instance.Flush();
-                Debug.Log("Unity analytics for player 2 miss triggered!");
+                Debug.Log("Unity analytics for player 2 miss triggered!");*/
                 /*Debug.Log("y-position: " + yPosition);
                 Debug.Log("paddle position: " + paddleRight.transform.position.y);
                 Debug.Log("ball velocity: " + rb2d.velocity);
