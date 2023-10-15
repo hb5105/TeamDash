@@ -167,6 +167,7 @@ MonoBehaviour:
   scorePlayer2: 0
   scoreTextLeft: {fileID: 1784282152}
   scoreTextRight: {fileID: 1278339276}
+  ballPrefab: {fileID: 8423468249138325180, guid: 30e30a03aa6447543be501296fbeb4e6, type: 3}
   ballText: {fileID: 1124262324}
   wordGenerator: {fileID: 1303690282}
   gameOverText: {fileID: 356229167}
@@ -443,10 +444,6 @@ PrefabInstance:
     - target: {fileID: 2679953262254749039, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       propertyPath: m_Color.r
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3280608373634353051, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
-      propertyPath: moveSpeed
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3280608373634353051, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       propertyPath: gameManager
