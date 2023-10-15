@@ -12,8 +12,8 @@ public class BallText : MonoBehaviour
     public void Start()
     {
         tmp = ballTextObj.GetComponent<TextMeshPro>();
-        int idx = Random.Range(0, gameManager.word.Length);
-        tmp.SetText(gameManager.word[idx].ToString().ToUpper());
+        int idx = Random.Range(0, gameManager.word1.Length);
+        tmp.SetText(gameManager.word1[idx].ToString().ToUpper());
     }
 
     public string getText()
