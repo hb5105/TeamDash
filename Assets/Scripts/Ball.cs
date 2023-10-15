@@ -34,7 +34,7 @@ public class Ball : MonoBehaviour
     }
 
     // Moves the Ball to Random Angle in the Left Direction
-    private void InitialPush()
+    public void InitialPush()
     {
         Vector2 dir;
         if (Random.value < 0.5f)
@@ -58,16 +58,23 @@ public class Ball : MonoBehaviour
          */
         ScoreZone scoreZone = collision.GetComponent<ScoreZone>();
         if (scoreZone)
-        {
+        {   
             // Send the GameManager the ScoreZone Id of the Game to add score to the player
-            gameManager.OnScoreZoneReached(scoreZone.id);
-            if (!GameManager.isGameOver)
+            gameManager.OnScoreZoneReached(scoreZone.id,this.gameObject);
+             
+            Debug.Log(GameObject.FindObjectsOfType<Ball>().Length);
+            if (!GameManager.isGameOver && GameObject.FindObjectsOfType<Ball>().Length==1)
             {
-                ResetBall();
-                InitialPush();
+                // ResetBall();
+                // InitialPush();
+                gameManager.SpawnNewBall(this.gameObject);
             }
+            Destroy(this.gameObject);
         }
     }
+
+// This method checks if there are no other balls left in the scene
+
     private void OnCollisionEnter2D(Collision2D collision)
     {  
     // Check if the ball collided with a paddle
@@ -100,7 +107,7 @@ public class Ball : MonoBehaviour
     }
     }
 
-    private void ResetBall()
+    public void ResetBall()
     {
         float posY = Random.Range(-maxStartY, maxStartY);
         Vector2 position = new Vector2(startX, posY);
