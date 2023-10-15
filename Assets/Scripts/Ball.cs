@@ -52,6 +52,20 @@ public class Ball : MonoBehaviour
             }
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+   {
+    Paddle paddle = collision.gameObject.GetComponent<Paddle>();
+    if (paddle)
+    {
+           if(paddle.id ==1){
+                this.GetComponent<SpriteRenderer>().color = Color.red;
+           }
+           else{
+                this.GetComponent<SpriteRenderer>().color = Color.blue;
+            }
+        // ... rest of your existing code ...
+    }
+  }
 
     private void ResetBall()
     {
