@@ -100,7 +100,6 @@ public class Ball : MonoBehaviour
     }
     }
 
-
     private void ResetBall()
     {
         float posY = Random.Range(-maxStartY, maxStartY);
