@@ -89,6 +89,14 @@ public class Ball : MonoBehaviour
             rb2d.velocity=rb2d.velocity.normalized*moveSpeed;
             AdjustVelocity();
         }
+
+         if(paddle.id ==1){
+                this.GetComponent<SpriteRenderer>().color = Color.red;
+           }
+           if(paddle.id==2){
+                this.GetComponent<SpriteRenderer>().color = Color.blue;
+            }
+
     }
     }
 
