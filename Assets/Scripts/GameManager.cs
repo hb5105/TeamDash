@@ -43,10 +43,11 @@ public class GameManager : MonoBehaviour
         UpdateScores(res1, res2);
     }
        
-     public void SpawnNewBall()
+     public void SpawnNewBall(GameObject CurrentBall)
     {   Debug.Log("spawning new");
-        Ball newBallComponent = Instantiate(ballPrefab, Vector2.zero, Quaternion.identity); // Spawning the ball at the center for now
-        GameObject newBall = newBallComponent.gameObject;
+        GameObject newBall = Instantiate(CurrentBall, Vector2.zero, Quaternion.identity); // Spawning the ball at the center for now
+        // GameObject newBall = newBallComponent.gameObject;
+        Ball newBallComponent = newBall.GetComponent<Ball>();
         BallText ballTextComponent = newBall.transform.GetChild(0).GetComponent<BallText>();
         if (ballTextComponent == null)
         {

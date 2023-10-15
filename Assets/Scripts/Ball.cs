@@ -60,14 +60,15 @@ public class Ball : MonoBehaviour
         {   
             // Send the GameManager the ScoreZone Id of the Game to add score to the player
             gameManager.OnScoreZoneReached(scoreZone.id,this.gameObject);
-            Destroy(this.gameObject); 
+             
             Debug.Log(GameObject.FindObjectsOfType<Ball>().Length);
             if (!GameManager.isGameOver && GameObject.FindObjectsOfType<Ball>().Length==1)
             {
                 // ResetBall();
                 // InitialPush();
-                gameManager.SpawnNewBall();
+                gameManager.SpawnNewBall(this.gameObject);
             }
+            Destroy(this.gameObject);
         }
     }
 
