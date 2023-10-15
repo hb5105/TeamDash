@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,14 +21,19 @@ public class GameManager : MonoBehaviour
     public static bool isGameOver = false;
     private HashSet<char> wordSet = new HashSet<char>();
     private HashSet<char> usedSet = new HashSet<char>();
+    [SerializeField] private float timeInSeconds;
+    [SerializeField] private TextMeshProUGUI timerText;
 
 
     private string res1;
     private string res2;
+    private float currentTime;
+    public TextMeshProUGUI TimerText { get => timerText; }
 
     public void Start()
     {
         textBox = wordGenerator.textBox;
+        currentTime = timeInSeconds;
         word = textBox.text;
         Debug.Log(word);
         res1 = "";
@@ -67,6 +74,36 @@ public class GameManager : MonoBehaviour
         newBallComponent.ResetBall();  // Set initial position
         newBallComponent.InitialPush();// Initialize the ball text
     }
+
+    private void Update()
+    {
+        if (isGameOver == false)
+        {
+            currentTime -= Time.deltaTime;
+            SetTime(currentTime);
+        }
+    }
+
+    void SetTime(float value)
+    {
+        print(currentTime);
+        TimeSpan time = TimeSpan.FromSeconds(currentTime);                       // set the time value
+        TimerText.text = time.ToString("mm':'ss");   // convert time to Time format
+
+        if (currentTime <= 0)
+        {
+            // Game Over
+            GameEnd();
+        }
+    }
+
+    public void GameEnd()
+    {
+        // Display Game Over message and winner's name
+        gameOverText.text = "Game Over\nPlayer 2 Wins!";
+        isGameOver = true;
+    }
+
     public void UpdateScores(string res1, string res2)
     {
         scoreTextLeft.SetScore(res1);
