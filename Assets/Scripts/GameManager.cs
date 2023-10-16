@@ -194,7 +194,6 @@ public class GameManager : MonoBehaviour
         res2 = scoreTextRight.GetScore();
         //Debug.Log(res1);
         //Debug.Log(res2);
-        
         string curr = ballText.getText();
         char currChar = curr[0];
         
