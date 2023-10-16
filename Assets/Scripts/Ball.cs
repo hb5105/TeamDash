@@ -17,19 +17,17 @@ public class PlayerData
     }
 public class Ball : MonoBehaviour
 {
-    public GameObject paddleParent;
+    public GameObject paddleLeft;
+    public GameObject paddleRight;
     public Rigidbody2D rb2d;
     public float maxInitialAngle = 0.3f;
     public float moveSpeed = 1f;
     public float maxStartY = 4f;
     public GameManager gameManager;
 
-    private GameObject paddleLeft;
-    private GameObject paddleRight;
     private float startX = 0f;
     private float minimumHorizontalVelocity = 0.5f;  // Adjust as needed
     private float minimumVerticalVelocity = 0.5f;  
-    
     
     private void AdjustVelocity()
     {
@@ -49,8 +47,8 @@ public class Ball : MonoBehaviour
     {
         InitialPush();
         //Paddle child objects, paddleLeft and paddleRight
-        paddleLeft = paddleParent.transform.Find("PaddleLeft").gameObject;
-        paddleRight = paddleParent.transform.Find("PaddleRight").gameObject;
+        //paddleLeft = paddleParent.transform.Find("PaddleLeft").gameObject;
+        //paddleRight = paddleParent.transform.Find("PaddleRight").gameObject;
 
         // Add a 5-second delay before starting the ball's movement.
         Invoke(nameof(InitialPush), 2f);
@@ -84,7 +82,7 @@ public class Ball : MonoBehaviour
         {   
             // Send the GameManager the ScoreZone Id of the Game to add score to the player
             gameManager.OnScoreZoneReached(scoreZone.id,this.gameObject);
-            Debug.Log(GameObject.FindObjectsOfType<Ball>().Length);
+            //Debug.Log(GameObject.FindObjectsOfType<Ball>().Length);
             //Analytics of Game
             float yPosition = transform.position.y;
             Rigidbody2D rbPaddleLeft = paddleLeft.GetComponent<Rigidbody2D>();
@@ -95,7 +93,8 @@ public class Ball : MonoBehaviour
                 playerData.playerID = 1;
                 playerData.ball_position = yPosition;
                 playerData.ball_velocity = rb2d.velocity.magnitude;
-                playerData.paddlePosition = paddleLeft.transform.position.y;
+                playerData.paddlePosition = paddleLeft.transform.localPosition.y;
+                Debug.Log("paddle left position: " + paddleLeft.transform.localPosition.y);
                 playerData.paddle_velocity = rbPaddleLeft.velocity.magnitude;
                 string json = JsonUtility.ToJson(playerData);
                 RestClient.Post("https://csci526-bee47-default-rtdb.firebaseio.com/.json", playerData);
@@ -121,7 +120,8 @@ public class Ball : MonoBehaviour
                 playerData.playerID = 2;
                 playerData.ball_position = yPosition;
                 playerData.ball_velocity = rb2d.velocity.magnitude;
-                playerData.paddlePosition = paddleRight.transform.position.y;
+                playerData.paddlePosition = paddleRight.transform.localPosition.y;
+                Debug.Log("paddle right position: " + paddleRight.transform.localPosition.y);
                 playerData.paddle_velocity = rbPaddleRight.velocity.magnitude;
                 string json = JsonUtility.ToJson(playerData);
                 RestClient.Post("https://csci526-bee47-default-rtdb.firebaseio.com/.json", playerData);
