@@ -37,8 +37,8 @@ public class BallText : MonoBehaviour
         return;
     }
 
-    int idx = Random.Range(0, gameManager.word.Length);
-    tmp.SetText(gameManager.word[idx].ToString().ToUpper());
+    int idx = Random.Range(0, gameManager.word1.Length);
+    tmp.SetText(gameManager.word1[idx].ToString().ToUpper());
 }
 
 
