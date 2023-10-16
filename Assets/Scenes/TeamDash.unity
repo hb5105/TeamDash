@@ -860,7 +860,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8487228913231937451, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
   m_PrefabInstance: {fileID: 6951435715380372524}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2114904796 stripped
+
 Transform:
   m_CorrespondingSourceObject: {fileID: 8487228913231937451, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
   m_PrefabInstance: {fileID: 6951435715380372524}
