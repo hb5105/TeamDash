@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
+using Random = UnityEngine.Random;
 
 public class WordGenerator : MonoBehaviour
 {
@@ -9,21 +11,44 @@ public class WordGenerator : MonoBehaviour
     public TextMeshProUGUI textBox; // Reference to the Text element in the Inspector
 
     // List of random words to choose from
-    private string[] randomWords = { "SPACE", "PLANET", "EARTH", "MARS" };
+    private static List<string> randomWords = new List<string> { "CAT", "CAR", "HAT", "MAT", "TAP", "PAN", "WAX", "RAT", "BAT", "FAT" };
+
+    // Static variable to store the initial word
+    private static string initialWord = null;
+
+    private int currIndex = -1;
+    private string currWord = "";
 
     private void Start()
     {
-        if (textBox != null)
-        {
-            // Get a random word from the array
-            string randomWord = randomWords[Random.Range(0, randomWords.Length)];
-
-            // Set the Text element's text to the random word
-            textBox.text = randomWord;
-        }
-        else
+        if (textBox == null)
         {
             Debug.LogError("Text element not assigned in the Inspector.");
+            return;
         }
+
+        // If initialWord is null, assign a random word to it
+        if (initialWord == null)
+        {
+            initialWord = GetRandomWord();
+        }
+
+        textBox.text = initialWord;
+    }
+
+    // Method to get a random word
+    private string GetRandomWord()
+    {
+        currIndex = Random.Range(0, randomWords.Count);
+        currWord = randomWords[currIndex];
+        randomWords.RemoveAt(currIndex);
+
+        return currWord;
+    }
+
+    // Call this method when the player successfully guesses the word
+    public void OnWordCompleted()
+    {
+        textBox.text = GetRandomWord();
     }
 }

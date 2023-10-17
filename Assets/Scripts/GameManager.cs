@@ -14,13 +14,19 @@ public class GameManager : MonoBehaviour
     public Ball ballPrefab;
 
     public BallText ballText;
-    public WordGenerator wordGenerator;
-    private TextMeshProUGUI textBox;
+    public WordGenerator wordGeneratorPlayer1;
+    public WordGenerator wordGeneratorPlayer2;
+    private TextMeshProUGUI textBoxPlayer1;
+    private TextMeshProUGUI textBoxPlayer2;
     public TextMeshProUGUI gameOverText;
-    public string word;
+    public string word1;
+    public string word2;
+    private int numWords1, numWords2;
     public static bool isGameOver = false;
-    private HashSet<char> wordSet = new HashSet<char>();
-    private HashSet<char> usedSet = new HashSet<char>();
+    private HashSet<char> wordSet1 = new HashSet<char>();
+    private HashSet<char> usedSet1 = new HashSet<char>();
+    private HashSet<char> wordSet2 = new HashSet<char>();
+    private HashSet<char> usedSet2 = new HashSet<char>();
     [SerializeField] private float timeInSeconds;
     [SerializeField] private TextMeshProUGUI timerText;
 
@@ -32,20 +38,34 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        textBox = wordGenerator.textBox;
+        // Initialize words for players
+        textBoxPlayer1 = wordGeneratorPlayer1.textBox;
+        textBoxPlayer2 = wordGeneratorPlayer2.textBox;
         currentTime = timeInSeconds;
-        word = textBox.text;
-        Debug.Log(word);
+        word1 = textBoxPlayer1.text;
+        word2 = textBoxPlayer2.text;
+        scorePlayer1 = 0;
+        scorePlayer2 = 0;
+        numWords1 = 0;
+        numWords2 = 0;
+        
         res1 = "";
         res2 = "";
-        for (int i = 0; i < word.Length; i++)
+        for (int i = 0; i < word1.Length; i++)
         {
             res1 = res1 + "_";
+}
+        for (int i = 0; i < word2.Length; i++)
+        {
             res2 = res2 + "_";
         }
-        foreach (char c in word)
+        foreach (char c in word1)
         {
-            wordSet.Add(c);
+            wordSet1.Add(c);
+        }
+        foreach (char c in word2)
+        {
+            wordSet2.Add(c);
         }
         UpdateScores(res1, res2);
     }
@@ -99,8 +119,20 @@ public class GameManager : MonoBehaviour
 
     public void GameEnd()
     {
-        // Display Game Over message and winner's name
-        gameOverText.text = "Game Over\nPlayer 2 Wins!";
+        if(scorePlayer1 > scorePlayer2)
+        {
+            // Display Game Over message and winner's name
+            gameOverText.text = "Game Over\nPlayer 1 Wins!";
+        }
+        else if(scorePlayer2 > scorePlayer1)
+        {
+            // Display Game Over message and winner's name
+            gameOverText.text = "Game Over\nPlayer 2 Wins!";
+        }
+        else
+        {
+            gameOverText.text = "Game Over\nIt's a Tie!";
+        }
         isGameOver = true;
     }
 
@@ -109,29 +141,90 @@ public class GameManager : MonoBehaviour
         scoreTextLeft.SetScore(res1);
         scoreTextRight.SetScore(res2);
     }
+
     public bool IsWordCompleted(string playerProgress, string targetWord)
     {
         return playerProgress == targetWord;
     }
+
+    public void UpdateWord(int id)
+    {
+        if(id == 1)
+        {
+            // Update word for player 1
+            wordGeneratorPlayer1.OnWordCompleted();
+            word1 = wordGeneratorPlayer1.textBox.text;
+
+            res1 = "";
+
+            for (int i = 0; i < word1.Length; i++)
+            {
+                res1 = res1 + "_";
+            }
+            
+            foreach (char c in word1)
+            {
+                wordSet1.Add(c);
+            }
+        }
+
+        else if (id == 2)
+        {
+            // Update word for player 2
+            wordGeneratorPlayer2.OnWordCompleted();
+            word2 = wordGeneratorPlayer2.textBox.text;
+
+            res2 = "";
+
+            for (int i = 0; i < word2.Length; i++)
+            {
+                res2 = res2 + "_";
+            }
+
+            foreach (char c in word2)
+            {
+                wordSet2.Add(c);
+            }
+        }
+    }
+
     public void OnScoreZoneReached(int id,GameObject ballGameObject)
     {   ballText=ballGameObject.GetComponentInChildren<BallText>();
         res1 = scoreTextLeft.GetScore();
         res2 = scoreTextRight.GetScore();
         //Debug.Log(res1);
         //Debug.Log(res2);
+        
         string curr = ballText.getText();
         char currChar = curr[0];
-        int pos = word.IndexOf(currChar);
+        
+        // Update word based on player
+        string playerWord = (id == 1) ? textBoxPlayer1.text : textBoxPlayer2.text;
+        int pos = playerWord.IndexOf(currChar);
+        if (pos == -1) return;  // exit if currChar is not in playerWord
 
         if (id == 1 && !res1.Contains(curr))
         {
             char[] res1Chars = res1.ToCharArray();
             res1Chars[pos] = currChar;
             res1 = new string(res1Chars);
-            if (res2.Contains(curr))
+            scorePlayer1 += 1;
+
+            wordSet1.Remove(currChar); // remove from wordSet
+
+            if (IsWordCompleted(res1, word1))
             {
-                usedSet.Add(currChar); // add to usedSet
-                wordSet.Remove(currChar); // remove from wordSet
+                numWords1 += 1;
+
+                if(numWords1 < 3)
+                {
+                    UpdateWord(id);
+                    
+                }
+                else
+                {
+                    GameEnd();
+                }
             }
         }
         else if (id == 2 && !res2.Contains(curr))
@@ -139,33 +232,30 @@ public class GameManager : MonoBehaviour
             char[] res2Chars = res2.ToCharArray();
             res2Chars[pos] = currChar;
             res2 = new string(res2Chars);
-            if (res1.Contains(curr))
+            scorePlayer2 += 1;
+
+            wordSet2.Remove(currChar);
+        
+            if (IsWordCompleted(res2, word2))
             {
-                usedSet.Add(currChar);
-                wordSet.Remove(currChar);
+                numWords2 += 1;
+
+                if (numWords2 < 3)
+                {
+                    UpdateWord(id);
+                }
+                else
+                {
+                    GameEnd();
+                }
             }
         }
-        if (IsWordCompleted(res1, word))
-        {
-            // Display Game Over message and winner's name
-            gameOverText.text = "Game Over\nPlayer 1 Wins!";
-            isGameOver = true;
-        }
-        else if (IsWordCompleted(res2, word))
-        {
-            // Display Game Over message and winner's name
-            gameOverText.text = "Game Over\nPlayer 2 Wins!";
-            isGameOver = true;
-        }
+        
         UpdateScores(res1, res2);
         if (!isGameOver)
         {
-            if (wordSet.Count == 0)
-            {
-                Debug.LogWarning("All characters are used!");
-                return;
-            }
-            List<char> remainingChars = new List<char>(wordSet);
+            List<char> remainingChars = new List<char>(wordSet1);
+            remainingChars.AddRange(new List<char>(wordSet2));
             int idx = Random.Range(0, remainingChars.Count);
             char nextChar = remainingChars[idx];
             ballText.setText(nextChar.ToString());
