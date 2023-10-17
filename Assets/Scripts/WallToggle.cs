@@ -24,6 +24,8 @@ public class WallToggle : MonoBehaviour
 
     public void SwitchToPointedWalls()
     {
+        Camera mainCam = Camera.main;  
+        mainCam.orthographicSize = 8;
         foreach (var wall in normalWalls)
         {
             wall.SetActive(false);
