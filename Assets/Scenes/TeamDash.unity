@@ -652,6 +652,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1024849905}
+  - component: {fileID: 1024849906}
   m_Layer: 0
   m_Name: WallController
   m_TagString: Untagged
@@ -674,6 +675,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1024849906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024849904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb9a0adbdb8b75d4fa6cefdde482c075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalWalls: []
+  pointedWalls: []
 --- !u!114 &1068259009 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3466529556898682118, guid: e3dd3e9e8c71749d4bd13c986f2fa88a, type: 3}

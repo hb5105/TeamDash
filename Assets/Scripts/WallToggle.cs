@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class WallToggle : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject[] normalWalls;    // Drag your normal rectangular walls here
+    public GameObject[] pointedWalls;   // Drag your '^' and 'v' walls here
+
+    public void SwitchToNormalWalls()
     {
-        
+        foreach (var wall in normalWalls)
+        {
+            wall.SetActive(true);
+        }
+        foreach (var wall in pointedWalls)
+        {
+            wall.SetActive(false);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SwitchToPointedWalls()
     {
-        
+        foreach (var wall in normalWalls)
+        {
+            wall.SetActive(false);
+        }
+        foreach (var wall in pointedWalls)
+        {
+            wall.SetActive(true);
+        }
     }
 }
