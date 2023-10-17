@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &100326117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -781,6 +781,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'GunLeft '
       objectReference: {fileID: 0}
+    - target: {fileID: 1089079139927809258, guid: 086aa2421c8314fcab9332f8ebf995f7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2318506247957509254, guid: 086aa2421c8314fcab9332f8ebf995f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.1
@@ -1071,11 +1075,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2679953262254749039, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.22655034
       objectReference: {fileID: 0}
     - target: {fileID: 2679953262254749039, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3280608373634353051, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       propertyPath: moveSpeed
@@ -1139,11 +1143,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5720561244162951451, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5720561244162951451, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5720561244162951451, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       propertyPath: m_Color.r
@@ -1513,7 +1517,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3385331214185209419, guid: 4bdbab018373040d3ae3f190415e48d1, type: 3}
       insertIndex: -1
