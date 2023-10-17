@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public int scorePlayer1, scorePlayer2;
     public ScoreText scoreTextLeft, scoreTextRight;
+    public WallToggle wallToggle;
 
     public Ball ballPrefab;
 
@@ -153,6 +154,7 @@ public class GameManager : MonoBehaviour
         {
             // Update word for player 1
             wordGeneratorPlayer1.OnWordCompleted();
+
             word1 = wordGeneratorPlayer1.textBox.text;
 
             res1 = "";
@@ -214,6 +216,7 @@ public class GameManager : MonoBehaviour
 
             if (IsWordCompleted(res1, word1))
             {
+                wallToggle.SwitchToPointedWalls();
                 numWords1 += 1;
 
                 if(numWords1 < 3)
@@ -237,7 +240,7 @@ public class GameManager : MonoBehaviour
             wordSet2.Remove(currChar);
         
             if (IsWordCompleted(res2, word2))
-            {
+            {   wallToggle.SwitchToPointedWalls();
                 numWords2 += 1;
 
                 if (numWords2 < 3)

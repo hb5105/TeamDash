@@ -617,6 +617,7 @@ MonoBehaviour:
   scorePlayer2: 0
   scoreTextLeft: {fileID: 1784282152}
   scoreTextRight: {fileID: 1278339276}
+  wallToggle: {fileID: 1024849906}
   ballPrefab: {fileID: 8423468249138325180, guid: 30e30a03aa6447543be501296fbeb4e6, type: 3}
   ballText: {fileID: 1124262324}
   wordGeneratorPlayer1: {fileID: 1303690282}
@@ -901,7 +902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8271749437884949062, guid: 5e2d15639442c544893d3a6af9eda652, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: -4.8
       objectReference: {fileID: 0}
     - target: {fileID: 8271749437884949062, guid: 5e2d15639442c544893d3a6af9eda652, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1045,7 +1046,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8271749437884949062, guid: db22ee31f4dce8545a5d0f0178ddf9d3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 4.8
       objectReference: {fileID: 0}
     - target: {fileID: 8271749437884949062, guid: db22ee31f4dce8545a5d0f0178ddf9d3, type: 3}
       propertyPath: m_LocalPosition.y
