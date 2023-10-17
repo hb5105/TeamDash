@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
 
     void SetTime(float value)
     {
+        //print(currentTime);
         TimeSpan time = TimeSpan.FromSeconds(currentTime);                       // set the time value
         TimerText.text = time.ToString("mm':'ss");   // convert time to Time format
 
@@ -191,6 +192,8 @@ public class GameManager : MonoBehaviour
     {   ballText=ballGameObject.GetComponentInChildren<BallText>();
         res1 = scoreTextLeft.GetScore();
         res2 = scoreTextRight.GetScore();
+        //Debug.Log(res1);
+        //Debug.Log(res2);
         
         string curr = ballText.getText();
         char currChar = curr[0];
