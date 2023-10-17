@@ -475,8 +475,8 @@ MonoBehaviour:
   wordGeneratorPlayer1: {fileID: 1303690282}
   wordGeneratorPlayer2: {fileID: 871625451}
   gameOverText: {fileID: 356229167}
-  word1: 
-  word2: 
+  word1: A
+  word2: A
   timeInSeconds: 150
   timerText: {fileID: 1068259009}
 --- !u!4 &914006083
@@ -856,11 +856,6 @@ RectTransform:
   m_PrefabInstance: {fileID: 8479551030135159176}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2114904796 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8487228913231937451, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
-  m_PrefabInstance: {fileID: 6951435715380372524}
-  m_PrefabAsset: {fileID: 0}
-
 Transform:
   m_CorrespondingSourceObject: {fileID: 8487228913231937451, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
   m_PrefabInstance: {fileID: 6951435715380372524}
