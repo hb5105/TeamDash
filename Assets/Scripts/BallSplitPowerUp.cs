@@ -4,39 +4,21 @@ using System.Collections;
 public class BallSplitPowerUp : MonoBehaviour
 {
     public GameObject ballPrefab;  // Drag your Ball prefab here in the Inspector
-    public int ballSplittingActiveForPlayer = 1;  // 0: no one, 1: player1, 2: player2
-    private int currentIndex = 0;  // The index of the next player in the sequence
-    public int[] playerPowerUpSequence = {2, 1, 1, 2, 2, 1};  // The predefined sequence
-
-    void Start()
-    {
-        StartCoroutine(RandomizePowerUpActivePlayer());
+    // public int ballSplittingActiveForPlayer = 1;  // 0: no one, 1: player1, 2: player2
+    public int ballSplittingActiveForPlayer;
+    void Start(){
+        ballSplittingActiveForPlayer = Random.Range(1,101)%2==0? 1:2;
     }
-
-    IEnumerator RandomizePowerUpActivePlayer()
-    {
-        while (true)  
-        {
-            yield return new WaitForSeconds(30);
-            
-            // Use the array to set the player for the power-up
-            ballSplittingActiveForPlayer = playerPowerUpSequence[currentIndex];
-            Debug.Log("powerup"+ballSplittingActiveForPlayer);
-            // Move to the next index or loop back to the start if we're at the end
-            currentIndex = (currentIndex + 1) % playerPowerUpSequence.Length;
-        }
-    }
-
     void OnCollisionEnter2D(Collision2D collision)
     {
         Paddle hitPaddle = collision.gameObject.GetComponent<Paddle>();
-        Debug.Log("powerup"+ballSplittingActiveForPlayer);
-        if (hitPaddle && ballSplittingActiveForPlayer == hitPaddle.id)
-        {
-            SplitBall(this.gameObject);
+            Debug.Log("GM ballsplitid "+GameManager.instance.ballSplittingActiveForPlayer);
+        if (hitPaddle && GameManager.instance.ballSplittingActiveForPlayer == hitPaddle.id)
+        {Debug.Log("powerup split "+hitPaddle.id);
+            SplitBall(this.gameObject, hitPaddle.id);
         }
     }
- void SplitBall(GameObject originalBall)
+ void SplitBall(GameObject originalBall, float paddleId)
 {
     // 1. Clone the original ball twice
     int activeBallCount = GameObject.FindObjectsOfType<BallSplitPowerUp>().Length;
@@ -46,8 +28,17 @@ public class BallSplitPowerUp : MonoBehaviour
     {
         return;
     }
-    GameObject ballClone1 = Instantiate(originalBall, originalBall.transform.position + new Vector3(0.5f, 0, 0), originalBall.transform.rotation);
-    GameObject ballClone2 = Instantiate(originalBall, originalBall.transform.position + new Vector3(0.5f, 0, 0), originalBall.transform.rotation);
+    GameObject ballClone1=null;
+    GameObject ballClone2=null;
+    if(paddleId == 1){
+     ballClone1 = Instantiate(originalBall, originalBall.transform.position + new Vector3(0.5f, 0, 0), originalBall.transform.rotation);
+    ballClone2 = Instantiate(originalBall, originalBall.transform.position + new Vector3(0.5f, 0, 0), originalBall.transform.rotation);
+    }
+    else if(paddleId == 2){
+     ballClone1 = Instantiate(originalBall, originalBall.transform.position + new Vector3(-0.5f, 0, 0), originalBall.transform.rotation);
+     ballClone2 = Instantiate(originalBall, originalBall.transform.position + new Vector3(-0.5f, 0, 0), originalBall.transform.rotation);
+    }
+
     // Destroy(ballClone1.GetComponent<BallSplitPowerUp>());
     // Destroy(ballClone2.GetComponent<BallSplitPowerUp>());
       if (ballClone1 == null || ballClone2 == null)
@@ -55,6 +46,21 @@ public class BallSplitPowerUp : MonoBehaviour
         Debug.LogError("Cloning failed.");
         return;
     }
+    Rigidbody2D originalRb = originalBall.GetComponent<Rigidbody2D>();
+    Rigidbody2D rb1 = ballClone1.GetComponent<Rigidbody2D>();
+    Rigidbody2D rb2 = ballClone2.GetComponent<Rigidbody2D>();
+
+        if (paddleId == 1) // If Player 1 hit the ball
+        {
+            rb1.velocity = new Vector2(Mathf.Abs(rb1.velocity.x), rb1.velocity.y);
+            rb2.velocity = new Vector2(Mathf.Abs(rb2.velocity.x), rb1.velocity.y);
+        }
+        else if (paddleId == 2) // If Player 2 hit the ball
+        {
+            rb1.velocity = new Vector2(-Mathf.Abs(rb1.velocity.x), rb1.velocity.y);
+            rb2.velocity = new Vector2(-Mathf.Abs(rb2.velocity.x), rb2.velocity.y);
+        }
+
     // Ensure references are set for ballClone1
      BallText ballText1 = ballClone1.transform.GetChild(0).GetComponent<BallText>();
     if (ballText1 == null)

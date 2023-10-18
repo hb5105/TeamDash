@@ -7,10 +7,14 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-
+    public static GameManager instance; // Singleton
     public int scorePlayer1, scorePlayer2;
     public ScoreText scoreTextLeft, scoreTextRight;
+    public float powerUpActiveDuration = 5.0f;
     public WallToggle wallToggle;
+    public int ballSplittingActiveForPlayer=0;
+    private int currentIndex = 0;
+    public int[] playerPowerUpSequence = {2, 1, 1, 2, 2, 1}; 
 
     public Ball ballPrefab;
 
@@ -36,6 +40,21 @@ public class GameManager : MonoBehaviour
     private string res2;
     private float currentTime;
     public TextMeshProUGUI TimerText { get => timerText; }
+
+    private void Awake()
+    {
+        // Singleton pattern
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     public void Start()
     {
@@ -69,8 +88,29 @@ public class GameManager : MonoBehaviour
             wordSet2.Add(c);
         }
         UpdateScores(res1, res2);
+        StartCoroutine(RandomizePowerUpActivePlayer());
     }
-       
+    IEnumerator RandomizePowerUpActivePlayer()
+    {
+        while (true)  
+        {
+            yield return new WaitForSeconds(30); // Wait for 30 seconds
+            
+            ballSplittingActiveForPlayer = playerPowerUpSequence[currentIndex];
+            currentIndex = (currentIndex + 1) % playerPowerUpSequence.Length;
+
+            // Wait for powerUpActiveDuration seconds or until player uses the power-up
+            float timer = 0;
+            while(timer < powerUpActiveDuration && ballSplittingActiveForPlayer != 0)
+            {
+                yield return null; // Wait for next frame
+                timer += Time.deltaTime;
+            }
+
+            // Deactivate the power-up
+            ballSplittingActiveForPlayer = 0;
+        }
+    }
      public void SpawnNewBall(GameObject CurrentBall)
     {   Debug.Log("spawning new");
         GameObject newBall = Instantiate(CurrentBall, Vector2.zero, Quaternion.identity); // Spawning the ball at the center for now
