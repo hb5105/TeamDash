@@ -94,6 +94,10 @@ public class Ball : MonoBehaviour
         }
      
     }
+    private void Update()
+{
+    AdjustVelocity();
+}
     // private void ChangeBallDirection()
     // {
     //     Rigidbody2D rb = GetComponent<Rigidbody2D>();
@@ -228,8 +232,19 @@ public class Ball : MonoBehaviour
                     ballText.setText(nextChar.ToString());
                 }
             }
-                    AdjustVelocity();
+            AdjustVelocity();
         }
+         if (collision.gameObject.CompareTag("NorthWall"))
+            {
+                Vector2 currentVelocity = rb2d.velocity;
+                rb2d.velocity = new Vector2(currentVelocity.x, -Mathf.Abs(currentVelocity.y));
+            }
+            // Check for the SouthWall tag
+            else if (collision.gameObject.CompareTag("SouthWall"))
+            {
+                Vector2 currentVelocity = rb2d.velocity;
+                rb2d.velocity = new Vector2(currentVelocity.x, Mathf.Abs(currentVelocity.y));
+            }
     }
 
     public void ResetBall()
