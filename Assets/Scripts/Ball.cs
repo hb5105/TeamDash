@@ -31,16 +31,18 @@ public class Ball : MonoBehaviour
 
     private float startX = 0f;
     private float minimumHorizontalVelocity = 0.5f;  // Adjust as needed
-    private float minimumVerticalVelocity = 0.5f;  
-    
+    private float minimumVerticalVelocity = 0.5f;
+
     private void AdjustVelocity()
     {
+        // Adjusting Horizontal Velocity
         if (Mathf.Abs(rb2d.velocity.x) < minimumHorizontalVelocity)
         {
             float newVelocityX = (rb2d.velocity.x >= 0) ? minimumHorizontalVelocity : -minimumHorizontalVelocity;
             rb2d.velocity = new Vector2(newVelocityX, rb2d.velocity.y);
         }
-         if (Mathf.Abs(rb2d.velocity.y) < minimumVerticalVelocity)
+        // Adjusting Vertical Velocity
+        if (Mathf.Abs(rb2d.velocity.y) < minimumVerticalVelocity)
         {
             float newVelocityY = (rb2d.velocity.y >= 0) ? minimumVerticalVelocity : -minimumVerticalVelocity;
             rb2d.velocity = new Vector2(rb2d.velocity.x, newVelocityY);
@@ -206,8 +208,8 @@ public class Ball : MonoBehaviour
            if(paddle.id==2){
                 this.GetComponent<SpriteRenderer>().color = Color.blue;
             }
-
-    }
+            AdjustVelocity();
+        }
     }
 
     public void ResetBall()
