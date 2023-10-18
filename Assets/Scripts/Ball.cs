@@ -27,6 +27,7 @@ public class Ball : MonoBehaviour
     public float spinStrength = 500f;
     public float maxStartY = 4f;
     public GameManager gameManager;
+    public BallText ballText;
     private int wallHitCounter = 0;
 
     private float startX = 0f;
@@ -202,13 +203,32 @@ public class Ball : MonoBehaviour
             AdjustVelocity();
         }
 
-         if(paddle.id ==1){
-                this.GetComponent<SpriteRenderer>().color = Color.red;
-           }
-           if(paddle.id==2){
-                this.GetComponent<SpriteRenderer>().color = Color.blue;
+            if (paddle.id == 1)
+            {
+                this.GetComponent<SpriteRenderer>().color = Color.magenta;
+                List<char> wordList1 = new List<char>(gameManager.wordSet1);
+                // Check if the list has any elements to prevent possible ArgumentOutOfRangeException
+                if (wordList1.Count > 0)
+                {
+                    int idx = Random.Range(0, wordList1.Count);
+                    char nextChar = wordList1[idx];
+                    ballText.setText(nextChar.ToString());
+                }
             }
-            AdjustVelocity();
+
+            if (paddle.id == 2)
+            {
+                this.GetComponent<SpriteRenderer>().color = Color.blue;
+                List<char> wordList2 = new List<char>(gameManager.wordSet2);
+                // Check if the list has any elements to prevent possible ArgumentOutOfRangeException
+                if (wordList2.Count > 0)
+                {
+                    int idx = Random.Range(0, wordList2.Count);
+                    char nextChar = wordList2[idx];
+                    ballText.setText(nextChar.ToString());
+                }
+            }
+                    AdjustVelocity();
         }
     }
 

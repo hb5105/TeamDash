@@ -28,12 +28,11 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public string word1;
     public string word2;
+    public List<char> remainingChars = new List<char>();
     private int numWords1, numWords2;
     public static bool isGameOver = false;
-    private HashSet<char> wordSet1 = new HashSet<char>();
-    private HashSet<char> usedSet1 = new HashSet<char>();
-    private HashSet<char> wordSet2 = new HashSet<char>();
-    private HashSet<char> usedSet2 = new HashSet<char>();
+    public HashSet<char> wordSet1 = new HashSet<char>();
+    public HashSet<char> wordSet2 = new HashSet<char>();
     [SerializeField] private float timeInSeconds;
     [SerializeField] private TextMeshProUGUI timerText;
 
@@ -93,7 +92,8 @@ public class GameManager : MonoBehaviour
             wordSet2.Add(c);
         }
         UpdateScores(res1, res2);
-        
+        remainingChars = new List<char>(wordSet1);
+        remainingChars.AddRange(new List<char>(wordSet2));
     }
     IEnumerator RandomizePowerUpActivePlayer()
     {
@@ -313,15 +313,5 @@ public class GameManager : MonoBehaviour
         {
             player2GunMovement.IncreaseBullets(); // Update bullets for player 2
         }
-        if (!isGameOver)
-        {
-            List<char> remainingChars = new List<char>(wordSet1);
-            remainingChars.AddRange(new List<char>(wordSet2));
-            int idx = Random.Range(0, remainingChars.Count);
-            char nextChar = remainingChars[idx];
-            ballText.setText(nextChar.ToString());
-
-        }
-
     }
 }
