@@ -50,10 +50,6 @@ public class Ball : MonoBehaviour
     private void Start()
     {
         InitialPush();
-        //Paddle child objects, paddleLeft and paddleRight
-        //paddleLeft = paddleParent.transform.Find("PaddleLeft").gameObject;
-        //paddleRight = paddleParent.transform.Find("PaddleRight").gameObject;
-
         // Add a 5-second delay before starting the ball's movement.
         //Invoke(nameof(InitialPush), 2f);
 
@@ -167,16 +163,6 @@ public class Ball : MonoBehaviour
                
             string json = JsonUtility.ToJson(playerData);
             RestClient.Post("https://csci526-bee47-default-rtdb.firebaseio.com/.json", playerData);
-
-            /*Dictionary<string, object> parameters = new Dictionary<string, object>()
-            {
-                {"ball_position", yPosition},
-                {"paddlePosition", paddleLeft.transform.position.y},
-                {"ball_velocity", rb2d.velocity.magnitude},
-                {"paddle_velocity", rbPaddleLeft.velocity.magnitude}
-            };
-            AnalyticsService.Instance.CustomData("player1Miss", parameters);
-            AnalyticsService.Instance.Flush();*/
                      
             if (!GameManager.isGameOver && GameObject.FindObjectsOfType<Ball>().Length==1)
             {
