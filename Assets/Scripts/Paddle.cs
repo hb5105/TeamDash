@@ -75,11 +75,11 @@ private bool IsTryingToTilt()
     {
         if (id == 1) // Player 1
         {
-            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
             {
                 transform.rotation = Quaternion.Euler(0, 0, -tiltAmount);
             }
-            else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+            else if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
             {
                 transform.rotation = Quaternion.Euler(0, 0, tiltAmount);
             }
@@ -90,11 +90,11 @@ private bool IsTryingToTilt()
         }
         else if (id == 2) // Player 2
         {
-            if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow))
+            if ( Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow))
             {
                 transform.rotation = Quaternion.Euler(0, 0, -tiltAmount);
             }
-            else if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow))
+            else if ( Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
             {
                 transform.rotation = Quaternion.Euler(0, 0, tiltAmount);
             }
