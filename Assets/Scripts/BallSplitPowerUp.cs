@@ -1,14 +1,36 @@
 using UnityEngine;
+using System.Collections;
 
 public class BallSplitPowerUp : MonoBehaviour
 {
     public GameObject ballPrefab;  // Drag your Ball prefab here in the Inspector
     public int ballSplittingActiveForPlayer = 1;  // 0: no one, 1: player1, 2: player2
+    private int currentIndex = 0;  // The index of the next player in the sequence
+    public int[] playerPowerUpSequence = {2, 1, 1, 2, 2, 1};  // The predefined sequence
+
+    void Start()
+    {
+        StartCoroutine(RandomizePowerUpActivePlayer());
+    }
+
+    IEnumerator RandomizePowerUpActivePlayer()
+    {
+        while (true)  
+        {
+            yield return new WaitForSeconds(30);
+            
+            // Use the array to set the player for the power-up
+            ballSplittingActiveForPlayer = playerPowerUpSequence[currentIndex];
+            Debug.Log("powerup"+ballSplittingActiveForPlayer);
+            // Move to the next index or loop back to the start if we're at the end
+            currentIndex = (currentIndex + 1) % playerPowerUpSequence.Length;
+        }
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         Paddle hitPaddle = collision.gameObject.GetComponent<Paddle>();
-
+        Debug.Log("powerup"+ballSplittingActiveForPlayer);
         if (hitPaddle && ballSplittingActiveForPlayer == hitPaddle.id)
         {
             SplitBall(this.gameObject);
@@ -17,10 +39,17 @@ public class BallSplitPowerUp : MonoBehaviour
  void SplitBall(GameObject originalBall)
 {
     // 1. Clone the original ball twice
+    int activeBallCount = GameObject.FindObjectsOfType<BallSplitPowerUp>().Length;
+
+    // If there are already 2 or more balls, do not split further
+    if (activeBallCount >= 2)
+    {
+        return;
+    }
     GameObject ballClone1 = Instantiate(originalBall, originalBall.transform.position + new Vector3(0.5f, 0, 0), originalBall.transform.rotation);
     GameObject ballClone2 = Instantiate(originalBall, originalBall.transform.position + new Vector3(0.5f, 0, 0), originalBall.transform.rotation);
-    Destroy(ballClone1.GetComponent<BallSplitPowerUp>());
-    Destroy(ballClone2.GetComponent<BallSplitPowerUp>());
+    // Destroy(ballClone1.GetComponent<BallSplitPowerUp>());
+    // Destroy(ballClone2.GetComponent<BallSplitPowerUp>());
       if (ballClone1 == null || ballClone2 == null)
     {
         Debug.LogError("Cloning failed.");
