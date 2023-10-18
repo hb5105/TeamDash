@@ -9,9 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/TeamDash.unity
-    guid: 89b87303e2d2348489821949c095b635
-  - enabled: 1
     path: Assets/Scenes/Start Scene.unity
     guid: 75931a6c420cfa44ba23b03cd7d16a5b
+  - enabled: 1
+    path: Assets/Scenes/TutorialPage1.unity
+    guid: f7b4113b38437974a86215c34bfaeebc
+  - enabled: 1
+    path: Assets/Scenes/TutorialPage2.unity
+    guid: edc9a6ef586897c49818a1f1abc7d90c
+  - enabled: 1
+    path: Assets/Scenes/TutorialPage3.unity
+    guid: 513156736e32ca94b88650400c76cf5b
+  - enabled: 1
+    path: Assets/Scenes/TeamDash.unity
+    guid: 89b87303e2d2348489821949c095b635
   m_configObjects: {}
