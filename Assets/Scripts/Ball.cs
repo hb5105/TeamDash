@@ -24,8 +24,10 @@ public class Ball : MonoBehaviour
     public Rigidbody2D rb2d;
     public float maxInitialAngle = 0.3f;
     public float moveSpeed = 1f;
+    public float spinStrength = 500f;
     public float maxStartY = 4f;
     public GameManager gameManager;
+    private int wallHitCounter = 0;
 
     private float startX = 0f;
     private float minimumHorizontalVelocity = 0.5f;  // Adjust as needed
@@ -75,6 +77,58 @@ public class Ball : MonoBehaviour
     /* Triggers are something which the Spirit doesnt bounce/act 
      * upon rather used to collect some information or do something
      */
+    private void CheckForRecurringMotion(Collision2D collision){
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            wallHitCounter++;
+
+            if (wallHitCounter >= 3)
+            {
+                ChangeBallDirection();
+                wallHitCounter = 0; // reset the counter
+            }
+               Debug.Log("Wall Hit Counter:"+ wallHitCounter);
+        }
+        else
+        {
+            wallHitCounter = 0; // reset the counter if ball hits anything other than the wall
+        }
+     
+    }
+    // private void ChangeBallDirection()
+    // {
+    //     Rigidbody2D rb = GetComponent<Rigidbody2D>();
+    //     Debug.Log("entered change ball direction");
+
+    //     // Negate the y direction and add a random component to x direction
+    //     float randomX = Random.Range(-1f, 1f);
+    //     rb.velocity = new Vector2(rb.velocity.x + randomX, -rb.velocity.y);
+    // }
+    private void ChangeBallDirection()
+{
+    // Identify both players. This can be done during Start() and cached if they don't change.
+
+    // Determine which player is closer to the ball.
+    float distanceToPlayer1 = Vector2.Distance(transform.position, paddleLeft.transform.position);
+    float distanceToPlayer2 = Vector2.Distance(transform.position, paddleRight.transform.position);
+    
+    Vector2 targetDirection;
+
+    if (distanceToPlayer1 < distanceToPlayer2)
+    {
+        // Player 1 is closer. Compute direction to Player 1.
+        targetDirection = (paddleLeft.transform.position - transform.position).normalized;
+    }
+    else
+    {
+        // Player 2 is closer. Compute direction to Player 2.
+        targetDirection = (paddleRight.transform.position - transform.position).normalized;
+    }
+
+    // Set the velocity of the ball towards the closer player.
+    // Note: 'ballSpeed' is the desired speed of the ball. You can adjust as needed. // or whatever speed you prefer
+    GetComponent<Rigidbody2D>().velocity = targetDirection * moveSpeed;
+}
     private void OnTriggerEnter2D(Collider2D collision)
     {
         /* We create a object of ScoreZone and check if collision happened with
@@ -139,6 +193,8 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {  
     // Check if the ball collided with a paddle
+      Debug.Log("Collided with: " + collision.gameObject.name);
+        CheckForRecurringMotion(collision);
     Paddle paddle = collision.gameObject.GetComponent<Paddle>();
     if (paddle)
     { 

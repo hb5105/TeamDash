@@ -7,7 +7,7 @@ public class Paddle : MonoBehaviour
     public Rigidbody2D rb2d;
     public float id;
     public float moveSpeed = 2f;
-    public float tiltAmount = 45.0f;
+    public float tiltAmount = 15.0f;
     public Ball ball;
     private bool isTilting = false; 
  
