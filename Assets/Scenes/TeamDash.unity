@@ -2861,6 +2861,7 @@ MonoBehaviour:
   spinStrength: 500
   maxStartY: 0
   gameManager: {fileID: 1872166391}
+  ballText: {fileID: 1278251875}
 --- !u!50 &1709948867
 Rigidbody2D:
   serializedVersion: 4
@@ -3405,7 +3406,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1872166392}
   - component: {fileID: 1872166391}
-  - component: {fileID: 1872166390}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3413,18 +3413,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1872166390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1872166389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3a2c82173b79f84ea344c30eb11bcef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1872166391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3441,7 +3429,15 @@ MonoBehaviour:
   scorePlayer2: 0
   scoreTextLeft: {fileID: 1532370755}
   scoreTextRight: {fileID: 1526967659}
+  powerUpActiveDuration: 5
   wallToggle: {fileID: 1968615260}
+  ballSplittingActiveForPlayer: 0
+  playerPowerUpSequence: 020000000100000001000000020000000200000001000000
+  ballSplitTimes:
+  - 120
+  - 90
+  - 60
+  - 30
   ballPrefab: {fileID: 8423468249138325180, guid: 30e30a03aa6447543be501296fbeb4e6, type: 3}
   ballText: {fileID: 1278251875}
   wordGeneratorPlayer1: {fileID: 90997399}
@@ -3449,6 +3445,7 @@ MonoBehaviour:
   gameOverText: {fileID: 1052232791}
   word1: HAT
   word2: HAT
+  remainingChars: 4100
   timeInSeconds: 150
   timerText: {fileID: 1728526040}
   player1GunMovement: {fileID: 1171992671}
