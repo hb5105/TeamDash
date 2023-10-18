@@ -92,11 +92,11 @@ private bool IsTryingToTilt()
         {
             if ( Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow))
             {
-                transform.rotation = Quaternion.Euler(0, 0, -tiltAmount);
+                transform.rotation = Quaternion.Euler(0, 0, tiltAmount);
             }
             else if ( Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
             {
-                transform.rotation = Quaternion.Euler(0, 0, tiltAmount);
+                transform.rotation = Quaternion.Euler(0, 0, -tiltAmount);
             }
             else
             {
