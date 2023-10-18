@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using TMPro;
 
 public class PowerUpManager : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class PowerUpManager : MonoBehaviour
 
     public bool p1PowerUpActive = false;
     public bool p2PowerUpActive = false;
+
+    public TextMeshProUGUI player1Powerup;
+    public TextMeshProUGUI player2Powerup;
 
     private float powerUpCooldown = 10f;
     private float powerUpActiveDuration = 10f;
@@ -31,6 +35,17 @@ public class PowerUpManager : MonoBehaviour
         {
             ActivatePowerUp(paddle1, p1powerup);
             p1PowerUpActive = true;
+            player1Powerup.color = Color.green;
+
+            if (p1powerup == "MoveOpponent")
+            {
+                player1Powerup.text = "Move Opponent";
+            }
+            else
+            {
+                player1Powerup.text = p1powerup;
+            }
+            
             p1powerup = "";
             Invoke("DeactivateP1PowerUp", powerUpActiveDuration);
         }
@@ -39,6 +54,17 @@ public class PowerUpManager : MonoBehaviour
         {
             ActivatePowerUp(paddle2, p2powerup);
             p2PowerUpActive = true;
+            player2Powerup.color = Color.green;
+
+            if (p2powerup == "MoveOpponent")
+            {
+                player2Powerup.text = "Move Opponent";
+            }
+            else
+            {
+                player2Powerup.text = p2powerup;
+            }
+
             p2powerup = "";
             Invoke("DeactivateP2PowerUp", powerUpActiveDuration);
         }
@@ -111,12 +137,14 @@ public class PowerUpManager : MonoBehaviour
     void DeactivateP1PowerUp()
     {
         p1PowerUpActive = false;
+        player1Powerup.text = "";
         Invoke("AssignPowerUpToP1", powerUpCooldown);
     }
 
     void DeactivateP2PowerUp()
     {
         p2PowerUpActive = false;
+        player2Powerup.text = "";
         Invoke("AssignPowerUpToP2", powerUpCooldown);
     }
 
