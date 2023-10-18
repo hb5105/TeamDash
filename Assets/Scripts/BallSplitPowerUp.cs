@@ -16,6 +16,7 @@ public class BallSplitPowerUp : MonoBehaviour
         if (hitPaddle && GameManager.instance.ballSplittingActiveForPlayer == hitPaddle.id)
         {Debug.Log("powerup split "+hitPaddle.id);
             SplitBall(this.gameObject, hitPaddle.id);
+            GameManager.instance.ballSplittingActiveForPlayer = 0;
         }
     }
  void SplitBall(GameObject originalBall, float paddleId)

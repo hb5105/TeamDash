@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public int ballSplittingActiveForPlayer=0;
     private int currentIndex = 0;
     public int[] playerPowerUpSequence = {2, 1, 1, 2, 2, 1}; 
+    public List<float> ballSplitTimes = new List<float> {120f, 90f, 60f, 30f};
+    private int currentSplitIndex = 0;
 
     public Ball ballPrefab;
 
@@ -74,7 +76,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < word1.Length; i++)
         {
             res1 = res1 + "_";
-}
+        }
         for (int i = 0; i < word2.Length; i++)
         {
             res2 = res2 + "_";
@@ -88,13 +90,10 @@ public class GameManager : MonoBehaviour
             wordSet2.Add(c);
         }
         UpdateScores(res1, res2);
-        StartCoroutine(RandomizePowerUpActivePlayer());
+        
     }
     IEnumerator RandomizePowerUpActivePlayer()
     {
-        while (true)  
-        {
-            yield return new WaitForSeconds(30); // Wait for 30 seconds
             
             ballSplittingActiveForPlayer = playerPowerUpSequence[currentIndex];
             currentIndex = (currentIndex + 1) % playerPowerUpSequence.Length;
@@ -109,7 +108,6 @@ public class GameManager : MonoBehaviour
 
             // Deactivate the power-up
             ballSplittingActiveForPlayer = 0;
-        }
     }
      public void SpawnNewBall(GameObject CurrentBall)
     {   Debug.Log("spawning new");
@@ -142,6 +140,16 @@ public class GameManager : MonoBehaviour
         {
             currentTime -= Time.deltaTime;
             SetTime(currentTime);
+            float threshold = 0.05f; // Small threshold value to account for precision errors
+            if (currentSplitIndex < ballSplitTimes.Count && Mathf.Abs(currentTime - ballSplitTimes[currentSplitIndex]) < threshold)
+            { Debug.Log("currentTime "+currentTime);
+            // Here, initiate the ball split logic. Depending on your implementation, you might call a function or set a flag.
+            StartCoroutine(RandomizePowerUpActivePlayer());
+
+
+            // Move to the next time checkpoint
+            currentSplitIndex++;
+             }
         }
     }
 
