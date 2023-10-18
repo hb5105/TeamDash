@@ -225,9 +225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9209d4ef93af940f595f9ef9ee1bb0ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerupDuration: 5
-  defaultSize: {x: 0, y: 0}
-  poweredUpSize: {x: 0, y: 0}
+  sizeMultiplier: 1.5
+  powerUpDuration: 5
 --- !u!114 &323321162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -903,6 +902,54 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6951435715380372526}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1643125167
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1643125169}
+  - component: {fileID: 1643125168}
+  m_Layer: 0
+  m_Name: PowerUpManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1643125168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643125167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8b207d9758504154aa17e95c5831bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  p1powerup: 
+  p2powerup: 
+  p1PowerUpActive: 0
+  p2PowerUpActive: 0
+--- !u!4 &1643125169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643125167}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.9425111, y: 0.10661376, z: 0.009005494}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1663665398 stripped
 RectTransform:
@@ -1844,4 +1891,5 @@ SceneRoots:
   - {fileID: 1130452165091550710}
   - {fileID: 8479551030135159176}
   - {fileID: 914006083}
+  - {fileID: 1643125169}
   - {fileID: 1024849905}
