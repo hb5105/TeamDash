@@ -10,7 +10,8 @@ public class GunMovement : MonoBehaviour
     public KeyCode fireKey = KeyCode.Space; // Define your fire key here
 
     private int bulletsFired = 0;
-    private const int maxBullets = 50;
+    private int maxBullets = 3;
+    public int playerId;
 
     void Update()
     {
@@ -18,6 +19,11 @@ public class GunMovement : MonoBehaviour
         {
             FireBullet();
         }
+    }
+
+    public void IncreaseBullets()
+    {
+        maxBullets++;
     }
 
     void FireBullet()

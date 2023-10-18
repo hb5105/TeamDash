@@ -523,6 +523,7 @@ MonoBehaviour:
   firePoint: {fileID: 1948356777}
   bulletSpeed: 10
   fireKey: 303
+  playerId: 2
 --- !u!114 &230168846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1549,6 +1550,7 @@ MonoBehaviour:
   firePoint: {fileID: 1145012204}
   bulletSpeed: 10
   fireKey: 32
+  playerId: 1
 --- !u!114 &1171992672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3189,6 +3191,8 @@ MonoBehaviour:
   word2: HAT
   timeInSeconds: 150
   timerText: {fileID: 1728526040}
+  player1GunMovement: {fileID: 1171992671}
+  player2GunMovement: {fileID: 230168845}
 --- !u!4 &1872166392
 Transform:
   m_ObjectHideFlags: 0
