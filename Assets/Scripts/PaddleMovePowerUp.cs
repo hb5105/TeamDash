@@ -5,14 +5,14 @@ public class PaddleMovePowerUp : MonoBehaviour
     private Paddle paddle;
     private Paddle opponentPaddle;
 
-    public float shiftDistance = 3.0f; // distance to shift the paddle's position
-    public float powerUpDuration = 5f;  // how long the effect lasts
-    public float maxYPosition = 4.5f;   // max y position the paddle can go to
-    public float minYPosition = -4.5f;  // min y position the paddle can go to
+    public float shiftDistance = 3.0f;
+    public float powerUpDuration = 5f;
+    public float maxYPosition = 4.5f;
+    public float minYPosition = -4.5f;
 
     private Vector2 originalOpponentPosition;
 
-    private static bool powerUpActiveGlobal = false;  // Global flag to prevent simultaneous activation.
+    private static bool powerUpActiveGlobal = false;
 
     private void Start()
     {
@@ -25,20 +25,18 @@ public class PaddleMovePowerUp : MonoBehaviour
         FindOpponentPaddle();
     }
 
-    private void Update()
+    public void ShiftOpponentPosition()
     {
-        if (!powerUpActiveGlobal)
+        if (!powerUpActiveGlobal && opponentPaddle)
         {
-            if (paddle.id == 1 && Input.GetKeyDown(KeyCode.R))
-            {
-                ShiftOpponentPosition();
-                Invoke("ResetOpponentPosition", powerUpDuration);
-            }
-            else if (paddle.id == 2 && Input.GetKeyDown(KeyCode.Comma))
-            {
-                ShiftOpponentPosition();
-                Invoke("ResetOpponentPosition", powerUpDuration);
-            }
+            powerUpActiveGlobal = true;
+
+            originalOpponentPosition = opponentPaddle.transform.position;
+            float newYPosition = originalOpponentPosition.y + shiftDistance;
+            newYPosition = Mathf.Clamp(newYPosition, minYPosition, maxYPosition);
+            opponentPaddle.transform.position = new Vector2(originalOpponentPosition.x, newYPosition);
+
+            Invoke("ResetOpponentPosition", powerUpDuration);
         }
     }
 
@@ -52,22 +50,6 @@ public class PaddleMovePowerUp : MonoBehaviour
                 opponentPaddle = p;
                 break;
             }
-        }
-    }
-
-    private void ShiftOpponentPosition()
-    {
-        if (opponentPaddle)
-        {
-            powerUpActiveGlobal = true;
-
-            originalOpponentPosition = opponentPaddle.transform.position;
-            float newYPosition = originalOpponentPosition.y + shiftDistance;
-
-            // Clamping the position to ensure it doesn't go outside the playable area.
-            newYPosition = Mathf.Clamp(newYPosition, minYPosition, maxYPosition);
-
-            opponentPaddle.transform.position = new Vector2(originalOpponentPosition.x, newYPosition);
         }
     }
 

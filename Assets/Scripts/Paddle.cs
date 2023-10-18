@@ -7,7 +7,7 @@ public class Paddle : MonoBehaviour
     public Rigidbody2D rb2d;
     public float id;
     public float moveSpeed = 2f;
-    public float tiltAmount = 45.0f;
+    public float tiltAmount = 15.0f;
     public Ball ball;
     private bool isTilting = false; 
  
@@ -75,11 +75,11 @@ private bool IsTryingToTilt()
     {
         if (id == 1) // Player 1
         {
-            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
             {
                 transform.rotation = Quaternion.Euler(0, 0, -tiltAmount);
             }
-            else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+            else if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
             {
                 transform.rotation = Quaternion.Euler(0, 0, tiltAmount);
             }
@@ -90,13 +90,13 @@ private bool IsTryingToTilt()
         }
         else if (id == 2) // Player 2
         {
-            if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow))
-            {
-                transform.rotation = Quaternion.Euler(0, 0, -tiltAmount);
-            }
-            else if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow))
+            if ( Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow))
             {
                 transform.rotation = Quaternion.Euler(0, 0, tiltAmount);
+            }
+            else if ( Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.rotation = Quaternion.Euler(0, 0, -tiltAmount);
             }
             else
             {

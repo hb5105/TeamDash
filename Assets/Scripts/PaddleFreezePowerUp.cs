@@ -17,19 +17,7 @@ public class PaddleFreezePowerUp : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (paddle.id == 1 && Input.GetKeyDown(KeyCode.E))
-        {
-            FreezeOpponent();
-        }
-        else if (paddle.id == 2 && Input.GetKeyDown(KeyCode.Period))
-        {
-            FreezeOpponent();
-        }
-    }
-
-    private void FreezeOpponent()
+    public void FreezeOpponent()
     {
         if (opponentPaddle == null)
         {
