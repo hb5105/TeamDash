@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
     private string res1;
     private string res2;
     private float currentTime;
+    public GunMovement player1GunMovement; // Assign this to player 1's paddle in the editor
+    public GunMovement player2GunMovement; // Assign this to player 2's paddle in the editor
+
     public TextMeshProUGUI TimerText { get => timerText; }
 
     public void Start()
@@ -254,6 +257,14 @@ public class GameManager : MonoBehaviour
         }
         
         UpdateScores(res1, res2);
+        if (id == 1 && scorePlayer1 > 0 && scorePlayer1 % 3 == 0)
+        {
+            player1GunMovement.IncreaseBullets(); // Update bullets for player 1
+        }
+        else if (id == 2 && scorePlayer2 > 0 && scorePlayer2 % 3 == 0)
+        {
+            player2GunMovement.IncreaseBullets(); // Update bullets for player 2
+        }
         if (!isGameOver)
         {
             List<char> remainingChars = new List<char>(wordSet1);
@@ -263,5 +274,6 @@ public class GameManager : MonoBehaviour
             ballText.setText(nextChar.ToString());
 
         }
+
     }
 }
