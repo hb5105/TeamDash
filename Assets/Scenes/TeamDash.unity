@@ -533,7 +533,15 @@ MonoBehaviour:
   scorePlayer2: 0
   scoreTextLeft: {fileID: 1784282152}
   scoreTextRight: {fileID: 1278339276}
+  powerUpActiveDuration: 5
   wallToggle: {fileID: 1024849906}
+  ballSplittingActiveForPlayer: 0
+  playerPowerUpSequence: 020000000100000001000000020000000200000001000000
+  ballSplitTimes:
+  - 120
+  - 90
+  - 60
+  - 30
   ballPrefab: {fileID: 8423468249138325180, guid: 30e30a03aa6447543be501296fbeb4e6, type: 3}
   ballText: {fileID: 1124262324}
   wordGeneratorPlayer1: {fileID: 1303690282}
@@ -1248,6 +1256,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1649803698678023374, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
+      propertyPath: tiltAmount
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1649803698678023374, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       propertyPath: smashSpeedMultiplier
       value: 1.1
       objectReference: {fileID: 0}
@@ -1338,6 +1350,10 @@ PrefabInstance:
     - target: {fileID: 4238750228074857880, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       propertyPath: moveSpeed
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4238750228074857880, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
+      propertyPath: tiltAmount
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4238750228074857880, guid: 6eb84dfc9428ce54f8d2922754fbe10f, type: 3}
       propertyPath: smashSpeedMultiplier

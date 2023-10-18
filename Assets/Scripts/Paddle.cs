@@ -12,7 +12,7 @@ public class Paddle : MonoBehaviour
     private bool isTilting = false; 
  
     private float processInput()
-{   
+    {   
     float movement = 0f;
 
     if(!GameManager.isGameOver)
