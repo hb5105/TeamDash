@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using TMPro;
+using System;
+using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 public class PowerUpManager : MonoBehaviour
 {
@@ -24,6 +27,9 @@ public class PowerUpManager : MonoBehaviour
     public float p1PowerUpTimer = 5f;  // New timer for player 1
     public float p2PowerUpTimer = 5f;  // New timer for player 2
 
+    public GameObject p1Timer;
+    public GameObject p2Timer;
+
     private void Start()
     {
         Paddle[] paddles = FindObjectsOfType<Paddle>();
@@ -35,8 +41,28 @@ public class PowerUpManager : MonoBehaviour
     private void Update()
     {
         // Decrementing the timers when the powerups are active
-        if (p1PowerUpActive) p1PowerUpTimer = p1PowerUpTimer>0? (p1PowerUpTimer - Time.deltaTime):0;
-        if (p2PowerUpActive) p2PowerUpTimer = p2PowerUpTimer > 0 ?  (p2PowerUpTimer - Time.deltaTime) : 0;
+        if (p1PowerUpActive)
+        {
+            p1PowerUpTimer = p1PowerUpTimer > 0 ? (p1PowerUpTimer - Time.deltaTime) : 0;
+            TimeSpan time = TimeSpan.FromSeconds(p1PowerUpTimer);                       // set the time value
+            string seconds = time.ToString("ss");
+            char secondDigit = seconds.Length > 1 ? seconds[1] : seconds[0];
+
+            p1Timer.GetComponentInChildren<TextMeshProUGUI>().text = secondDigit.ToString();
+            p1Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+            p1Timer.GetComponent<Image>().color = Color.green;
+        }
+        if (p2PowerUpActive)
+        {
+            p2PowerUpTimer = p2PowerUpTimer > 0 ? (p2PowerUpTimer - Time.deltaTime) : 0;
+            TimeSpan time = TimeSpan.FromSeconds(p2PowerUpTimer);                       // set the time value
+            string seconds = time.ToString("ss");
+            char secondDigit = seconds.Length > 1 ? seconds[1] : seconds[0]; 
+
+            p2Timer.GetComponentInChildren<TextMeshProUGUI>().text = secondDigit.ToString();
+            p2Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+            p2Timer.GetComponent<Image>().color = Color.green;
+        }
 
         if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != ""&& !p2PowerUpActive)
         {
@@ -166,22 +192,39 @@ public class PowerUpManager : MonoBehaviour
     void DeactivateP1PowerUp()
     {
         player1Powerup.text = "";
+        p1Timer.SetActive(false);
         p1PowerUpActive = false;
         p1PowerUpTimer = 5f;  // Resetting the timer
+        TimeSpan time = TimeSpan.FromSeconds(p1PowerUpTimer);                       // set the time value
+        string seconds = time.ToString("ss");
+        char secondDigit = seconds.Length > 1 ? seconds[1] : seconds[0];
+
+        p1Timer.GetComponentInChildren<TextMeshProUGUI>().text = secondDigit.ToString();
+        p1Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+        p1Timer.GetComponent<Image>().color = Color.red;
         Invoke("AssignPowerUpToP1", powerUpCooldown);
     }
 
     void DeactivateP2PowerUp()
     {
         player2Powerup.text = "";
+        p2Timer.SetActive(false);
         p2PowerUpActive = false;
         p2PowerUpTimer = 5f;  // Resetting the timer
+        TimeSpan time = TimeSpan.FromSeconds(p2PowerUpTimer);                       // set the time value
+        string seconds = time.ToString("ss");
+        char secondDigit = seconds.Length > 1 ? seconds[1] : seconds[0];
+
+        p2Timer.GetComponentInChildren<TextMeshProUGUI>().text = secondDigit.ToString();
+        p2Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+        p2Timer.GetComponent<Image>().color = Color.red;
         Invoke("AssignPowerUpToP2", powerUpCooldown);
     }
 
     void AssignPowerUpToP1()
     {
         player1Powerup.color = Color.red;
+        p1Timer.SetActive(true);
 
         p1powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
         p1PowerUpTimer = 5f;  // Resetting the timer
@@ -198,6 +241,7 @@ public class PowerUpManager : MonoBehaviour
     void AssignPowerUpToP2()
     {
         player2Powerup.color = Color.red;
+        p2Timer.SetActive(true);
 
         p2powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
         p2PowerUpTimer = 5f;  // Resetting the timer

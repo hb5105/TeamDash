@@ -13,6 +13,8 @@ public class WallToggle : MonoBehaviour
     public TextMeshProUGUI Word2;
     public TextMeshProUGUI Powerup1;
     public TextMeshProUGUI Powerup2;
+    public GameObject p1Timer;
+    public GameObject p2Timer;
     public void Start()
     {
         SwitchToNormalWalls();  // This sets the walls to their normal state
@@ -50,6 +52,12 @@ public class WallToggle : MonoBehaviour
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
 
         rectTransform = Powerup2.rectTransform;
+        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
+
+        rectTransform = p1Timer.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
+
+        rectTransform = p2Timer.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
 
         foreach (var wall in normalWalls)
