@@ -21,6 +21,9 @@ public class PowerUpManager : MonoBehaviour
     private float powerUpCooldown = 10f;
     private float powerUpActiveDuration = 10f;
 
+    public float p1PowerUpTimer = 5f;  // New timer for player 1
+    public float p2PowerUpTimer = 5f;  // New timer for player 2
+
     private void Start()
     {
         Paddle[] paddles = FindObjectsOfType<Paddle>();
@@ -31,8 +34,13 @@ public class PowerUpManager : MonoBehaviour
 
     private void Update()
     {
+        // Decrementing the timers when the powerups are active
+        if (p1PowerUpActive) p1PowerUpTimer = p1PowerUpTimer>0? (p1PowerUpTimer - Time.deltaTime):0;
+        if (p2PowerUpActive) p2PowerUpTimer = p2PowerUpTimer > 0 ?  (p2PowerUpTimer - Time.deltaTime) : 0;
+
         if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != ""&& !p2PowerUpActive)
         {
+
             ActivatePowerUp(paddle1, p1powerup);
             p1PowerUpActive = true;
             player1Powerup.color = Color.green;
@@ -159,6 +167,7 @@ public class PowerUpManager : MonoBehaviour
     {
         player1Powerup.text = "";
         p1PowerUpActive = false;
+        p1PowerUpTimer = 5f;  // Resetting the timer
         Invoke("AssignPowerUpToP1", powerUpCooldown);
     }
 
@@ -166,6 +175,7 @@ public class PowerUpManager : MonoBehaviour
     {
         player2Powerup.text = "";
         p2PowerUpActive = false;
+        p2PowerUpTimer = 5f;  // Resetting the timer
         Invoke("AssignPowerUpToP2", powerUpCooldown);
     }
 
@@ -174,6 +184,7 @@ public class PowerUpManager : MonoBehaviour
         player1Powerup.color = Color.red;
 
         p1powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
+        p1PowerUpTimer = 5f;  // Resetting the timer
         if (p1powerup == "MoveOpponent")
         {
             player1Powerup.text = "Move Opponent";
@@ -189,6 +200,7 @@ public class PowerUpManager : MonoBehaviour
         player2Powerup.color = Color.red;
 
         p2powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
+        p2PowerUpTimer = 5f;  // Resetting the timer
         if (p2powerup == "MoveOpponent")
         {
             player2Powerup.text = "Move Opponent";
