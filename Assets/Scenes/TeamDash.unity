@@ -4840,6 +4840,10 @@ MonoBehaviour:
   Powerup2: {fileID: 2094680243}
   p1Timer: {fileID: 338513351}
   p2Timer: {fileID: 1858418215}
+  p1BulletLeft: {fileID: 899735410}
+  p2BulletLeft: {fileID: 361327169}
+  p1Bullet: {fileID: 250405742}
+  p2Bullet: {fileID: 24420072}
 --- !u!4 &1968615261
 Transform:
   m_ObjectHideFlags: 0
