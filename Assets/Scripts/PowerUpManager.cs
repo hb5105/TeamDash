@@ -72,8 +72,29 @@ public class PowerUpManager : MonoBehaviour
 
     void AssignRandomPowerUp()
     {
+        player1Powerup.color = Color.red;
+
         p1powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
+        if (p1powerup == "MoveOpponent")
+        {
+            player1Powerup.text = "Move Opponent";
+        }
+        else
+        {
+            player1Powerup.text = p1powerup;
+        }
+
+        player2Powerup.color = Color.red;
+
         p2powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
+        if (p2powerup == "MoveOpponent")
+        {
+            player2Powerup.text = "Move Opponent";
+        }
+        else
+        {
+            player2Powerup.text = p2powerup;
+        }
     }
 
     //void ActivatePowerUp(Paddle paddle, string powerUpName)
@@ -136,25 +157,45 @@ public class PowerUpManager : MonoBehaviour
 
     void DeactivateP1PowerUp()
     {
-        p1PowerUpActive = false;
         player1Powerup.text = "";
+        p1PowerUpActive = false;
         Invoke("AssignPowerUpToP1", powerUpCooldown);
     }
 
     void DeactivateP2PowerUp()
     {
-        p2PowerUpActive = false;
         player2Powerup.text = "";
+        p2PowerUpActive = false;
         Invoke("AssignPowerUpToP2", powerUpCooldown);
     }
 
     void AssignPowerUpToP1()
     {
+        player1Powerup.color = Color.red;
+
         p1powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
+        if (p1powerup == "MoveOpponent")
+        {
+            player1Powerup.text = "Move Opponent";
+        }
+        else
+        {
+            player1Powerup.text = p1powerup;
+        }
     }
 
     void AssignPowerUpToP2()
     {
+        player2Powerup.color = Color.red;
+
         p2powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
+        if (p2powerup == "MoveOpponent")
+        {
+            player2Powerup.text = "Move Opponent";
+        }
+        else
+        {
+            player2Powerup.text = p2powerup;
+        }
     }
 }

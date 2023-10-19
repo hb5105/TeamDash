@@ -209,7 +209,7 @@ public class Ball : MonoBehaviour
 
             if (paddle.id == 1)
             {
-                this.GetComponent<SpriteRenderer>().color = Color.magenta;
+                this.GetComponent<SpriteRenderer>().color = Color.red;
                 List<char> wordList1 = new List<char>(gameManager.wordSet1);
                 // Check if the list has any elements to prevent possible ArgumentOutOfRangeException
                 if (wordList1.Count > 0)
