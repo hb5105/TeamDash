@@ -200,7 +200,7 @@ public class PowerUpManager : MonoBehaviour
         char secondDigit = seconds.Length > 1 ? seconds[1] : seconds[0];
 
         p1Timer.GetComponentInChildren<TextMeshProUGUI>().text = secondDigit.ToString();
-        p1Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+        p1Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
         p1Timer.GetComponent<Image>().color = Color.red;
         Invoke("AssignPowerUpToP1", powerUpCooldown);
     }
@@ -216,7 +216,7 @@ public class PowerUpManager : MonoBehaviour
         char secondDigit = seconds.Length > 1 ? seconds[1] : seconds[0];
 
         p2Timer.GetComponentInChildren<TextMeshProUGUI>().text = secondDigit.ToString();
-        p2Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+        p2Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
         p2Timer.GetComponent<Image>().color = Color.red;
         Invoke("AssignPowerUpToP2", powerUpCooldown);
     }
