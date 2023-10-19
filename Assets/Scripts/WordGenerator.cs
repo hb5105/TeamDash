@@ -11,7 +11,7 @@ public class WordGenerator : MonoBehaviour
     public TextMeshProUGUI textBox; // Reference to the Text element in the Inspector
 
     // List of random words to choose from
-    private static List<string> randomWords = new List<string> { "CAT", "CAR", "HAT", "MAT", "TAP", "PAN", "WAX", "RAT", "BAT", "FAT" };
+    private static List<string> randomWords = new List<string> { "CAT","DOG", "DOWN" ,"MOON" ,"WATER", "OCEAN" , "FOREST", "FLOWER", "BATTERY", "PENGUIN"};
 
     // Static variable to store the initial word
     private static string initialWord = null;
