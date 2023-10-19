@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GunMovement : MonoBehaviour
 { 
-     public GameObject bulletPrefab;
+    public GameObject bulletPrefab;
     public Transform firePoint;
     public float bulletSpeed = 10f;
     public KeyCode fireKey = KeyCode.Space; // Define your fire key here
@@ -13,11 +14,24 @@ public class GunMovement : MonoBehaviour
     private int maxBullets = 3;
     public int playerId;
 
+    // Declare two TextMeshProUGUI variables
+    public TextMeshProUGUI player1BulletsText;
+    public TextMeshProUGUI player2BulletsText;
+
+
     void Update()
     {
         if (Input.GetKeyDown(fireKey) && bulletsFired < maxBullets)
         {
             FireBullet();
+        }
+         if (playerId == 1)
+        {
+            player1BulletsText.text = (maxBullets - bulletsFired).ToString();
+        }
+        else if (playerId == 2)
+        {
+            player2BulletsText.text = (maxBullets - bulletsFired).ToString();
         }
     }
 

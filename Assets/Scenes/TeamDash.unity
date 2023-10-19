@@ -818,6 +818,8 @@ MonoBehaviour:
   bulletSpeed: 10
   fireKey: 303
   playerId: 2
+  player1BulletsText: {fileID: 899735410}
+  player2BulletsText: {fileID: 361327169}
 --- !u!114 &230168846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2709,6 +2711,8 @@ MonoBehaviour:
   bulletSpeed: 10
   fireKey: 32
   playerId: 1
+  player1BulletsText: {fileID: 899735410}
+  player2BulletsText: {fileID: 361327169}
 --- !u!114 &1171992672
 MonoBehaviour:
   m_ObjectHideFlags: 0
