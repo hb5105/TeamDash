@@ -15,6 +15,10 @@ public class WallToggle : MonoBehaviour
     public TextMeshProUGUI Powerup2;
     public GameObject p1Timer;
     public GameObject p2Timer;
+    public TextMeshProUGUI p1BulletLeft;
+    public TextMeshProUGUI p2BulletLeft;
+    public GameObject p1Bullet;
+    public GameObject p2Bullet;
     public void Start()
     {
         SwitchToNormalWalls();  // This sets the walls to their normal state
@@ -59,6 +63,18 @@ public class WallToggle : MonoBehaviour
 
         rectTransform = p2Timer.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
+
+        rectTransform = p1BulletLeft.rectTransform;
+        rectTransform.anchoredPosition = new Vector2(-200, -160);
+
+        rectTransform = p2BulletLeft.rectTransform;
+        rectTransform.anchoredPosition = new Vector2(220, -160);
+
+        rectTransform = p1Bullet.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector2(-220, -160);
+
+        rectTransform = p2Bullet.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector2(200, -160);
 
         foreach (var wall in normalWalls)
         {
