@@ -7,10 +7,16 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-
+    public static GameManager instance; // Singleton
     public int scorePlayer1, scorePlayer2;
     public ScoreText scoreTextLeft, scoreTextRight;
+    public float powerUpActiveDuration = 5.0f;
     public WallToggle wallToggle;
+    public int ballSplittingActiveForPlayer=0;
+    private int currentIndex = 0;
+    public int[] playerPowerUpSequence = {2, 1, 1, 2, 2, 1}; 
+    public List<float> ballSplitTimes = new List<float> {120f, 90f, 60f, 30f};
+    private int currentSplitIndex = 0;
 
     public Ball ballPrefab;
 
@@ -22,12 +28,11 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public string word1;
     public string word2;
+    public List<char> remainingChars = new List<char>();
     private int numWords1, numWords2;
     public static bool isGameOver = false;
-    private HashSet<char> wordSet1 = new HashSet<char>();
-    private HashSet<char> usedSet1 = new HashSet<char>();
-    private HashSet<char> wordSet2 = new HashSet<char>();
-    private HashSet<char> usedSet2 = new HashSet<char>();
+    public HashSet<char> wordSet1 = new HashSet<char>();
+    public HashSet<char> wordSet2 = new HashSet<char>();
     [SerializeField] private float timeInSeconds;
     [SerializeField] private TextMeshProUGUI timerText;
 
@@ -39,6 +44,21 @@ public class GameManager : MonoBehaviour
     public GunMovement player2GunMovement; // Assign this to player 2's paddle in the editor
 
     public TextMeshProUGUI TimerText { get => timerText; }
+
+    private void Awake()
+    {
+        // Singleton pattern
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     public void Start()
     {
@@ -58,7 +78,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < word1.Length; i++)
         {
             res1 = res1 + "_";
-}
+        }
         for (int i = 0; i < word2.Length; i++)
         {
             res2 = res2 + "_";
@@ -72,8 +92,26 @@ public class GameManager : MonoBehaviour
             wordSet2.Add(c);
         }
         UpdateScores(res1, res2);
+        remainingChars = new List<char>(wordSet1);
+        remainingChars.AddRange(new List<char>(wordSet2));
     }
-       
+    IEnumerator RandomizePowerUpActivePlayer()
+    {
+            
+            ballSplittingActiveForPlayer = playerPowerUpSequence[currentIndex];
+            currentIndex = (currentIndex + 1) % playerPowerUpSequence.Length;
+
+            // Wait for powerUpActiveDuration seconds or until player uses the power-up
+            float timer = 0;
+            while(timer < powerUpActiveDuration && ballSplittingActiveForPlayer != 0)
+            {
+                yield return null; // Wait for next frame
+                timer += Time.deltaTime;
+            }
+
+            // Deactivate the power-up
+            ballSplittingActiveForPlayer = 0;
+    }
      public void SpawnNewBall(GameObject CurrentBall)
     {   Debug.Log("spawning new");
         GameObject newBall = Instantiate(CurrentBall, Vector2.zero, Quaternion.identity); // Spawning the ball at the center for now
@@ -105,6 +143,16 @@ public class GameManager : MonoBehaviour
         {
             currentTime -= Time.deltaTime;
             SetTime(currentTime);
+            float threshold = 0.05f; // Small threshold value to account for precision errors
+            if (currentSplitIndex < ballSplitTimes.Count && Mathf.Abs(currentTime - ballSplitTimes[currentSplitIndex]) < threshold)
+            { Debug.Log("currentTime "+currentTime);
+            // Here, initiate the ball split logic. Depending on your implementation, you might call a function or set a flag.
+            StartCoroutine(RandomizePowerUpActivePlayer());
+
+
+            // Move to the next time checkpoint
+            currentSplitIndex++;
+             }
         }
     }
 
@@ -265,15 +313,5 @@ public class GameManager : MonoBehaviour
         {
             player2GunMovement.IncreaseBullets(); // Update bullets for player 2
         }
-        if (!isGameOver)
-        {
-            List<char> remainingChars = new List<char>(wordSet1);
-            remainingChars.AddRange(new List<char>(wordSet2));
-            int idx = Random.Range(0, remainingChars.Count);
-            char nextChar = remainingChars[idx];
-            ballText.setText(nextChar.ToString());
-
-        }
-
     }
 }

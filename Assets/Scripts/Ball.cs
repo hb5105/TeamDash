@@ -27,20 +27,23 @@ public class Ball : MonoBehaviour
     public float spinStrength = 500f;
     public float maxStartY = 4f;
     public GameManager gameManager;
+    public BallText ballText;
     private int wallHitCounter = 0;
 
     private float startX = 0f;
     private float minimumHorizontalVelocity = 0.5f;  // Adjust as needed
-    private float minimumVerticalVelocity = 0.5f;  
-    
+    private float minimumVerticalVelocity = 0.5f;
+
     private void AdjustVelocity()
     {
+        // Adjusting Horizontal Velocity
         if (Mathf.Abs(rb2d.velocity.x) < minimumHorizontalVelocity)
         {
             float newVelocityX = (rb2d.velocity.x >= 0) ? minimumHorizontalVelocity : -minimumHorizontalVelocity;
             rb2d.velocity = new Vector2(newVelocityX, rb2d.velocity.y);
         }
-         if (Mathf.Abs(rb2d.velocity.y) < minimumVerticalVelocity)
+        // Adjusting Vertical Velocity
+        if (Mathf.Abs(rb2d.velocity.y) < minimumVerticalVelocity)
         {
             float newVelocityY = (rb2d.velocity.y >= 0) ? minimumVerticalVelocity : -minimumVerticalVelocity;
             rb2d.velocity = new Vector2(rb2d.velocity.x, newVelocityY);
@@ -91,6 +94,10 @@ public class Ball : MonoBehaviour
         }
      
     }
+    private void Update()
+{
+    AdjustVelocity();
+}
     // private void ChangeBallDirection()
     // {
     //     Rigidbody2D rb = GetComponent<Rigidbody2D>();
@@ -200,14 +207,44 @@ public class Ball : MonoBehaviour
             AdjustVelocity();
         }
 
-         if(paddle.id ==1){
+            if (paddle.id == 1)
+            {
                 this.GetComponent<SpriteRenderer>().color = Color.red;
-           }
-           if(paddle.id==2){
-                this.GetComponent<SpriteRenderer>().color = Color.blue;
+                List<char> wordList1 = new List<char>(gameManager.wordSet1);
+                // Check if the list has any elements to prevent possible ArgumentOutOfRangeException
+                if (wordList1.Count > 0)
+                {
+                    int idx = Random.Range(0, wordList1.Count);
+                    char nextChar = wordList1[idx];
+                    ballText.setText(nextChar.ToString());
+                }
             }
 
-    }
+            if (paddle.id == 2)
+            {
+                this.GetComponent<SpriteRenderer>().color = Color.blue;
+                List<char> wordList2 = new List<char>(gameManager.wordSet2);
+                // Check if the list has any elements to prevent possible ArgumentOutOfRangeException
+                if (wordList2.Count > 0)
+                {
+                    int idx = Random.Range(0, wordList2.Count);
+                    char nextChar = wordList2[idx];
+                    ballText.setText(nextChar.ToString());
+                }
+            }
+            AdjustVelocity();
+        }
+         if (collision.gameObject.CompareTag("NorthWall"))
+            {
+                Vector2 currentVelocity = rb2d.velocity;
+                rb2d.velocity = new Vector2(currentVelocity.x, -Mathf.Abs(currentVelocity.y));
+            }
+            // Check for the SouthWall tag
+            else if (collision.gameObject.CompareTag("SouthWall"))
+            {
+                Vector2 currentVelocity = rb2d.velocity;
+                rb2d.velocity = new Vector2(currentVelocity.x, Mathf.Abs(currentVelocity.y));
+            }
     }
 
     public void ResetBall()
