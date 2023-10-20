@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Services.Analytics;
 using UnityEngine;
-using UnityEngine.Analytics;
 using Proyecto26;
-using UnityEditor.Experimental.RestService;
 
 [System.Serializable]
 public class PlayerData   

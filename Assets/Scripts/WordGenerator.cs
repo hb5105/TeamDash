@@ -7,11 +7,12 @@ using Random = UnityEngine.Random;
 
 public class WordGenerator : MonoBehaviour
 {
+    public ResetController ResetController;
     // Start is called before the first frame update
     public TextMeshProUGUI textBox; // Reference to the Text element in the Inspector
 
     // List of random words to choose from
-    private static List<string> randomWords = new List<string> { "CAT","DOG", "DOWN" ,"FOUR" ,"WATER", "OCEAN" , "FOREST", "FLOWER", "MACHINE", "HUSBAND"};
+    private static List<string> randomWords = new List<string> { "CAT","DOG", "DOWN" ,"FOUR" ,"WATER", "OCEAN" , "VIBE", "VIBE", "GAZE", "HAZE"};
 
     // Static variable to store the initial word
     private static string initialWord = null;
@@ -40,6 +41,10 @@ public class WordGenerator : MonoBehaviour
     private string GetRandomWord()
     {
         currIndex = Random.Range(0, randomWords.Count);
+        if (ResetController.isButtonPressed)
+        {
+            currIndex = 0;
+        }
         currWord = randomWords[currIndex];
         randomWords.RemoveAt(currIndex);
 
