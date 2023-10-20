@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
         TimerText.text = "02:30";
         wordSet1 = new HashSet<char>();
         wordSet2 = new HashSet<char>();
+        gameOverText.text = "";
         isGameOver = false;
         //SetTime(150);
         // Initialize words for players
@@ -147,7 +148,8 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update()
-    {
+    { 
+        // ;
         if (isGameOver == false && !(countDown.isCountDown))
         {
             currentTime -= Time.deltaTime;
@@ -170,7 +172,6 @@ public class GameManager : MonoBehaviour
         //print(currentTime);
         TimeSpan time = TimeSpan.FromSeconds(currentTime);                       // set the time value
         TimerText.text = time.ToString("mm':'ss");   // convert time to Time format
-
         if (currentTime <= 0)
         {
             // Game Over
@@ -180,8 +181,10 @@ public class GameManager : MonoBehaviour
 
     public void GameEnd()
     {
-        
+        Debug.Log("gAME eND CALLED");
         gameOverMenu.SetActive(true);
+        isGameOver = true;
+        if(isGameOver == true){
         if(scorePlayer1 > scorePlayer2)
         {
             // Display Game Over message and winner's name
@@ -196,7 +199,8 @@ public class GameManager : MonoBehaviour
         {
             gameOverText.text = "Game Over\nIt's a Tie!";
         }
-        isGameOver = true;
+        }
+        
     }
 
     public void UpdateScores(string res1, string res2)

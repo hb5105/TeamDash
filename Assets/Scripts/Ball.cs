@@ -175,11 +175,14 @@ public class Ball : MonoBehaviour
                
             string json = JsonUtility.ToJson(playerData);
             RestClient.Post("https://csci526-bee47-default-rtdb.firebaseio.com/.json", playerData);
-                     
+              Debug.Log(GameObject.FindObjectsOfType<Ball>().Length);       
             if (!GameManager.isGameOver && GameObject.FindObjectsOfType<Ball>().Length==1)
             {
                 // ResetBall();
                 // InitialPush();
+                gameManager.SpawnNewBall(this.gameObject);
+            }
+            if(GameManager.isGameOver){
                 gameManager.SpawnNewBall(this.gameObject);
             }
             Destroy(this.gameObject);
