@@ -10,16 +10,18 @@ public class CountDown : MonoBehaviour
     public TextMeshProUGUI countdownText;
     public float countdownDuration = 3.0f;
     public Image darkBackground;
-    public GameObject gameManager;
     public GameObject ball;
+    public bool isCountDown = true;
     void Start()
     {
         StartCoroutine(StartCountdown());
+        //gameManager = GameManager.instance;
+
     }
 
     IEnumerator StartCountdown()
     {
-        gameManager.SetActive(false);
+        isCountDown = true;
         ball.SetActive(false);
         int countdownValue = (int)countdownDuration;
         darkBackground.gameObject.SetActive(true);
@@ -34,8 +36,9 @@ public class CountDown : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         countdownText.gameObject.SetActive(false);
         darkBackground.gameObject.SetActive(false);
-        gameManager.SetActive(true);
+        isCountDown = false;
         ball.SetActive(true);
+
 
     }
 }
