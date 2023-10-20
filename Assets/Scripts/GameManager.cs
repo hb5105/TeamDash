@@ -61,13 +61,15 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
-    public void RetryButton()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
+    
+    
     public void Start()
     {
+        TimerText.text = "02:30";
+        wordSet1 = new HashSet<char>();
+        wordSet2 = new HashSet<char>();
+        isGameOver = false;
+        //SetTime(150);
         // Initialize words for players
         gameOverMenu.SetActive(false);
         textBoxPlayer1 = wordGeneratorPlayer1.textBox;
