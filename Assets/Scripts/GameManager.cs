@@ -61,8 +61,11 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
-    
-    
+    public void RetryButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void Start()
     {
         TimerText.text = "02:30";
@@ -148,8 +151,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update()
-    { 
-        // ;
+    {
         if (isGameOver == false && !(countDown.isCountDown))
         {
             currentTime -= Time.deltaTime;
