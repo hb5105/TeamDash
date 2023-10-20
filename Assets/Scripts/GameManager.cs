@@ -61,11 +61,8 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
-    public void RetryButton()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
+    
+    
     public void Start()
     {
         TimerText.text = "02:30";
