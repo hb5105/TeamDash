@@ -13,7 +13,7 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
     public void RetryButton()
-    {
+    {   
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
