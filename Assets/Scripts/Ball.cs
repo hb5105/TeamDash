@@ -31,8 +31,9 @@ public class Ball : MonoBehaviour
     private int wallHitCounter = 0;
 
     private float startX = 0f;
-    private float minimumHorizontalVelocity = 0.5f;  // Adjust as needed
+    private float minimumHorizontalVelocity = 1f;  // Adjust as needed
     private float minimumVerticalVelocity = 0.5f;
+    private float minimumSpeed = 6f;
 
     private void AdjustVelocity()
     {
@@ -48,6 +49,10 @@ public class Ball : MonoBehaviour
             float newVelocityY = (rb2d.velocity.y >= 0) ? minimumVerticalVelocity : -minimumVerticalVelocity;
             rb2d.velocity = new Vector2(rb2d.velocity.x, newVelocityY);
         }
+            if (rb2d.velocity.magnitude < minimumSpeed)
+            {
+                rb2d.velocity = rb2d.velocity.normalized * minimumSpeed;
+            }
     }
 
     private void Start()
