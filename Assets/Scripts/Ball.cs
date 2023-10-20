@@ -26,7 +26,7 @@ public class Ball : MonoBehaviour
     public float moveSpeed = 1f;
     public float spinStrength = 500f;
     public float maxStartY = 4f;
-    public GameManager gameManager;
+    public GameManager gameManager=GameManager.instance;
     public BallText ballText;
     private int wallHitCounter = 0;
 
