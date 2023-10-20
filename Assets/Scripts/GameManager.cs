@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float timeInSeconds;
     [SerializeField] private TextMeshProUGUI timerText;
 
-    private bool isReset;
     private string res1;
     private string res2;
     private float currentTime;

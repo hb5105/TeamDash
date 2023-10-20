@@ -19,7 +19,7 @@ public class CountDown : MonoBehaviour
 
     }
 
-    IEnumerator StartCountdown()
+    public IEnumerator StartCountdown()
     {
         isCountDown = true;
         ball.SetActive(false);
