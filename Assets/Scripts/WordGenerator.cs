@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class WordGenerator : MonoBehaviour
 {
+    public ResetController ResetController;
     // Start is called before the first frame update
     public TextMeshProUGUI textBox; // Reference to the Text element in the Inspector
 
@@ -40,6 +41,10 @@ public class WordGenerator : MonoBehaviour
     private string GetRandomWord()
     {
         currIndex = Random.Range(0, randomWords.Count);
+        if (ResetController.isButtonPressed)
+        {
+            currIndex = 0;
+        }
         currWord = randomWords[currIndex];
         randomWords.RemoveAt(currIndex);
 

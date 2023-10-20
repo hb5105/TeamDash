@@ -345,6 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702952e61ecab2942af1035927e9adc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ResetController: {fileID: 1049699296}
   textBox: {fileID: 90997397}
 --- !u!1 &166963731
 GameObject:
@@ -4049,6 +4050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702952e61ecab2942af1035927e9adc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ResetController: {fileID: 1049699296}
   textBox: {fileID: 1573758348}
 --- !u!1 &1709948864
 GameObject:
