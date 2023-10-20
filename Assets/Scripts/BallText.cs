@@ -6,7 +6,7 @@ using UnityEngine;
 public class BallText : MonoBehaviour
 {
     public GameObject ballTextObj;
-    public GameManager gameManager;
+    public GameManager gameManager=GameManager.instance;
     private TextMeshPro tmp;
 
     // public void Start()

@@ -320,6 +320,8 @@ public class GameManager : MonoBehaviour
         }
         
         UpdateScores(res1, res2);
+        remainingChars = new List<char>(wordSet1);
+        remainingChars.AddRange(new List<char>(wordSet2));
         if (id == 1 && scorePlayer1 > 0 && scorePlayer1 % 3 == 0)
         {
             player1GunMovement.IncreaseBullets(); // Update bullets for player 1
