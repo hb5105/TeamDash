@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -19,12 +20,13 @@ public class GameManager : MonoBehaviour
     private int currentSplitIndex = 0;
 
     public Ball ballPrefab;
-
+    public CountDown countDown;
     public BallText ballText;
     public WordGenerator wordGeneratorPlayer1;
     public WordGenerator wordGeneratorPlayer2;
     private TextMeshProUGUI textBoxPlayer1;
     private TextMeshProUGUI textBoxPlayer2;
+    public GameObject gameOverMenu;
     public TextMeshProUGUI gameOverText;
     public string word1;
     public string word2;
@@ -51,7 +53,7 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -59,10 +61,15 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
+    public void RetryButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
     public void Start()
     {
         // Initialize words for players
+        gameOverMenu.SetActive(false);
         textBoxPlayer1 = wordGeneratorPlayer1.textBox;
         textBoxPlayer2 = wordGeneratorPlayer2.textBox;
         currentTime = timeInSeconds;
@@ -139,7 +146,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (isGameOver == false)
+        if (isGameOver == false && !(countDown.isCountDown))
         {
             currentTime -= Time.deltaTime;
             SetTime(currentTime);
@@ -171,6 +178,8 @@ public class GameManager : MonoBehaviour
 
     public void GameEnd()
     {
+        
+        gameOverMenu.SetActive(true);
         if(scorePlayer1 > scorePlayer2)
         {
             // Display Game Over message and winner's name
