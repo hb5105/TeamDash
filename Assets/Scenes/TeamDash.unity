@@ -834,7 +834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb2d: {fileID: 230168848}
   id: 2
-  moveSpeed: 8
+  moveSpeed: 10
   tiltAmount: 19
   ball: {fileID: 1709948866}
 --- !u!61 &230168847
@@ -2770,7 +2770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb2d: {fileID: 1171992677}
   id: 1
-  moveSpeed: 8
+  moveSpeed: 10
   tiltAmount: 19
   ball: {fileID: 1709948866}
 --- !u!61 &1171992676

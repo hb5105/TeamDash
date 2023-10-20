@@ -198,7 +198,17 @@ public class Ball : MonoBehaviour
             // Increase the ball's speed
             Debug.Log("Ball Velocity before collision: " + rb2d.velocity);
             float speedMultiplier = 3f;  // Adjust as needed
+            float angleAdjustment = 2f;
+            float tiltDirection=(paddle.transform.rotation.z>0)? 1:-1;
             rb2d.velocity = rb2d.velocity.normalized*moveSpeed*speedMultiplier;
+            float newYVelocity;
+            if(paddle.id==2){
+            newYVelocity = rb2d.velocity.y + (angleAdjustment * tiltDirection);
+            }
+            else{
+             newYVelocity = rb2d.velocity.y + (angleAdjustment * -1*tiltDirection);   
+            }
+            rb2d.velocity = new Vector2(rb2d.velocity.x, newYVelocity);
             Debug.Log("Ball Velocity after collision: " + rb2d.velocity);
             AdjustVelocity();
         }
