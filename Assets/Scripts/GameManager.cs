@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +19,8 @@ public class GameManager : MonoBehaviour
     public int[] playerPowerUpSequence = {2, 1, 1, 2, 2, 1}; 
     public List<float> ballSplitTimes = new List<float> {120f, 90f, 60f, 30f};
     private int currentSplitIndex = 0;
-
+    //locations of where the player will spawn when network is connected
+    public Transform[] spawnLocs;
     public Ball ballPrefab;
     public CountDown countDown;
     public BallText ballText;
@@ -103,6 +105,11 @@ public class GameManager : MonoBehaviour
         UpdateScores(res1, res2);
         remainingChars = new List<char>(wordSet1);
         remainingChars.AddRange(new List<char>(wordSet2));
+        if (PhotonNetwork.IsConnected) 
+        {
+            Debug.Log("Connected, starting game");
+            Vector2 startPosition = spawnLocs[PhotonNetwork.LocalPlayer.ActorNumber - 1].position;
+        }
     }
     IEnumerator RandomizePowerUpActivePlayer()
     {
