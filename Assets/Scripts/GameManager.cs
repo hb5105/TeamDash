@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI TimerText { get => timerText; }
 
     private void Awake()
-    {
+    {   
         // Singleton pattern
         if (instance == null)
         {
@@ -64,7 +64,12 @@ public class GameManager : MonoBehaviour
     
     
     public void Start()
-    {
+    {    wallToggle.SwitchToNormalWalls();
+        currentSplitIndex = 0;
+        player1GunMovement.bulletsFired=0;
+        player2GunMovement.bulletsFired=0;
+        player1GunMovement.maxBullets=3;
+        player2GunMovement.maxBullets=3;
         TimerText.text = "02:30";
         wordSet1 = new HashSet<char>();
         wordSet2 = new HashSet<char>();
@@ -322,11 +327,11 @@ public class GameManager : MonoBehaviour
         UpdateScores(res1, res2);
         remainingChars = new List<char>(wordSet1);
         remainingChars.AddRange(new List<char>(wordSet2));
-        if (id == 1 && scorePlayer1 > 0 && scorePlayer1 % 3 == 0)
+        if (id == 1 && scorePlayer1 > 0)
         {
             player1GunMovement.IncreaseBullets(); // Update bullets for player 1
         }
-        else if (id == 2 && scorePlayer2 > 0 && scorePlayer2 % 3 == 0)
+        else if (id == 2 && scorePlayer2 > 0)
         {
             player2GunMovement.IncreaseBullets(); // Update bullets for player 2
         }

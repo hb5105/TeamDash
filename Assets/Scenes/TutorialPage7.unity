@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Start Scene
+  currentSceneName: 
 --- !u!114 &166876022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,7 +637,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Dynamic Level: \nLevel shape changes when a player completes first word.\nBall
-    splits into two at 2:00 on the timer"
+    splits into two randomly."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -996,6 +997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: TutorialPage6
+  currentSceneName: 
 --- !u!114 &1262265618
 MonoBehaviour:
   m_ObjectHideFlags: 0

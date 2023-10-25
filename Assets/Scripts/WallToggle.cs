@@ -24,7 +24,9 @@ public class WallToggle : MonoBehaviour
         SwitchToNormalWalls();  // This sets the walls to their normal state
     }
     public void SwitchToNormalWalls()
-    {    foreach (var wall in pointedWalls)
+    {   Camera mainCam = Camera.main;  
+        mainCam.orthographicSize = 5; 
+        foreach (var wall in pointedWalls)
         {
             wall.SetActive(false);
         }
@@ -32,7 +34,7 @@ public class WallToggle : MonoBehaviour
         {
             wall.SetActive(true);
         }
- 
+
     }
 
     public void SwitchToPointedWalls()
@@ -41,40 +43,52 @@ public class WallToggle : MonoBehaviour
         mainCam.orthographicSize = 8;
 
         RectTransform rectTransform = ScoreTextLeft.rectTransform;
+        Debug.Log("stleft"+rectTransform.anchoredPosition);
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 83);
 
         rectTransform = ScoreTextRight.rectTransform;
+        Debug.Log("stright"+rectTransform.anchoredPosition);
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 83);
 
         rectTransform = Word1.rectTransform;
+        Debug.Log("w1"+rectTransform.anchoredPosition);
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -117);
 
         rectTransform = Word2.rectTransform;
+        Debug.Log("w2"+rectTransform.anchoredPosition);
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -117);
 
         rectTransform = Powerup1.rectTransform;
+        Debug.Log("pup1"+rectTransform.anchoredPosition);
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
 
         rectTransform = Powerup2.rectTransform;
+        Debug.Log("pup2"+rectTransform.anchoredPosition);
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
 
         rectTransform = p1Timer.GetComponent<RectTransform>();
+        Debug.Log("p1timer"+rectTransform.anchoredPosition);
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
 
         rectTransform = p2Timer.GetComponent<RectTransform>();
+        Debug.Log("p2timer"+rectTransform.anchoredPosition);
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
 
         rectTransform = p1BulletLeft.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(-200, -160);
+        Debug.Log("p1bul"+rectTransform.anchoredPosition);
+        rectTransform.anchoredPosition = new Vector2(-200, -163);
 
         rectTransform = p2BulletLeft.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(220, -160);
+        Debug.Log("p2bul"+rectTransform.anchoredPosition);
+        rectTransform.anchoredPosition = new Vector2(220, -163);
 
         rectTransform = p1Bullet.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = new Vector2(-220, -160);
+        Debug.Log("p1bulcomp"+rectTransform.anchoredPosition);
+        rectTransform.anchoredPosition = new Vector2(-220, -163);
 
         rectTransform = p2Bullet.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = new Vector2(200, -160);
+        Debug.Log("p2bulcomp"+rectTransform.anchoredPosition);
+        rectTransform.anchoredPosition = new Vector2(200, -163);
 
         foreach (var wall in normalWalls)
         {

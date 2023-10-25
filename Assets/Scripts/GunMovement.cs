@@ -10,8 +10,8 @@ public class GunMovement : MonoBehaviour
     public float bulletSpeed = 10f;
     public KeyCode fireKey = KeyCode.Space; // Define your fire key here
 
-    private int bulletsFired = 0;
-    private int maxBullets = 3;
+    public int bulletsFired = 0;
+    public int maxBullets = 3;
     public int playerId;
 
     // Declare two TextMeshProUGUI variables
