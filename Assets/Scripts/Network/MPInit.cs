@@ -5,8 +5,7 @@ using Photon.Pun;
 using UnityEngine.SceneManagement;
 
 public class MPInit : MonoBehaviourPunCallbacks
-{
-    // Start is called before the first frame update
+{ 
     void Start()
     {
         PhotonNetwork.AutomaticallySyncScene = true;

@@ -4,10 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager instance; // Singleton
     public int scorePlayer1, scorePlayer2;
@@ -108,9 +109,26 @@ public class GameManager : MonoBehaviour
         if (PhotonNetwork.IsConnected) 
         {
             Debug.Log("Connected, starting game");
+            // set the startpositions of the paddle
             Vector2 startPosition = spawnLocs[PhotonNetwork.LocalPlayer.ActorNumber - 1].position;
+
         }
     }
+    //this is called when Begin Game button is pressed
+    public void BeginGame()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("StartGame", RpcTarget.All, null);
+        }
+    }
+
+    [PunRPC]
+    public void StartGame()
+    {
+        
+    }
+
     IEnumerator RandomizePowerUpActivePlayer()
     {
             
