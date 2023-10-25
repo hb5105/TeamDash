@@ -323,7 +323,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52e38590a8bc314cbe2cc93a7449ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: TeamDash
+  sceneName: Online or Local
+  currentSceneName: 
 --- !u!114 &502682906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -605,6 +606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: PlayerControls
+  currentSceneName: 
 --- !u!114 &715522579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1486,6 +1488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: TutorialPage1
+  currentSceneName: 
 --- !u!1 &2115795181
 GameObject:
   m_ObjectHideFlags: 0

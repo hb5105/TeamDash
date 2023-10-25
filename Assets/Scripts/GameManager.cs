@@ -1,12 +1,14 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager instance; // Singleton
     public int scorePlayer1, scorePlayer2;
@@ -18,7 +20,8 @@ public class GameManager : MonoBehaviour
     public int[] playerPowerUpSequence = {2, 1, 1, 2, 2, 1}; 
     public List<float> ballSplitTimes = new List<float> {120f, 90f, 60f, 30f};
     private int currentSplitIndex = 0;
-
+    //locations of where the player will spawn when network is connected
+    public Transform[] spawnLocs;
     public Ball ballPrefab;
     public CountDown countDown;
     public BallText ballText;
@@ -37,7 +40,6 @@ public class GameManager : MonoBehaviour
     public HashSet<char> wordSet2 = new HashSet<char>();
     [SerializeField] private float timeInSeconds;
     [SerializeField] private TextMeshProUGUI timerText;
-
 
     private string res1;
     private string res2;
@@ -109,7 +111,29 @@ public class GameManager : MonoBehaviour
         UpdateScores(res1, res2);
         remainingChars = new List<char>(wordSet1);
         remainingChars.AddRange(new List<char>(wordSet2));
+        if (PhotonNetwork.IsConnected) 
+        {
+            Debug.Log("Connected, starting game");
+            // set the startpositions of the paddle
+            Vector2 startPosition = spawnLocs[PhotonNetwork.LocalPlayer.ActorNumber - 1].position;
+
+        }
     }
+    //this is called when Begin Game button is pressed
+    public void BeginGame()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("StartGame", RpcTarget.All, null);
+        }
+    }
+
+    [PunRPC]
+    public void StartGame()
+    {
+        
+    }
+
     IEnumerator RandomizePowerUpActivePlayer()
     {
             
@@ -153,8 +177,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update()
-    { 
-        // ;
+    {
         if (isGameOver == false && !(countDown.isCountDown))
         {
             currentTime -= Time.deltaTime;
