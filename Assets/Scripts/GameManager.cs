@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     //locations of where the player will spawn when network is connected
     public Transform[] spawnLocs;
     // menu for tutorial scenes
-    public GameObject nextTutorialMenu;
-    public GameObject tutorialTxtPrompt;
+    //public GameObject nextTutorialMenu;
+    //public GameObject tutorialTxtPrompt;
     public Ball ballPrefab;
     public CountDown countDown;
     public BallText ballText;
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         isGameOver = false;
         //SetTime(150);
         // Initialize words for players
-        nextTutorialMenu.SetActive(false);
+        //nextTutorialMenu.SetActive(false);
         gameOverMenu.SetActive(false);
         textBoxPlayer1 = wordGeneratorPlayer1.textBox;
         textBoxPlayer2 = wordGeneratorPlayer2.textBox;
@@ -217,13 +217,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         Debug.Log("gAME eND CALLED");
         string sceneName = SceneManager.GetActiveScene().name;
-        if (!(sceneName == "TeamDash") && !(sceneName == "David Scene"))
+        /*if (!(sceneName == "TeamDash") && !(sceneName == "David Scene"))
         {
             tutorialTxtPrompt.SetActive(false);
             nextTutorialMenu.SetActive(true);
-        }
-        else
-        {
+        }*/
+        //else
+        //{
             gameOverMenu.SetActive(true);
             isGameOver = true;
             if(isGameOver == true)
@@ -243,7 +243,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                     gameOverText.text = "Game Over\nIt's a Tie!";
                 }
             }
-        }
+       // }
         
         
     }
