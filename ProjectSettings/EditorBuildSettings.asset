@@ -60,6 +60,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Test Scenes/David Scene.unity
     guid: b8e3e6e4119bf1c4d9f719e1e38a470f
   - enabled: 1
+    path: Assets/Scenes/ShootingScene.unity
+    guid: e9ba7b0da2af943a8af57ecea1791269
+  - enabled: 1
     path: Assets/Scenes/VasviScenes/VasviScene.unity
     guid: 6556db261fe964171b2c18ddb1c3aba1
   m_configObjects: {}

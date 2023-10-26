@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         bulletCollider = GetComponent<BoxCollider2D>();
+        gameManager = GameManager.instance;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
