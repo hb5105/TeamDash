@@ -5201,7 +5201,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668241237}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02bdb69d4dab04874b0b426ac449e910, type: 3}
   m_Name: 
@@ -5236,7 +5236,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668241237}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9209d4ef93af940f595f9ef9ee1bb0ac, type: 3}
   m_Name: 
@@ -5250,7 +5250,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668241237}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99ade1fb707fc4daeb2a7ebaf1426246, type: 3}
   m_Name: 
@@ -5266,7 +5266,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668241237}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c8d5b40e2dab4f7eb805f3bd32c4cbd, type: 3}
   m_Name: 
@@ -5287,7 +5287,7 @@ MonoBehaviour:
   rb2d: {fileID: 1668241245}
   id: 2
   moveSpeed: 10
-  tiltAmount: 19
+  tiltAmount: 0
   ball: {fileID: 1460338836}
 --- !u!61 &1668241244
 BoxCollider2D:
@@ -5549,8 +5549,6 @@ MonoBehaviour:
   remainingChars: 4100
   timeInSeconds: 150
   timerText: {fileID: 1546844443}
-  player1GunMovement: {fileID: 1953387641}
-  player2GunMovement: {fileID: 1668241238}
 --- !u!4 &1726155367
 Transform:
   m_ObjectHideFlags: 0
@@ -5863,7 +5861,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953387632}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99ade1fb707fc4daeb2a7ebaf1426246, type: 3}
   m_Name: 
@@ -5879,7 +5877,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953387632}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9209d4ef93af940f595f9ef9ee1bb0ac, type: 3}
   m_Name: 
@@ -5893,7 +5891,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953387632}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c8d5b40e2dab4f7eb805f3bd32c4cbd, type: 3}
   m_Name: 
@@ -5914,7 +5912,7 @@ MonoBehaviour:
   rb2d: {fileID: 1953387638}
   id: 1
   moveSpeed: 10
-  tiltAmount: 19
+  tiltAmount: 0
   ball: {fileID: 1460338836}
 --- !u!61 &1953387637
 BoxCollider2D:
@@ -6063,7 +6061,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953387632}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02bdb69d4dab04874b0b426ac449e910, type: 3}
   m_Name: 
