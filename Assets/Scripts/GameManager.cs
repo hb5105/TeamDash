@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private int currentSplitIndex = 0;
     //locations of where the player will spawn when network is connected
     public Transform[] spawnLocs;
+    // prefabs for each player
+    public GameObject[] playerPrefabs;
     // menu for tutorial scenes
     //public GameObject nextTutorialMenu;
     //public GameObject tutorialTxtPrompt;
@@ -116,8 +118,14 @@ public class GameManager : MonoBehaviourPunCallbacks
             // set the startpositions of the paddle
             int spawnIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1;
             Vector2 spawnPosition = spawnLocs[spawnIndex].position;
+            if(spawnIndex >= playerPrefabs.Length)
+            {
+                Debug.LogError("Not enough prefabs defined for players.");
+                return;
+            }
+            GameObject playerPrefab = playerPrefabs[spawnIndex];
             // spawn player prefab
-            PhotonNetwork.Instantiate("NetPaddle", spawnPosition, Quaternion.identity);
+            PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
         }
         else
         {
