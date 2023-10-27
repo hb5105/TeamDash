@@ -5226,7 +5226,7 @@ MonoBehaviour:
   word1: HAT
   word2: HAT
   remainingChars: 4100
-  timeInSeconds: 10
+  timeInSeconds: 150
   timerText: {fileID: 1728526040}
 --- !u!4 &1872166392
 Transform:
