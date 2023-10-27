@@ -20,11 +20,13 @@ public class MPInit : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
+        Debug.Log("OnConnectedToMaster() was called by PUN.");
         PhotonNetwork.JoinLobby();
     }
 
     public override void OnJoinedLobby()
     {
+        Debug.Log("Join or Host scene was loaded.");
         SceneManager.LoadScene("Join or Host");
     }
 }

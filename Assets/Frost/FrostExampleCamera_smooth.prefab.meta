@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/grey.mat.meta
+guid: 9b2065689f806844e83cb88e7a6aea1c
+timeCreated: 1495795922
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+========
+guid: a2d9103060b3e3547b7acceb438dfa92
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+>>>>>>>> 4f38a8d8dbf51e9a46aa9d0d7d8ab9934be2058f:Assets/Frost/FrostExampleCamera_smooth.prefab.meta
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Photon/PhotonRealtime/Code/Unity.meta
 guid: fa14aa576f7e18f4bb6c4c93368a235d
+========
+guid: c73bd05f7e3a006418e6398b47511e49
+>>>>>>>> 4f38a8d8dbf51e9a46aa9d0d7d8ab9934be2058f:Assets/Photon/PhotonChat/Demos/DemoChat/Files.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
