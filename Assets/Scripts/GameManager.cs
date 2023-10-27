@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private TextMeshProUGUI textBoxPlayer1;
     private TextMeshProUGUI textBoxPlayer2;
     public GameObject gameOverMenu;
+    public GameObject levelOverMenu;
     public TextMeshProUGUI gameOverText;
     public string word1;
     public string word2;
@@ -80,7 +81,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         //SetTime(150);
         // Initialize words for players
         //nextTutorialMenu.SetActive(false);
-        gameOverMenu.SetActive(false);
+        // gameOverMenu.SetActive(false);
+        levelOverMenu.SetActive(false);
+    
         textBoxPlayer1 = wordGeneratorPlayer1.textBox;
         textBoxPlayer2 = wordGeneratorPlayer2.textBox;
         currentTime = timeInSeconds;
@@ -232,7 +235,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         }*/
         //else
         //{
-            gameOverMenu.SetActive(true);
+            // gameOverMenu.SetActive(true);
+            levelOverMenu.SetActive(true);
             isGameOver = true;
             if(isGameOver == true)
             {
