@@ -71,4 +71,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial Scenes/level1-scene.unity
     guid: 620a76cef80b7ba48a27e5fa6d6c7ba7
+  - enabled: 1
+    path: Assets/Scenes/FreezeScaff.unity
+    guid: b44f1f6c26fd5c4489958adb76379526
+  - enabled: 1
+    path: Assets/Scenes/MagnifyScaff.unity
+    guid: 0cf1b13684f64c84eb227c54e7459416
+  - enabled: 1
+    path: Assets/Scenes/MoveOppScaff.unity
+    guid: 0109577b0b7b1a64885cc0a8744669ae
   m_configObjects: {}

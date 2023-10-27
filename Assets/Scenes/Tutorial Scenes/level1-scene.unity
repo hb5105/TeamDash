@@ -4177,6 +4177,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2713333039747523468, guid: 7897ec2a6243587499097d2625c468db, type: 3}
+      propertyPath: sceneName
+      value: VasviScene
+      objectReference: {fileID: 0}
     - target: {fileID: 4670607218924704532, guid: 7897ec2a6243587499097d2625c468db, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadTheScene
@@ -4184,6 +4188,10 @@ PrefabInstance:
     - target: {fileID: 4906586585931322132, guid: 7897ec2a6243587499097d2625c468db, type: 3}
       propertyPath: m_Name
       value: LeveLOverMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906586585931322132, guid: 7897ec2a6243587499097d2625c468db, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5615,7 +5623,7 @@ MonoBehaviour:
   word1: HAT
   word2: HAT
   remainingChars: 4100
-  timeInSeconds: 10
+  timeInSeconds: 150
   timerText: {fileID: 1546844443}
 --- !u!4 &1726155367
 Transform:
