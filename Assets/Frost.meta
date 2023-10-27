@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Photon/PhotonChat/Demos/DemoChat/Files.meta
+guid: 23e1af607142a004d9f25243086d5cf1
+========
 guid: 08d0ef87938cd4e4094e3c854ee134a7
+>>>>>>>> 4f38a8d8dbf51e9a46aa9d0d7d8ab9934be2058f:Assets/Frost.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Photon/PhotonUnityNetworking/Code/Interfaces.meta
 guid: 38ae0eecc6fe5d340b82bb221198aa89
+========
+guid: 62126d9bb7b8eb64ea07a039d902d0ac
+>>>>>>>> 4f38a8d8dbf51e9a46aa9d0d7d8ab9934be2058f:Assets/Photon/PhotonUnityNetworking/Code/Editor/ReordableList.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
