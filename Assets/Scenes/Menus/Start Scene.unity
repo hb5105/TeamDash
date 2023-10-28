@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52e38590a8bc314cbe2cc93a7449ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Online or Local
+  sceneName: Local-Player-Color
   currentSceneName: 
 --- !u!114 &502682906
 MonoBehaviour:
@@ -1499,7 +1499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52e38590a8bc314cbe2cc93a7449ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: LevelLoader
+  sceneName: LevelMenuPLColor
   currentSceneName: 
 --- !u!1 &2115795181
 GameObject:
