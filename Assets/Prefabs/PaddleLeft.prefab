@@ -48,8 +48,15 @@ GameObject:
   - component: {fileID: 3749308523409132580}
   - component: {fileID: 8495634737119392139}
   - component: {fileID: 7080892816228439680}
+<<<<<<<< HEAD:Assets/Resources/NetPaddle.prefab
+  - component: {fileID: 3078051705986471139}
+  - component: {fileID: 4589025887429878905}
+  m_Layer: 0
+  m_Name: NetPaddle
+========
   m_Layer: 0
   m_Name: PaddleLeft
+>>>>>>>> 4f38a8d8dbf51e9a46aa9d0d7d8ab9934be2058f:Assets/Prefabs/PaddleLeft.prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -267,10 +274,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02bdb69d4dab04874b0b426ac449e910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<<< HEAD:Assets/Resources/NetPaddle.prefab
+  bulletPrefab: {fileID: 3385331214185209419, guid: 4bdbab018373040d3ae3f190415e48d1, type: 3}
+========
   bulletPrefab: {fileID: 0}
+>>>>>>>> 4f38a8d8dbf51e9a46aa9d0d7d8ab9934be2058f:Assets/Prefabs/PaddleLeft.prefab
   firePoint: {fileID: 6848282058558925832}
   bulletSpeed: 10
   fireKey: 32
   playerId: 1
+<<<<<<<< HEAD:Assets/Resources/NetPaddle.prefab
+  player1BulletsText: {fileID: 6713945381089974608, guid: 485f1fde2aa02cb47b095e687ccb3819, type: 3}
+  player2BulletsText: {fileID: 5789412296128407298, guid: 7308b012008b7534c9c2c3e37617fe41, type: 3}
+--- !u!114 &3078051705986471139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9194575593583391061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: 0}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &4589025887429878905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9194575593583391061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 0
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 2
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 1
+    ExtrapolateOption: 0
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+  m_RotationModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
+========
   player1BulletsText: {fileID: 0}
   player2BulletsText: {fileID: 0}
+>>>>>>>> 4f38a8d8dbf51e9a46aa9d0d7d8ab9934be2058f:Assets/Prefabs/PaddleLeft.prefab

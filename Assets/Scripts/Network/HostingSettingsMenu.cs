@@ -8,7 +8,7 @@ using Photon.Realtime;
 
 public class HostSettingsMenu : MonoBehaviourPunCallbacks
 {
-    private ExitGames.Client.Photon.Hashtable roomProp = new ExitGames.Client.Photon.Hashtable();
+    //private ExitGames.Client.Photon.Hashtable roomProp = new ExitGames.Client.Photon.Hashtable();
 
     public TMP_InputField Usernamefield;
     public TMP_InputField Passwordfield;

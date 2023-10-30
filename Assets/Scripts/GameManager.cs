@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     private int currentSplitIndex = 0;
     //locations of where the player will spawn when network is connected
     public Transform[] spawnLocs;
+    // prefabs for each player
+    public GameObject[] playerPrefabs;
+    // menu for tutorial scenes
+    //public GameObject nextTutorialMenu;
+    //public GameObject tutorialTxtPrompt;
     public Ball ballPrefab;
     public CountDown countDown;
     public BallText ballText;
@@ -30,6 +35,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private TextMeshProUGUI textBoxPlayer1;
     private TextMeshProUGUI textBoxPlayer2;
     public GameObject gameOverMenu;
+    public GameObject levelOverMenu;
     public TextMeshProUGUI gameOverText;
     public string word1;
     public string word2;
@@ -74,7 +80,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         isGameOver = false;
         //SetTime(150);
         // Initialize words for players
-        gameOverMenu.SetActive(false);
+        //nextTutorialMenu.SetActive(false);
+        // gameOverMenu.SetActive(false);
+        levelOverMenu.SetActive(false);
+    
         textBoxPlayer1 = wordGeneratorPlayer1.textBox;
         textBoxPlayer2 = wordGeneratorPlayer2.textBox;
         currentTime = timeInSeconds;
@@ -110,8 +119,20 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("Connected, starting game");
             // set the startpositions of the paddle
-            Vector2 startPosition = spawnLocs[PhotonNetwork.LocalPlayer.ActorNumber - 1].position;
-
+            int spawnIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1;
+            Vector2 spawnPosition = spawnLocs[spawnIndex].position;
+            if(spawnIndex >= playerPrefabs.Length)
+            {
+                Debug.LogError("Not enough prefabs defined for players.");
+                return;
+            }
+            GameObject playerPrefab = playerPrefabs[spawnIndex];
+            // spawn player prefab
+            PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("Not connected");
         }
     }
     //this is called when Begin Game button is pressed
@@ -204,25 +225,38 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void GameEnd()
     {
+        
         Debug.Log("gAME eND CALLED");
-        gameOverMenu.SetActive(true);
-        isGameOver = true;
-        if(isGameOver == true){
-        if(scorePlayer1 > scorePlayer2)
+        string sceneName = SceneManager.GetActiveScene().name;
+        /*if (!(sceneName == "TeamDash") && !(sceneName == "David Scene"))
         {
-            // Display Game Over message and winner's name
-            gameOverText.text = "Game Over\nPlayer 1 Wins!";
-        }
-        else if(scorePlayer2 > scorePlayer1)
-        {
-            // Display Game Over message and winner's name
-            gameOverText.text = "Game Over\nPlayer 2 Wins!";
-        }
-        else
-        {
-            gameOverText.text = "Game Over\nIt's a Tie!";
-        }
-        }
+            tutorialTxtPrompt.SetActive(false);
+            nextTutorialMenu.SetActive(true);
+        }*/
+        //else
+        //{
+            // gameOverMenu.SetActive(true);
+            levelOverMenu.SetActive(true);
+            isGameOver = true;
+            if(isGameOver == true)
+            {
+                if(scorePlayer1 > scorePlayer2)
+                {
+                    // Display Game Over message and winner's name
+                    gameOverText.text = "Game Over\nPlayer 1 Wins!";
+                }
+                else if(scorePlayer2 > scorePlayer1)
+                {
+                    // Display Game Over message and winner's name
+                    gameOverText.text = "Game Over\nPlayer 2 Wins!";
+                }
+                else
+                {
+                    gameOverText.text = "Game Over\nIt's a Tie!";
+                }
+            }
+       // }
+        
         
     }
 

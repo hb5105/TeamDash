@@ -46,7 +46,7 @@ public class WordGenerator : MonoBehaviour
             currIndex = 0;
         }
         currWord = randomWords[currIndex];
-        randomWords.RemoveAt(currIndex);
+        //randomWords.RemoveAt(currIndex);
 
         return currWord;
     }
