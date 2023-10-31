@@ -16,6 +16,12 @@ public class PlayerData
 }
 public class Ball : MonoBehaviour
 {
+    public bool hasP1PaddleHit = false;
+    public bool hasP2PaddleHit = false;
+    public bool hasP1Scored = false;
+    public bool hasP2Scored = false;
+    public bool hasTriggeredScoreZone = false;
+    public bool hasCollidedPaddle = false;
     public GameObject paddleLeft;
     public GameObject paddleRight;
     public Rigidbody2D rb2d;
@@ -134,7 +140,7 @@ public class Ball : MonoBehaviour
     // Note: 'ballSpeed' is the desired speed of the ball. You can adjust as needed. // or whatever speed you prefer
     GetComponent<Rigidbody2D>().velocity = targetDirection * moveSpeed;
 }
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
         /* We create a object of ScoreZone and check if collision happened with
             that scorezone 
@@ -142,6 +148,8 @@ public class Ball : MonoBehaviour
         ScoreZone scoreZone = collision.GetComponent<ScoreZone>();
         if (scoreZone)
         {   
+            // used to notify TrackAnalytics script to collect data for player score
+            hasTriggeredScoreZone = true;
             // Send the GameManager the ScoreZone Id of the Game to add score to the player
             gameManager.OnScoreZoneReached(scoreZone.id,this.gameObject);
             //Debug.Log(GameObject.FindObjectsOfType<Ball>().Length);
@@ -154,15 +162,17 @@ public class Ball : MonoBehaviour
             playerData.numMisses = 1;
             playerData.ball_position = yPosition;
             playerData.ball_velocity = rb2d.velocity.magnitude;
-            if(scoreZone.id == 1)
+            if(scoreZone.id == 1) // if id is 1, player 1 missed ball
             {
+                hasP2Scored = true;
                 playerData.playerID = 1;
                 playerData.paddlePosition = paddleLeft.transform.localPosition.y;
                 playerData.ballToPaddleDistance = Mathf.Abs(playerData.paddlePosition - playerData.ball_position);
                 playerData.paddle_velocity = rbPaddleLeft.velocity.magnitude;
             }
-            else if(scoreZone.id == 2)
+            else if(scoreZone.id == 2) // if id is 2, player 2 missed ball
             {
+                hasP1Scored = true;
                 playerData.playerID = 2;
                 playerData.paddlePosition = paddleRight.transform.localPosition.y;
                 playerData.ballToPaddleDistance = Mathf.Abs(playerData.paddlePosition - playerData.ball_position);
@@ -188,42 +198,45 @@ public class Ball : MonoBehaviour
 
 // This method checks if there are no other balls left in the scene
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {  
-    // Check if the ball collided with a paddle
-      Debug.Log("Collided with: " + collision.gameObject.name);
-        CheckForRecurringMotion(collision);
-    Paddle paddle = collision.gameObject.GetComponent<Paddle>();
-    if (paddle)
-    { 
-        // Debug.Log("entered oncollision");
-        // Check if the paddle is tilted (rotation is not zero)
-        if (paddle.transform.rotation.z != 0)
-        {   Debug.Log("entered paddle flick");
-            // Increase the ball's speed
-            Debug.Log("Ball Velocity before collision: " + rb2d.velocity);
-            float speedMultiplier = 3f;  // Adjust as needed
-            float angleAdjustment = 2f;
-            float tiltDirection=(paddle.transform.rotation.z>0)? 1:-1;
-            rb2d.velocity = rb2d.velocity.normalized*moveSpeed*speedMultiplier;
-            float newYVelocity;
-            if(paddle.id==2){
-            newYVelocity = rb2d.velocity.y + (angleAdjustment * tiltDirection);
+        // Check if the ball collided with a paddle
+          Debug.Log("Collided with: " + collision.gameObject.name);
+            CheckForRecurringMotion(collision);
+        Paddle paddle = collision.gameObject.GetComponent<Paddle>();
+        if (paddle)
+        {
+            // used to notify TrackAnalytics script to collect data for player paddle hit (unsuccessful score)
+            hasCollidedPaddle = true;
+            // Debug.Log("entered oncollision");
+            // Check if the paddle is tilted (rotation is not zero)
+            if (paddle.transform.rotation.z != 0)
+            {   Debug.Log("entered paddle flick");
+                // Increase the ball's speed
+                Debug.Log("Ball Velocity before collision: " + rb2d.velocity);
+                float speedMultiplier = 3f;  // Adjust as needed
+                float angleAdjustment = 2f;
+                float tiltDirection=(paddle.transform.rotation.z>0)? 1:-1;
+                rb2d.velocity = rb2d.velocity.normalized*moveSpeed*speedMultiplier;
+                float newYVelocity;
+                if(paddle.id==2){
+                newYVelocity = rb2d.velocity.y + (angleAdjustment * tiltDirection);
+                }
+                else{
+                 newYVelocity = rb2d.velocity.y + (angleAdjustment * -1*tiltDirection);   
+                }
+                rb2d.velocity = new Vector2(rb2d.velocity.x, newYVelocity);
+                Debug.Log("Ball Velocity after collision: " + rb2d.velocity);
+                AdjustVelocity();
             }
             else{
-             newYVelocity = rb2d.velocity.y + (angleAdjustment * -1*tiltDirection);   
+                rb2d.velocity=rb2d.velocity.normalized*moveSpeed;
+                AdjustVelocity();
             }
-            rb2d.velocity = new Vector2(rb2d.velocity.x, newYVelocity);
-            Debug.Log("Ball Velocity after collision: " + rb2d.velocity);
-            AdjustVelocity();
-        }
-        else{
-            rb2d.velocity=rb2d.velocity.normalized*moveSpeed;
-            AdjustVelocity();
-        }
 
             if (paddle.id == 1)
             {
+                hasP1PaddleHit = true;
                 this.GetComponent<SpriteRenderer>().color = Color.red;
                 List<char> wordList1 = new List<char>(gameManager.wordSet1);
                 // Check if the list has any elements to prevent possible ArgumentOutOfRangeException
@@ -237,6 +250,7 @@ public class Ball : MonoBehaviour
 
             if (paddle.id == 2)
             {
+                hasP2PaddleHit = true;
                 this.GetComponent<SpriteRenderer>().color = Color.blue;
                 List<char> wordList2 = new List<char>(gameManager.wordSet2);
                 // Check if the list has any elements to prevent possible ArgumentOutOfRangeException
@@ -249,7 +263,7 @@ public class Ball : MonoBehaviour
             }
             AdjustVelocity();
         }
-         if (collision.gameObject.CompareTag("NorthWall"))
+            if (collision.gameObject.CompareTag("NorthWall"))
             {
                 Vector2 currentVelocity = rb2d.velocity;
                 rb2d.velocity = new Vector2(currentVelocity.x, -Mathf.Abs(currentVelocity.y));
