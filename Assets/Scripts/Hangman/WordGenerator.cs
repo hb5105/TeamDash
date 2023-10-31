@@ -13,6 +13,7 @@ public class WordGenerator : MonoBehaviour
 
     // List of random words to choose from
     private static List<string> randomWords = new List<string> { "CAT","DOG", "DOWN" ,"FOUR" ,"WATER", "OCEAN" , "VIBE", "VIBE", "GAZE", "HAZE"};
+    private static List<string> randomWordsCopy = new List<string> { "CAT", "DOG", "DOWN", "FOUR", "WATER", "OCEAN", "VIBE", "VIBE", "GAZE", "HAZE" };
 
     // Static variable to store the initial word
     private static string initialWord = null;
@@ -40,13 +41,17 @@ public class WordGenerator : MonoBehaviour
     // Method to get a random word
     private string GetRandomWord()
     {
-        currIndex = Random.Range(0, randomWords.Count);
-        if (ResetController.isButtonPressed)
+        // Check if the list is empty
+        if (randomWords.Count == 0)
         {
-            currIndex = 0;
+            // If the list is empty, refill it from the copy
+            randomWords = new List<string>(randomWordsCopy);
+            Debug.Log("List was empty. Refilled from copy.");
         }
+
+        currIndex = Random.Range(0, randomWords.Count);
         currWord = randomWords[currIndex];
-        //randomWords.RemoveAt(currIndex);
+        randomWords.RemoveAt(currIndex);
 
         return currWord;
     }

@@ -179,9 +179,9 @@ public class Ball : MonoBehaviour
                 // InitialPush();
                 gameManager.SpawnNewBall(this.gameObject);
             }
-            if(GameManager.isGameOver){
-                gameManager.SpawnNewBall(this.gameObject);
-            }
+            //if(GameManager.isGameOver){
+            //    gameManager.SpawnNewBall(this.gameObject);
+            //}
             Destroy(this.gameObject);
         }
     }
