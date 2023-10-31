@@ -62,4 +62,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menus/LevelMenuPLColor.unity
     guid: 19d6b43e4f37efa449e618205f9df98c
+  - enabled: 1
+    path: Assets/Scenes/Tutorial Scenes/Level1Modified.unity
+    guid: 7cc31b270dd434f07a366edd6268b049
+  - enabled: 1
+    path: Assets/Scenes/Tutorial Scenes/UpdatedGame.unity
+    guid: 33bd99587b4c44a9a9157d10f5fadca8
   m_configObjects: {}
