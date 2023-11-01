@@ -4,23 +4,25 @@ using UnityEngine;
 using Proyecto26;
 public class PlayerPUData
 {
-    public int playerID;
+    public int playerID = 0;
     public int hasScored = 0;
     public int freezePowerUsed = 0;
     public int magnifyPowerUsed = 0;
     public int movePowerUsed = 0;
     public int noPowerUsed = 0;
 }
+
+public class PlayerShootData
+{
+    public int bulletUsed = 0;
+    public int ballShot = 0;
+    public int timeStamp = 0;
+}
 public class TrackAnalytics : MonoBehaviour
 {
     public Ball ballScriptRef;
     public PowerUpManager powerUpManager;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    public GameManager gameManager;
     public void CollectPUScoreData(int playerIDNum)
     {
         PlayerPUData playerPUData = new PlayerPUData();
@@ -116,5 +118,18 @@ public class TrackAnalytics : MonoBehaviour
         }
         string json = JsonUtility.ToJson(playerPUData);
         RestClient.Post("https://csci-526-powerups-default-rtdb.firebaseio.com/.json", playerPUData);
-    }   
+    }
+    
+    public void CollectShootData(bool hasHit)
+    {
+        PlayerShootData playerShootData = new PlayerShootData();
+        playerShootData.bulletUsed = 1;
+        playerShootData.timeStamp = (int)gameManager.currentTime;
+        if (hasHit)
+        {
+            playerShootData.ballShot = 1;
+        }
+        string json = JsonUtility.ToJson(playerShootData);
+        RestClient.Post("https://csci-526-shooting-default-rtdb.firebaseio.com//.json", playerShootData);
+    }
 }

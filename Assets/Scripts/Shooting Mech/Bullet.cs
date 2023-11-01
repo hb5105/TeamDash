@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     private BoxCollider2D bulletCollider;
 
     public GameManager gameManager;
-
+    public TrackAnalytics trackAnalytics;
     void Start()
     {
         bulletCollider = GetComponent<BoxCollider2D>();
@@ -21,12 +21,14 @@ public class Bullet : MonoBehaviour
 
         if (collision.gameObject.CompareTag(ballTag))
         {
+            trackAnalytics.CollectShootData(true);
             gameManager.SpawnNewBall(collision.gameObject);
             Destroy(collision.gameObject); // Destroy the ball
-            Destroy(gameObject); // Destroy the bullet
+            Destroy(gameObject); // Destroy the bullet     
         }
         else
         {
+            trackAnalytics.CollectShootData(false);
             Destroy(gameObject);
         }
     }

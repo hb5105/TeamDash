@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private string res1;
     private string res2;
-    private float currentTime;
+    public float currentTime;
     //public GunMovement player1GunMovement; // Assign this to player 1's paddle in the editor
     //public GunMovement player2GunMovement; // Assign this to player 2's paddle in the editor
 
