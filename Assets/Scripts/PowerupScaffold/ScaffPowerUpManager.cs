@@ -6,11 +6,17 @@ using UnityEngine.UI;
 
 public class ScaffPowerUpManager : MonoBehaviour
 {
-    public enum PowerUpType { None, Freeze, Magnify, MoveOpponent }
-    private PowerUpType[] powerUpArray = { PowerUpType.Freeze, PowerUpType.Magnify, PowerUpType.MoveOpponent };
+    public enum PowerUpType { None, Freeze, MoveOpponent, Magnify, BallSplit } // Added BallSplit
+    private PowerUpType[] powerUpArray = { PowerUpType.Freeze, PowerUpType.MoveOpponent, PowerUpType.Magnify, PowerUpType.BallSplit };
+
 
     private Paddle paddle1;
     private Paddle paddle2;
+
+    private int player1powerupcount=1;
+    private int player2powerupcount = 1;
+
+
 
     public string testing_powerup ="";
 
@@ -205,6 +211,7 @@ public class ScaffPowerUpManager : MonoBehaviour
         p1Timer.GetComponentInChildren<TextMeshProUGUI>().text = secondDigit.ToString();
         p1Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
         p1Timer.GetComponent<Image>().color = Color.red;
+        player1powerupcount++;
         Invoke("AssignPowerUpToP1", powerUpCooldown);
     }
 
@@ -221,40 +228,135 @@ public class ScaffPowerUpManager : MonoBehaviour
         p2Timer.GetComponentInChildren<TextMeshProUGUI>().text = secondDigit.ToString();
         p2Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
         p2Timer.GetComponent<Image>().color = Color.red;
+        player2powerupcount++;
         Invoke("AssignPowerUpToP2", powerUpCooldown);
     }
 
     void AssignPowerUpToP1()
     {
-        player1Powerup.color = Color.red;
-        p1Timer.SetActive(true);
-
-        p1powerup = testing_powerup;
-        p1PowerUpTimer = 5f;  // Resetting the timer
-        if (p1powerup == "MoveOpponent")
+        if (player1powerupcount < 2)
         {
-            player1Powerup.text = "Move Opponent";
+            player1Powerup.color = Color.red;
+            p1Timer.SetActive(true);
+
+            p1powerup = testing_powerup;
+            p1PowerUpTimer = 5f;  // Resetting the timer
+            if (p1powerup == "MoveOpponent")
+            {
+                player1Powerup.text = "Move Opponent";
+            }
+            else
+            {
+                player1Powerup.text = p1powerup;
+            }
         }
         else
         {
-            player1Powerup.text = p1powerup;
+            player1Powerup.color = Color.red;
+            p1Timer.SetActive(true);
+            p1powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
+            p1PowerUpTimer = 5f;  // Resetting the timer
+            if (p1powerup == "MoveOpponent")
+            {
+                player1Powerup.text = "Move Opponent";
+            }
+            else
+            {
+                player1Powerup.text = p1powerup;
+            }
         }
+
     }
 
     void AssignPowerUpToP2()
     {
-        player2Powerup.color = Color.red;
-        p2Timer.SetActive(true);
 
-        p2powerup = testing_powerup;
-        p2PowerUpTimer = 5f;  // Resetting the timer
-        if (p2powerup == "MoveOpponent")
+        if (player2powerupcount < 2)
         {
-            player2Powerup.text = "Move Opponent";
+            player2Powerup.color = Color.red;
+            p2Timer.SetActive(true);
+            p2powerup = testing_powerup;
+            p2PowerUpTimer = 5f;  // Resetting the timer
+            if (p2powerup == "MoveOpponent")
+            {
+                player2Powerup.text = "Move Opponent";
+            }
+            else
+            {
+                player2Powerup.text = p2powerup;
+            }
         }
-        else
-        {
-            player2Powerup.text = p2powerup;
+        else {
+            int last = 0;
+       
+            if (testing_powerup == "Freeze")
+            {
+                last = 1;
+            }
+            else if (testing_powerup == "MoveOpponent")
+            {
+                last = 2;
+
+            }
+            else if (testing_powerup == "Magnify")
+            {
+                last = 3;
+            }
+            else if (testing_powerup == "BallSplit")
+            {
+                last = 4;
+            }
+            player2Powerup.color = Color.red;
+            p2Timer.SetActive(true);
+
+            p2powerup = powerUpArray[Random.Range(0, last)].ToString();
+            p2PowerUpTimer = 5f;  // Resetting the timer
+            if (p2powerup == "MoveOpponent")
+            {
+                player2Powerup.text = "Move Opponent";
+            }
+            else
+            {
+                player2Powerup.text = p2powerup;
+            }
         }
+
+        
     }
+
+    //
+
+    //void AssignPowerUpToP1()
+    //{
+    //    player1Powerup.color = Color.red;
+    //    p1Timer.SetActive(true);
+
+    //    p1powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
+    //    p1PowerUpTimer = 5f;  // Resetting the timer
+    //    if (p1powerup == "MoveOpponent")
+    //    {
+    //        player1Powerup.text = "Move Opponent";
+    //    }
+    //    else
+    //    {
+    //        player1Powerup.text = p1powerup;
+    //    }
+    //}
+
+    //void AssignPowerUpToP2()
+    //{
+    //    player2Powerup.color = Color.red;
+    //    p2Timer.SetActive(true);
+
+    //    p2powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
+    //    p2PowerUpTimer = 5f;  // Resetting the timer
+    //    if (p2powerup == "MoveOpponent")
+    //    {
+    //        player2Powerup.text = "Move Opponent";
+    //    }
+    //    else
+    //    {
+    //        player2Powerup.text = p2powerup;
+    //    }
+    //}
 }
