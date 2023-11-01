@@ -19,8 +19,12 @@ public class WallToggle : MonoBehaviour
     public TextMeshProUGUI p2BulletLeft;
     public GameObject p1Bullet;
     public GameObject p2Bullet;
+    public GameObject normalField;
+    public GameObject pointedField;
     public void Start()
     {
+        Camera mainCam = Camera.main;  
+        mainCam.orthographicSize = 5;
         SwitchToNormalWalls();  // This sets the walls to their normal state
     }
     public void SwitchToNormalWalls()
@@ -32,6 +36,8 @@ public class WallToggle : MonoBehaviour
         {
             wall.SetActive(true);
         }
+        normalField.SetActive(true);
+        pointedField.SetActive(false);
  
     }
 
@@ -39,6 +45,9 @@ public class WallToggle : MonoBehaviour
     {
         Camera mainCam = Camera.main;  
         mainCam.orthographicSize = 8;
+
+        normalField.SetActive(false);
+        pointedField.SetActive(true);
 
         RectTransform rectTransform = ScoreTextLeft.rectTransform;
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 83);
