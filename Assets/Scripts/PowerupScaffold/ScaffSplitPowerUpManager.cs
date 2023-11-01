@@ -1,18 +1,25 @@
-﻿using UnityEngine;
+using UnityEngine;
 using TMPro;
 using System;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
+using System.Collections;
 
-public class ScaffPowerUpManager : MonoBehaviour
+public class ScaffSplitPowerUpManager : MonoBehaviour
 {
-    public enum PowerUpType { None, Freeze, Magnify, MoveOpponent, SplitBall }
-    private PowerUpType[] powerUpArray = { PowerUpType.Freeze, PowerUpType.Magnify, PowerUpType.MoveOpponent, PowerUpType.SplitBall };
-
+    public enum PowerUpType { None, Freeze, Magnify, MoveOpponent, SplitBall}
+    private PowerUpType[] powerUpArray = { PowerUpType.Freeze, PowerUpType.Magnify, PowerUpType.MoveOpponent,PowerUpType.SplitBall};
+    private PowerUpType[] powerUpArrayWithoutSplitBall = { PowerUpType.Freeze, PowerUpType.Magnify, PowerUpType.MoveOpponent};
     private Paddle paddle1;
     private Paddle paddle2;
 
+    private Ball ball;
+    private Ball[] balls; 
     public string testing_powerup ="";
+
+    public ScoreZone leftScoreZone;
+    public ScoreZone rightScoreZone;
+    public int ballsInScoreZone = 0;
 
     public string p1powerup = "";
     public string p2powerup = "";
@@ -37,11 +44,11 @@ public class ScaffPowerUpManager : MonoBehaviour
         Paddle[] paddles = FindObjectsOfType<Paddle>();
         paddle1 = paddles[0].id == 1 ? paddles[0] : paddles[1];
         paddle2 = paddles[1].id == 2 ? paddles[1] : paddles[0];
-        AssignRandomPowerUp();
+         AssignRandomPowerUp();
     }
 
     private void Update()
-    {
+    {   getBallBetweenScoreZones();
         // Decrementing the timers when the powerups are active
         if (p1PowerUpActive)
         {
@@ -77,6 +84,10 @@ public class ScaffPowerUpManager : MonoBehaviour
             {
                 player1Powerup.text = "Move Opponent";
             }
+            else if(p1powerup == "SplitBall")
+            {
+                player1Powerup.text = "Split Ball";
+            }
             else
             {
                 player1Powerup.text = p1powerup;
@@ -96,6 +107,9 @@ public class ScaffPowerUpManager : MonoBehaviour
             {
                 player2Powerup.text = "Move Opponent";
             }
+            else if (p2powerup == "SplitBall"){
+                player2Powerup.text = "Split Ball";
+            }
             else
             {
                 player2Powerup.text = p2powerup;
@@ -105,17 +119,41 @@ public class ScaffPowerUpManager : MonoBehaviour
             Invoke("DeactivateP2PowerUp", powerUpActiveDuration);
         }
     }
-
+    public void getBallBetweenScoreZones(){
+         GameObject[] activeBalls = GameObject.FindGameObjectsWithTag("Ball");
+        float leftX = leftScoreZone.transform.position.x;
+        float rightX = rightScoreZone.transform.position.x;
+        int flag =0;
+        ballsInScoreZone = 0;
+        foreach (GameObject ballobj in activeBalls)
+        {
+            if (ballobj.transform.position.x > leftX && ballobj.transform.position.x < rightX)
+            {   flag=1;
+                ball = ballobj.GetComponent<Ball>();
+                ballsInScoreZone++;
+            }
+        }
+        if(flag==0){
+            Debug.Log("No ball between score zones");
+            ball=null;
+        }
+    }
     void AssignRandomPowerUp()
     {
         player1Powerup.color = Color.red;
 
         p1powerup = testing_powerup;
-
+        if(p1powerup == "SplitBall" && ballsInScoreZone == 2 ){
+            p1powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
+        }
         if (p1powerup == "MoveOpponent")
         {
             player1Powerup.text = "Move Opponent";
         }
+        else if(p1powerup == "SplitBall")
+            {
+                player1Powerup.text = "Split Ball";
+            }
         else
         {
             player1Powerup.text = p1powerup;
@@ -124,10 +162,18 @@ public class ScaffPowerUpManager : MonoBehaviour
         player2Powerup.color = Color.red;
 
         p2powerup = testing_powerup;
+
+        if (p2powerup == "SplitBall" && (ballsInScoreZone == 2 || ballsInScoreZone == 0)) 
+        {
+            p2powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
+        }
         if (p2powerup == "MoveOpponent")
         {
             player2Powerup.text = "Move Opponent";
         }
+           else if (p2powerup == "SplitBall"){
+                player2Powerup.text = "Split Ball";
+            }
         else
         {
             player2Powerup.text = p2powerup;
@@ -152,10 +198,17 @@ public class ScaffPowerUpManager : MonoBehaviour
     //    }
     //}
     void ActivatePowerUp(Paddle paddle, string powerUpName)
-    {
+    {   
+        // balls = FindObjectsOfType<Ball>();
+        // ball = balls.Length>0 ? balls[0] : null;
         if (paddle == null)
         {
             Debug.LogError("Paddle is null in ActivatePowerUp method.");
+            return;
+        }
+        if (powerUpName=="SplitBall" && ball == null)
+        {
+            Debug.LogError("Ball is null in ActivatePowerUp method.");
             return;
         }
 
@@ -188,10 +241,27 @@ public class ScaffPowerUpManager : MonoBehaviour
                 }
                 movePowerUp.ShiftOpponentPosition();
                 break;
+            case "SplitBall":
+                var splitPowerUp = ball.gameObject.GetComponent<BallSplitPowerUp>();
+                if (splitPowerUp == null)
+                {
+                    Debug.LogError("BallSplitPowerUp script is missing on paddle " + paddle.id);
+                    return;
+                }
+                StartCoroutine(CallSplitBall(ball.gameObject, paddle.id, splitPowerUp));
+                // splitPowerUp.SplitBall(ball.gameObject, paddle.id);
+                break;
+
         }
     }
-
-
+        
+    private IEnumerator CallSplitBall(GameObject ballGameObject, float paddleId, BallSplitPowerUp splitPowerUp)
+    {
+        //wait until end of frame to call split ball
+        yield return new WaitForEndOfFrame();
+        splitPowerUp.SplitBall(ballGameObject, paddleId);
+    }
+   
     void DeactivateP1PowerUp()
     {
         player1Powerup.text = "";
@@ -229,11 +299,20 @@ public class ScaffPowerUpManager : MonoBehaviour
         player1Powerup.color = Color.red;
         p1Timer.SetActive(true);
 
-        p1powerup = testing_powerup;
+       p1powerup = testing_powerup;
         p1PowerUpTimer = 5f;  // Resetting the timer
+
+        if(p1powerup == "SplitBall" && ballsInScoreZone == 2 ){
+            p1powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
+        }
+
         if (p1powerup == "MoveOpponent")
         {
             player1Powerup.text = "Move Opponent";
+        }
+        else if (p1powerup == "SplitBall")
+        {
+            player1Powerup.text = "Split Ball";
         }
         else
         {
@@ -248,9 +327,18 @@ public class ScaffPowerUpManager : MonoBehaviour
 
         p2powerup = testing_powerup;
         p2PowerUpTimer = 5f;  // Resetting the timer
+
+        if(p2powerup == "SplitBall" && ballsInScoreZone == 2 ){
+            p2powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
+        }
+
         if (p2powerup == "MoveOpponent")
         {
             player2Powerup.text = "Move Opponent";
+        }
+        else if (p2powerup == "SplitBall")
+        {
+            player2Powerup.text = "Split Ball";
         }
         else
         {
@@ -258,3 +346,4 @@ public class ScaffPowerUpManager : MonoBehaviour
         }
     }
 }
+

@@ -2651,6 +2651,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b207d9758504154aa17e95c5831bb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftScoreZone: {fileID: 1838918254}
+  rightScoreZone: {fileID: 1910390219}
+  ballsInScoreZone: 0
   p1powerup: 
   p2powerup: 
   p1PowerUpActive: 0
@@ -4486,6 +4489,7 @@ MonoBehaviour:
   maxStartY: 0
   gameManager: {fileID: 1872166391}
   ballText: {fileID: 1278251875}
+  isClonedBall: 0
 --- !u!50 &1709948867
 Rigidbody2D:
   serializedVersion: 4
@@ -4527,6 +4531,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 7697873897560455027, guid: 30e30a03aa6447543be501296fbeb4e6, type: 3}
   ballSplittingActiveForPlayer: 1
+  upperLimit: 0
+  lowerLimit: 0
+  leftScoreZone: {fileID: 1838918254}
+  rightScoreZone: {fileID: 1910390219}
 --- !u!61 &1709948869
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5031,7 +5039,7 @@ Transform:
   m_GameObject: {fileID: 1838918252}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9, y: -0.2, z: 0}
+  m_LocalPosition: {x: -10.39, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5200,6 +5208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de17fd14788504b49885f68f470bb4ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftScoreZone: {fileID: 1838918254}
+  rightScoreZone: {fileID: 1910390219}
   scorePlayer1: 0
   scorePlayer2: 0
   scoreTextLeft: {fileID: 1532370755}
@@ -5216,6 +5226,7 @@ MonoBehaviour:
   spawnLocs: []
   playerPrefabs: []
   ballPrefab: {fileID: 8423468249138325180, guid: 30e30a03aa6447543be501296fbeb4e6, type: 3}
+  ballGameObject: {fileID: 0}
   countDown: {fileID: 388924741}
   ballText: {fileID: 1278251875}
   wordGeneratorPlayer1: {fileID: 90997399}
@@ -5228,6 +5239,7 @@ MonoBehaviour:
   remainingChars: 4100
   timeInSeconds: 150
   timerText: {fileID: 1728526040}
+  countOfBallsBwScoreZone: 0
 --- !u!4 &1872166392
 Transform:
   m_ObjectHideFlags: 0
@@ -5270,7 +5282,7 @@ Transform:
   m_GameObject: {fileID: 1910390217}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9, y: -0.23, z: -0.033204}
+  m_LocalPosition: {x: 10.22, y: -0.23, z: -0.033204}
   m_LocalScale: {x: 1, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

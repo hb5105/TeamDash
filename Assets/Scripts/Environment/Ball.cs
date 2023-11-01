@@ -26,7 +26,7 @@ public class Ball : MonoBehaviour
     public GameManager gameManager=GameManager.instance;
     public BallText ballText;
     private int wallHitCounter = 0;
-
+    public  bool isClonedBall = false;
     private float startX = 0f;
     private float minimumHorizontalVelocity = 1f;  // Adjust as needed
     private float minimumVerticalVelocity = 0.5f;
@@ -53,10 +53,11 @@ public class Ball : MonoBehaviour
     }
 
     private void Start()
-    {
+    {  if(!isClonedBall){
         InitialPush();
         // Add a 5-second delay before starting the ball's movement.
         //Invoke(nameof(InitialPush), 2f);
+        }
 
     }
 
@@ -88,7 +89,7 @@ public class Ball : MonoBehaviour
                 ChangeBallDirection();
                 wallHitCounter = 0; // reset the counter
             }
-               Debug.Log("Wall Hit Counter:"+ wallHitCounter);
+            //    Debug.Log("Wall Hit Counter:"+ wallHitCounter);
         }
         else
         {
@@ -99,6 +100,12 @@ public class Ball : MonoBehaviour
     private void Update()
 {
     AdjustVelocity();
+    //check if there are no balls in the scene and spawn a new ball
+    // Debug.Log("No of balls in update"+GameObject.FindObjectsOfType<Ball>().Length);
+    if (!GameManager.isGameOver && GameObject.FindObjectsOfType<Ball>().Length == 0)
+    {
+        gameManager.SpawnNewBall(this.gameObject);
+    }
 }
     // private void ChangeBallDirection()
     // {
@@ -172,17 +179,15 @@ public class Ball : MonoBehaviour
                
             string json = JsonUtility.ToJson(playerData);
             RestClient.Post("https://csci526-bee47-default-rtdb.firebaseio.com/.json", playerData);
-              Debug.Log(GameObject.FindObjectsOfType<Ball>().Length);       
-            if (!GameManager.isGameOver && GameObject.FindObjectsOfType<Ball>().Length==1)
-            {
-                // ResetBall();
-                // InitialPush();
-                gameManager.SpawnNewBall(this.gameObject);
-            }
-            if(GameManager.isGameOver){
-                gameManager.SpawnNewBall(this.gameObject);
-            }
-            Destroy(this.gameObject);
+            //   Debug.Log("No of balls "+GameObject.FindObjectsOfType<Ball>().Length);       
+            // if (!GameManager.isGameOver && GameObject.FindObjectsOfType<Ball>().Length==1)
+            // {
+            //     // ResetBall();
+            //     // InitialPush();
+            //     gameManager.SpawnNewBall(this.gameObject);
+            // }
+             gameManager.AddBallToQueue(this.gameObject);
+            // Destroy(this.gameObject);
         }
     }
 
@@ -191,7 +196,7 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {  
     // Check if the ball collided with a paddle
-      Debug.Log("Collided with: " + collision.gameObject.name);
+    //   Debug.Log("Collided with: " + collision.gameObject.name);
         CheckForRecurringMotion(collision);
     Paddle paddle = collision.gameObject.GetComponent<Paddle>();
     if (paddle)
@@ -199,9 +204,10 @@ public class Ball : MonoBehaviour
         // Debug.Log("entered oncollision");
         // Check if the paddle is tilted (rotation is not zero)
         if (paddle.transform.rotation.z != 0)
-        {   Debug.Log("entered paddle flick");
+        {   
+            // Debug.Log("entered paddle flick");
             // Increase the ball's speed
-            Debug.Log("Ball Velocity before collision: " + rb2d.velocity);
+            // Debug.Log("Ball Velocity before collision: " + rb2d.velocity);
             float speedMultiplier = 3f;  // Adjust as needed
             float angleAdjustment = 2f;
             float tiltDirection=(paddle.transform.rotation.z>0)? 1:-1;
@@ -214,7 +220,7 @@ public class Ball : MonoBehaviour
              newYVelocity = rb2d.velocity.y + (angleAdjustment * -1*tiltDirection);   
             }
             rb2d.velocity = new Vector2(rb2d.velocity.x, newYVelocity);
-            Debug.Log("Ball Velocity after collision: " + rb2d.velocity);
+            // Debug.Log("Ball Velocity after collision: " + rb2d.velocity);
             AdjustVelocity();
         }
         else{
@@ -223,7 +229,8 @@ public class Ball : MonoBehaviour
         }
 
             if (paddle.id == 1)
-            {
+            {   
+                // Debug.Log("entered paddle 1");
                 this.GetComponent<SpriteRenderer>().color = Color.red;
                 List<char> wordList1 = new List<char>(gameManager.wordSet1);
                 // Check if the list has any elements to prevent possible ArgumentOutOfRangeException
@@ -233,10 +240,21 @@ public class Ball : MonoBehaviour
                     char nextChar = wordList1[idx];
                     ballText.setText(nextChar.ToString());
                 }
+                // Debug.Log("powerup active"+FindObjectOfType<PowerUpManager>().p1PowerUpActive);
+                // Debug.Log("powerup name"+FindObjectOfType<PowerUpManager>().p1powerup);
+                if(FindObjectOfType<PowerUpManager>().p1PowerUpActive && FindObjectOfType<PowerUpManager>().p1powerup == "SplitBall"){
+                        var splitPowerUp = this.gameObject.GetComponent<BallSplitPowerUp>();
+                        if(!splitPowerUp){
+                            Debug.Log("split powerup null");
+                        }
+                        if(splitPowerUp){
+                            splitPowerUp.SplitBall(this.gameObject, paddle.id);
+                        }
+                }
             }
 
             if (paddle.id == 2)
-            {
+            {       
                 this.GetComponent<SpriteRenderer>().color = Color.blue;
                 List<char> wordList2 = new List<char>(gameManager.wordSet2);
                 // Check if the list has any elements to prevent possible ArgumentOutOfRangeException
@@ -246,6 +264,18 @@ public class Ball : MonoBehaviour
                     char nextChar = wordList2[idx];
                     ballText.setText(nextChar.ToString());
                 }
+                // Debug.Log("powerup active 2"+FindObjectOfType<PowerUpManager>().p2PowerUpActive);
+                // Debug.Log("powerup name 2"+FindObjectOfType<PowerUpManager>().p2powerup);
+                // if(FindObjectOfType<PowerUpManager>().p2PowerUpActive && FindObjectOfType<PowerUpManager>().p2powerup == "SplitBall"){
+                //     Debug.Log("split ball indide if called");
+                //         var splitPowerUp = this.gameObject.GetComponent<BallSplitPowerUp>();
+                //         if(!splitPowerUp){
+                //             Debug.Log("split powerup null");
+                //         }
+                //         if(splitPowerUp){
+                //             splitPowerUp.SplitBall(this.gameObject, paddle.id);
+                //         }
+                // }
             }
             AdjustVelocity();
         }
