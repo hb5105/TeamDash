@@ -16,12 +16,7 @@ public class PlayerData
 }
 public class Ball : MonoBehaviour
 {
-    public bool hasP1PaddleHit = false;
-    public bool hasP2PaddleHit = false;
-    public bool hasP1Scored = false;
-    public bool hasP2Scored = false;
-    public bool hasTriggeredScoreZone = false;
-    public bool hasCollidedPaddle = false;
+    public TrackAnalytics trackAnalytics;
     public GameObject paddleLeft;
     public GameObject paddleRight;
     public Rigidbody2D rb2d;
@@ -147,13 +142,14 @@ public class Ball : MonoBehaviour
          */
         ScoreZone scoreZone = collision.GetComponent<ScoreZone>();
         if (scoreZone)
-        {   
+        {
             // used to notify TrackAnalytics script to collect data for player score
-            hasTriggeredScoreZone = true;
+            
             // Send the GameManager the ScoreZone Id of the Game to add score to the player
             gameManager.OnScoreZoneReached(scoreZone.id,this.gameObject);
             //Debug.Log(GameObject.FindObjectsOfType<Ball>().Length);
-            //Analytics of Game
+
+            //ANALYTICS: Tracking player misses and speed of gameobjects
             float yPosition = transform.position.y;
             Rigidbody2D rbPaddleLeft = paddleLeft.GetComponent<Rigidbody2D>();
             Rigidbody2D rbPaddleRight = paddleRight.GetComponent<Rigidbody2D>();
@@ -162,18 +158,20 @@ public class Ball : MonoBehaviour
             playerData.numMisses = 1;
             playerData.ball_position = yPosition;
             playerData.ball_velocity = rb2d.velocity.magnitude;
-            if(scoreZone.id == 1) // if id is 1, player 1 missed ball
+            if(scoreZone.id == 1) // if id is 1, player 1 scored ball
             {
-                hasP2Scored = true;
-                playerData.playerID = 1;
+                trackAnalytics.CollectPUScoreData(1);
+                // set playerID to 2 since player 2 missed
+                playerData.playerID = 2;
                 playerData.paddlePosition = paddleLeft.transform.localPosition.y;
                 playerData.ballToPaddleDistance = Mathf.Abs(playerData.paddlePosition - playerData.ball_position);
                 playerData.paddle_velocity = rbPaddleLeft.velocity.magnitude;
             }
-            else if(scoreZone.id == 2) // if id is 2, player 2 missed ball
+            else if(scoreZone.id == 2) // if id is 2, player 2 scored ball
             {
-                hasP1Scored = true;
-                playerData.playerID = 2;
+                trackAnalytics.CollectPUScoreData(2);
+                // set playerID to 1 since player 1 missed
+                playerData.playerID = 1;
                 playerData.paddlePosition = paddleRight.transform.localPosition.y;
                 playerData.ballToPaddleDistance = Mathf.Abs(playerData.paddlePosition - playerData.ball_position);
                 playerData.paddle_velocity = rbPaddleRight.velocity.magnitude;
@@ -205,9 +203,7 @@ public class Ball : MonoBehaviour
             CheckForRecurringMotion(collision);
         Paddle paddle = collision.gameObject.GetComponent<Paddle>();
         if (paddle)
-        {
-            // used to notify TrackAnalytics script to collect data for player paddle hit (unsuccessful score)
-            hasCollidedPaddle = true;
+        {            
             // Debug.Log("entered oncollision");
             // Check if the paddle is tilted (rotation is not zero)
             if (paddle.transform.rotation.z != 0)
@@ -236,7 +232,7 @@ public class Ball : MonoBehaviour
 
             if (paddle.id == 1)
             {
-                hasP1PaddleHit = true;
+                trackAnalytics.CollectPUNoScoreData(1);
                 this.GetComponent<SpriteRenderer>().color = Color.red;
                 List<char> wordList1 = new List<char>(gameManager.wordSet1);
                 // Check if the list has any elements to prevent possible ArgumentOutOfRangeException
@@ -250,7 +246,7 @@ public class Ball : MonoBehaviour
 
             if (paddle.id == 2)
             {
-                hasP2PaddleHit = true;
+                trackAnalytics.CollectPUNoScoreData(2);
                 this.GetComponent<SpriteRenderer>().color = Color.blue;
                 List<char> wordList2 = new List<char>(gameManager.wordSet2);
                 // Check if the list has any elements to prevent possible ArgumentOutOfRangeException

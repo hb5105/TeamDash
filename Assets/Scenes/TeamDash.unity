@@ -4477,12 +4477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1af555ae0e32caf4bbedbbf3bbcacac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasP1PaddleHit: 0
-  hasP2PaddleHit: 0
-  hasP1Scored: 0
-  hasP2Scored: 0
-  hasTriggeredScoreZone: 0
-  hasCollidedPaddle: 0
+  trackAnalytics: {fileID: 2082944505}
   paddleLeft: {fileID: 1171992670}
   paddleRight: {fileID: 230168840}
   rb2d: {fileID: 1709948867}

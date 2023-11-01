@@ -80,7 +80,7 @@ public class PowerUpManager : MonoBehaviour
                 player1Powerup.text = p1powerup;
             }
             
-            p1powerup = "";
+            //p1powerup = "";
             Invoke("DeactivateP1PowerUp", powerUpActiveDuration);
         }
 
@@ -99,7 +99,7 @@ public class PowerUpManager : MonoBehaviour
                 player2Powerup.text = p2powerup;
             }
 
-            p2powerup = "";
+            //p2powerup = "";
             Invoke("DeactivateP2PowerUp", powerUpActiveDuration);
         }
     }
@@ -191,6 +191,7 @@ public class PowerUpManager : MonoBehaviour
 
     void DeactivateP1PowerUp()
     {
+        p1powerup = "";
         player1Powerup.text = "";
         p1Timer.SetActive(false);
         p1PowerUpActive = false;
@@ -207,6 +208,7 @@ public class PowerUpManager : MonoBehaviour
 
     void DeactivateP2PowerUp()
     {
+        p2powerup = "";
         player2Powerup.text = "";
         p2Timer.SetActive(false);
         p2PowerUpActive = false;

@@ -4,7 +4,7 @@ using UnityEngine.Networking;
 
 public class DeleteAnalytics : MonoBehaviour
 {
-    private const string databaseUrl = "https://csci526-bee47-default-rtdb.firebaseio.com/";
+    private const string databaseUrl = "https://csci-526-powerups-default-rtdb.firebaseio.com/";
    
     void Start()
     {

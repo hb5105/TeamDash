@@ -6,10 +6,10 @@ public class PlayerPUData
 {
     public int playerID;
     public int hasScored = 0;
-    public float freezePowerUsed = 0;
-    public float magnifyPowerUsed = 0;
-    public float movePowerUsed = 0;
-    public float noPowerUsed = 0;
+    public int freezePowerUsed = 0;
+    public int magnifyPowerUsed = 0;
+    public int movePowerUsed = 0;
+    public int noPowerUsed = 0;
 }
 public class TrackAnalytics : MonoBehaviour
 {
@@ -21,75 +21,100 @@ public class TrackAnalytics : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CollectPUScoreData(int playerIDNum)
     {
-        if (ballScriptRef.hasTriggeredScoreZone)
+        PlayerPUData playerPUData = new PlayerPUData();
+        playerPUData.playerID = playerIDNum;
+        playerPUData.hasScored = 1;
+        if(playerIDNum == 1)
         {
-            ballScriptRef.hasTriggeredScoreZone = false;
-            PlayerPUData playerPUData = new PlayerPUData();
-            playerPUData.hasScored = 1;
-            
-            if(ballScriptRef.hasP1Scored)
+            if (powerUpManager.p1PowerUpActive)
             {
-                ballScriptRef.hasP1Scored = false;
-                playerPUData.playerID = 1;
-                if (powerUpManager.p1PowerUpActive)
+                switch (powerUpManager.p1powerup)
                 {
-                    if (powerUpManager.p1powerup == "MoveOpponent") { playerPUData.movePowerUsed = 1; }
-                    else if (powerUpManager.p1powerup == "Freeze") { playerPUData.freezePowerUsed = 1; }
-                    else if (powerUpManager.p1powerup == "Magnify") { playerPUData.magnifyPowerUsed = 1; }
-                    else { playerPUData.movePowerUsed = 234; }
+                    case "MoveOpponent":
+                        playerPUData.movePowerUsed = 1;
+                        break;
+                    case "Freeze":
+                        playerPUData.freezePowerUsed = 1;
+                        break;
+                    case "Magnify":
+                        playerPUData.magnifyPowerUsed = 1;
+                        break;
                 }
-                else { playerPUData.noPowerUsed = 1; }
             }
-            else if (ballScriptRef.hasP2Scored)
-            {
-                ballScriptRef.hasP2Scored = false;
-                playerPUData.playerID = 2;
-                if (powerUpManager.p2PowerUpActive)
-                {
-                    if (powerUpManager.p2powerup == "MoveOpponent") { playerPUData.movePowerUsed = 1; }
-                    else if (powerUpManager.p2powerup == "Freeze") { playerPUData.freezePowerUsed = 1; }
-                    else if (powerUpManager.p2powerup == "Magnify") { playerPUData.magnifyPowerUsed = 1; }
-                    else { playerPUData.movePowerUsed = 234; }
-                }
-                else { playerPUData.noPowerUsed = 1; }
-            }
-            string json = JsonUtility.ToJson(playerPUData);
-            RestClient.Post("https://csci-526-powerups-default-rtdb.firebaseio.com/.json", playerPUData);
+            else { playerPUData.noPowerUsed = 1; }
         }
-        else if( ballScriptRef.hasCollidedPaddle)
+        else if (playerIDNum == 2)
         {
-            Debug.Log("triggered data collection for paddle hit");
-            ballScriptRef.hasCollidedPaddle = false;
-            PlayerPUData playerPUData = new PlayerPUData();
-            if (ballScriptRef.hasP1PaddleHit)
+            if (powerUpManager.p2PowerUpActive)
             {
-                ballScriptRef.hasP1PaddleHit = false;
-                playerPUData.playerID = 1;
-                if (powerUpManager.p1PowerUpActive)
+                switch (powerUpManager.p2powerup)
                 {
-                    if (powerUpManager.p1powerup == "MoveOpponent") { playerPUData.movePowerUsed = 1; }
-                    else if (powerUpManager.p1powerup == "Freeze") { playerPUData.freezePowerUsed = 1; }
-                    else if (powerUpManager.p1powerup == "Magnify") { playerPUData.magnifyPowerUsed = 1; }
+                    case "MoveOpponent":
+                        playerPUData.movePowerUsed = 1;
+                        break;
+                    case "Freeze":
+                        playerPUData.freezePowerUsed = 1;
+                        break;
+                    case "Magnify":
+                        playerPUData.magnifyPowerUsed = 1;
+                        break;
                 }
-                else { playerPUData.noPowerUsed = 1; }
             }
-            else if (ballScriptRef.hasP2PaddleHit)
-            {
-                ballScriptRef.hasP2PaddleHit = false;
-                playerPUData.playerID = 2;
-                if (powerUpManager.p2PowerUpActive)
-                {
-                    if (powerUpManager.p2powerup == "MoveOpponent") { playerPUData.movePowerUsed = 1; }
-                    else if (powerUpManager.p2powerup == "Freeze") { playerPUData.freezePowerUsed = 1; }
-                    else if (powerUpManager.p2powerup == "Magnify") { playerPUData.magnifyPowerUsed = 1; }
-                }
-                else { playerPUData.noPowerUsed = 1; }
-            }
-            string json = JsonUtility.ToJson(playerPUData);
-            RestClient.Post("https://csci-526-powerups-default-rtdb.firebaseio.com/.json", playerPUData);
+            else { playerPUData.noPowerUsed = 1; }
         }
+
+
+        string json = JsonUtility.ToJson(playerPUData);
+        RestClient.Post("https://csci-526-powerups-default-rtdb.firebaseio.com/.json", playerPUData);
     }
+    
+    public void CollectPUNoScoreData(int playerIDNum)
+    {
+        PlayerPUData playerPUData = new PlayerPUData();
+        playerPUData.playerID = playerIDNum;
+        // when player 2 defended shot, check if player 1 used powerup
+        if (playerIDNum == 2)
+        {
+            if (powerUpManager.p1PowerUpActive)
+            {
+                switch (powerUpManager.p1powerup)
+                {
+                    case "MoveOpponent":
+                        playerPUData.movePowerUsed = 1;
+                        break;
+                    case "Freeze":
+                        playerPUData.freezePowerUsed = 1;
+                        break;
+                    case "Magnify":
+                        playerPUData.magnifyPowerUsed = 1;
+                        break;
+                }
+            }
+            else { playerPUData.noPowerUsed = 1; }
+        }
+        // when player 1 defended shot, check if player 2 used powerup
+        else if (playerIDNum == 1)
+        {
+            if (powerUpManager.p2PowerUpActive)
+            {
+                switch (powerUpManager.p2powerup)
+                {
+                    case "MoveOpponent":
+                        playerPUData.movePowerUsed = 1;
+                        break;
+                    case "Freeze":
+                        playerPUData.freezePowerUsed = 1;
+                        break;
+                    case "Magnify":
+                        playerPUData.magnifyPowerUsed = 1;
+                        break;
+                }
+            }
+            else { playerPUData.noPowerUsed = 1; }
+        }
+        string json = JsonUtility.ToJson(playerPUData);
+        RestClient.Post("https://csci-526-powerups-default-rtdb.firebaseio.com/.json", playerPUData);
+    }   
 }
