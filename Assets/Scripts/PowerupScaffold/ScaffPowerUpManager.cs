@@ -288,7 +288,7 @@ public class ScaffPowerUpManager : MonoBehaviour
         }
         else {
             int last = 0;
-            var po
+       
             if (testing_powerup == "Freeze")
             {
                 last = 1;
