@@ -37,6 +37,12 @@ public class BallText : MonoBehaviour
             return;
         }
 
+        if(gameManager.remainingChars == null || gameManager.remainingChars.Count == 0)
+        {
+            Debug.LogError("remainingChars is null or empty");
+            return;
+        }
+
         int idx = Random.Range(0, gameManager.remainingChars.Count);
         if(!isClonedBall)
         {
