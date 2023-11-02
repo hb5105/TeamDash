@@ -2703,12 +2703,12 @@ MonoBehaviour:
   p2PowerUpTimer: 5
   p1Timer: {fileID: 1348097638}
   p2Timer: {fileID: 1603261233}
-  player1Powerup: {fileID: 1780117794}
-  player2Powerup: {fileID: 2094680245}
-  freezeImage: {fileID: 658550104}
-  magnifyImage: {fileID: 518172344}
-  moveOpponentImage: {fileID: 486239068}
-  splitPowerupImage: {fileID: 2134637872}
+  player1Powerup: {fileID: 0}
+  player2Powerup: {fileID: 0}
+  freezeImage: {fileID: 0}
+  magnifyImage: {fileID: 0}
+  moveOpponentImage: {fileID: 0}
+  splitPowerupImage: {fileID: 0}
 --- !u!4 &905615854
 Transform:
   m_ObjectHideFlags: 0
@@ -5722,9 +5722,6 @@ MonoBehaviour:
   ScoreTextRight: {fileID: 1526967657}
   Word1: {fileID: 90997397}
   Word2: {fileID: 1573758348}
-  Powerup2: {fileID: 0}
-  p1Timer: {fileID: 0}
-  p2Timer: {fileID: 0}
   p1BulletLeft: {fileID: 899735410}
   p2BulletLeft: {fileID: 361327169}
   p1Bullet: {fileID: 250405742}
