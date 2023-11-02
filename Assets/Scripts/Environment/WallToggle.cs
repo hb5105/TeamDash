@@ -11,10 +11,10 @@ public class WallToggle : MonoBehaviour
     public TextMeshProUGUI ScoreTextRight;
     public TextMeshProUGUI Word1;
     public TextMeshProUGUI Word2;
-    public TextMeshProUGUI Powerup1;
-    public TextMeshProUGUI Powerup2;
-    public GameObject p1Timer;
-    public GameObject p2Timer;
+    //public TextMeshProUGUI Powerup1;
+    //public TextMeshProUGUI Powerup2;
+    //public GameObject p1Timer;
+    //public GameObject p2Timer;
     public TextMeshProUGUI p1BulletLeft;
     public TextMeshProUGUI p2BulletLeft;
     public GameObject p1Bullet;
@@ -52,17 +52,17 @@ public class WallToggle : MonoBehaviour
         rectTransform = Word2.rectTransform;
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -117);
 
-        rectTransform = Powerup1.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
+        //rectTransform = Powerup1.rectTransform;
+        //rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
 
-        rectTransform = Powerup2.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
+        //rectTransform = Powerup2.rectTransform;
+        //rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
 
-        rectTransform = p1Timer.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
+        //rectTransform = p1Timer.GetComponent<RectTransform>();
+        //rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
 
-        rectTransform = p2Timer.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
+        //rectTransform = p2Timer.GetComponent<RectTransform>();
+        //rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
 
         rectTransform = p1BulletLeft.rectTransform;
         rectTransform.anchoredPosition = new Vector2(-200, -160);
