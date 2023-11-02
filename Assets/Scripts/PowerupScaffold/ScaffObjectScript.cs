@@ -24,7 +24,7 @@ public class ScaffObjectScript : MonoBehaviour
         // Check the state of the powerups and update the indicators
         if (!string.IsNullOrEmpty(powerUpManager.p1powerup) && !powerUpManager.p1PowerUpActive)
         {   
-            if(powerUpManager.player1powerupcount<=2){
+            if(powerUpManager.player1powerupcount<=2 && powerUpManager.p1powerup==powerUpManager.testing_powerup){
                 ShowP1PowerUpIndicator();
             }
         }
@@ -35,7 +35,7 @@ public class ScaffObjectScript : MonoBehaviour
 
         if (!string.IsNullOrEmpty(powerUpManager.p2powerup) && !powerUpManager.p2PowerUpActive)
         {
-            if(powerUpManager.player2powerupcount<=2){
+            if(powerUpManager.player2powerupcount<=2 && powerUpManager.p2powerup==powerUpManager.testing_powerup){
                 ShowP2PowerUpIndicator();
             }
             // ShowP2PowerUpIndicator();
