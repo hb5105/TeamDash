@@ -159,7 +159,7 @@ public class ScaffSplitPowerUpManager : MonoBehaviour
         }
     }
     void AssignRandomPowerUp()
-    {
+    {   
         p1powerup = testing_powerup;
         if(p1powerup == "SplitBall" && ballsInScoreZone == 2 ){
             p1powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
@@ -229,11 +229,7 @@ public class ScaffSplitPowerUpManager : MonoBehaviour
             Debug.LogError("Paddle is null in ActivatePowerUp method.");
             return;
         }
-        if (powerUpName=="SplitBall" && ball == null)
-        {
-            Debug.LogError("Ball is null in ActivatePowerUp method.");
-            return;
-        }
+ 
 
         switch (powerUpName)
         {
@@ -265,7 +261,9 @@ public class ScaffSplitPowerUpManager : MonoBehaviour
                 movePowerUp.ShiftOpponentPosition();
                 break;
             case "SplitBall":
-                var splitPowerUp = ball.gameObject.GetComponent<BallSplitPowerUp>();
+                 getBallBetweenScoreZones();
+                var ballGameObject = ball.gameObject;
+                var splitPowerUp = ballGameObject.GetComponent<BallSplitPowerUp>();
                 if (splitPowerUp == null)
                 {
                     Debug.LogError("BallSplitPowerUp script is missing on paddle " + paddle.id);
@@ -282,6 +280,8 @@ public class ScaffSplitPowerUpManager : MonoBehaviour
     {
         //wait until end of frame to call split ball
         yield return new WaitForEndOfFrame();
+        getBallBetweenScoreZones();
+        ballGameObject = ball.gameObject;
         splitPowerUp.SplitBall(ballGameObject, paddleId);
     }
    
