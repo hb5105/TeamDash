@@ -650,6 +650,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1965567177}
     - target: {fileID: 2156427103293656332, guid: 6742f3df417b740699a67b908ac474f1, type: 3}
+      propertyPath: leftScoreZone
+      value: 
+      objectReference: {fileID: 1734721509}
+    - target: {fileID: 2156427103293656332, guid: 6742f3df417b740699a67b908ac474f1, type: 3}
       propertyPath: player1Powerup
       value: 
       objectReference: {fileID: 877742441}
@@ -657,6 +661,10 @@ PrefabInstance:
       propertyPath: player2Powerup
       value: 
       objectReference: {fileID: 877742440}
+    - target: {fileID: 2156427103293656332, guid: 6742f3df417b740699a67b908ac474f1, type: 3}
+      propertyPath: rightScoreZone
+      value: 
+      objectReference: {fileID: 1734721508}
     - target: {fileID: 2156427103293656332, guid: 6742f3df417b740699a67b908ac474f1, type: 3}
       propertyPath: moveOpponentImage
       value: 
