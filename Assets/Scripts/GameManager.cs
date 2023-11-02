@@ -60,8 +60,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private List<int> pos2 = new List<int>();
 
     private float currentTime;
-    //public GunMovement player1GunMovement; // Assign this to player 1's paddle in the editor
-    //public GunMovement player2GunMovement; // Assign this to player 2's paddle in the editor
+    public GunMovement player1GunMovement; // Assign this to player 1's paddle in the editor
+    public GunMovement player2GunMovement; // Assign this to player 2's paddle in the editor
 
     public TextMeshProUGUI TimerText { get => timerText; }
 
@@ -471,13 +471,13 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
         UpdateScores(res1, res2, res1Temp, res2Temp, pos1, pos2);
         remainingChars = new List<char>(wordSet1);
         remainingChars.AddRange(new List<char>(wordSet2));
-        //if (id == 1 && scorePlayer1 > 0 && scorePlayer1 % 3 == 0)
-        //{
-        //    player1GunMovement.IncreaseBullets(); // Update bullets for player 1
-        //}
-        //else if (id == 2 && scorePlayer2 > 0 && scorePlayer2 % 3 == 0)
-        //{
-        //    player2GunMovement.IncreaseBullets(); // Update bullets for player 2
-        //}
+        if (id == 1 && scorePlayer1 > 0 && scorePlayer1 % 3 == 0)
+        {
+           player1GunMovement.IncreaseBullets(); // Update bullets for player 1
+        }
+        else if (id == 2 && scorePlayer2 > 0 && scorePlayer2 % 3 == 0)
+        {
+           player2GunMovement.IncreaseBullets(); // Update bullets for player 2
+        }
     }
 }
