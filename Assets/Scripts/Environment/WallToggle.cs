@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class WallToggle : MonoBehaviour
 {
@@ -9,12 +10,14 @@ public class WallToggle : MonoBehaviour
     public GameObject[] pointedWalls;   // Drag your '^' and 'v' walls here
     public TextMeshProUGUI ScoreTextLeft;
     public TextMeshProUGUI ScoreTextRight;
+    public Image Bg1;
+    public Image Bg2;
     public TextMeshProUGUI Word1;
     public TextMeshProUGUI Word2;
-    //public TextMeshProUGUI Powerup1;
-    //public TextMeshProUGUI Powerup2;
-    //public GameObject p1Timer;
-    //public GameObject p2Timer;
+    public Image Powerup1;
+    public Image Powerup2;
+    public GameObject p1Timer;
+    public GameObject p2Timer;
     public TextMeshProUGUI p1BulletLeft;
     public TextMeshProUGUI p2BulletLeft;
     public GameObject p1Bullet;
@@ -68,7 +71,13 @@ public class WallToggle : MonoBehaviour
         rectTransform.anchoredPosition = new Vector2(-117,145);
 
         rectTransform = ScoreTextRight.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(225, 145);
+        rectTransform.anchoredPosition = new Vector2(237, 145);
+
+        rectTransform = Bg1.rectTransform;
+        rectTransform.anchoredPosition = new Vector2(-117, 145);
+
+        rectTransform = Bg2.rectTransform;
+        rectTransform.anchoredPosition = new Vector2(121, 145);
 
         rectTransform = Word1.rectTransform;
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -117);
@@ -76,17 +85,17 @@ public class WallToggle : MonoBehaviour
         rectTransform = Word2.rectTransform;
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -117);
 
-        //rectTransform = Powerup1.rectTransform;
-        //rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
+        rectTransform = Powerup1.rectTransform;
+        rectTransform.anchoredPosition = new Vector2(-301, 204);
 
-        //rectTransform = Powerup2.rectTransform;
-        //rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
+        rectTransform = Powerup2.rectTransform;
+        rectTransform.anchoredPosition = new Vector2(301, 204);
 
-        //rectTransform = p1Timer.GetComponent<RectTransform>();
-        //rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
+        rectTransform = p1Timer.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector2(-301, 204);
 
-        //rectTransform = p2Timer.GetComponent<RectTransform>();
-        //rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 113);
+        rectTransform = p2Timer.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector2(301, 204);
 
         // rectTransform = p1BulletLeft.rectTransform;
         // rectTransform.anchoredPosition = new Vector2(-200, -160);
