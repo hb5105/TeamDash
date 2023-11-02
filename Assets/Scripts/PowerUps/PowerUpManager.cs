@@ -119,7 +119,7 @@ public class PowerUpManager : MonoBehaviour
             Image timerImage = timerTransform.GetComponent<Image>();
             SetPowerUpImage(player1Powerup, p1powerup, timerImage);
 
-            p1powerup = "";
+            //p1powerup = "";
             Invoke("DeactivateP1PowerUp", powerUpActiveDuration);
         }
 
@@ -132,7 +132,7 @@ public class PowerUpManager : MonoBehaviour
             Image timerImage = timerTransform.GetComponent<Image>();
             SetPowerUpImage(player2Powerup, p2powerup, timerImage);
 
-            p2powerup = "";
+            //p2powerup = "";
             Invoke("DeactivateP2PowerUp", powerUpActiveDuration);
         }
     }
@@ -284,6 +284,7 @@ public class PowerUpManager : MonoBehaviour
    
     void DeactivateP1PowerUp()
     {
+        p1powerup = "";
         //player1Powerup.gameObject.SetActive(false);
         p1Timer.SetActive(false);
         p1PowerUpActive = false;
@@ -317,6 +318,7 @@ public class PowerUpManager : MonoBehaviour
 
     void DeactivateP2PowerUp()
     {
+        p2powerup = "";
         //player2Powerup.gameObject.SetActive(false);
         p2Timer.SetActive(false);
         p2PowerUpActive = false;
