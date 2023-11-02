@@ -32,4 +32,13 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        ScoreZone scoreZone = collision.GetComponent<ScoreZone>();
+        if (scoreZone)
+        {
+            trackAnalytics.CollectShootData(false);
+            Destroy(gameObject);
+        }
+    }
 }

@@ -225,8 +225,7 @@ public class Ball : MonoBehaviour
             newYVelocity = rb2d.velocity.y + (angleAdjustment * tiltDirection);
             }
             else{
-                rb2d.velocity=rb2d.velocity.normalized*moveSpeed;
-                AdjustVelocity();
+                newYVelocity = rb2d.velocity.y + (angleAdjustment * -1 * tiltDirection);
             }
             rb2d.velocity = new Vector2(rb2d.velocity.x, newYVelocity);
             // Debug.Log("Ball Velocity after collision: " + rb2d.velocity);
