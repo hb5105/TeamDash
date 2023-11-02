@@ -9,7 +9,8 @@ using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviourPunCallbacks
-{
+{   public ScoreZone leftScoreZone;
+    public ScoreZone rightScoreZone;
     public static GameManager instance; // Singleton
     public int scorePlayer1, scorePlayer2;
     public ScoreText scoreTextLeft, scoreTextRight;
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     //public GameObject nextTutorialMenu;
     //public GameObject tutorialTxtPrompt;
     public Ball ballPrefab;
+    public GameObject ballGameObject;
     public CountDown countDown;
     public BallText ballText;
     public WordGenerator wordGeneratorPlayer1;
@@ -46,6 +48,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     public HashSet<char> wordSet2 = new HashSet<char>();
     [SerializeField] private float timeInSeconds;
     [SerializeField] private TextMeshProUGUI timerText;
+    public int countOfBallsBwScoreZone = 0;
+
+    public Queue<GameObject> ballsInScoreZone = new Queue<GameObject>();
 
     private string res1;
     private string res2;
@@ -70,7 +75,70 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
     
-    
+public void AddBallToQueue(GameObject ball)
+{
+    ballsInScoreZone.Enqueue(ball);
+    ballGameObject = ball;
+    StartCoroutine(ProcessBallQueue(ballGameObject));
+}
+
+private IEnumerator ProcessBallQueue(GameObject ballGameObject)
+{
+    // Wait for the end of the frame, ensuring all collisions for this frame are processed
+    yield return new WaitForEndOfFrame();
+    // Debug.Log("balls in score zone pbq"+ballsInScoreZone.Count);
+
+    // Check if total balls - balls in scorezone is less than or equal to the desired count
+    // while ( ballsInScoreZone.Count>1 )
+    // {
+    //     GameObject ballToProcess = ballsInScoreZone.Dequeue();
+    //     // ballComponent = ballToProcess.GetComponent<Ball>();
+        
+    //     // Check if the ball has already been destroyed
+    //     if (ballToProcess != null)
+    //     {
+            
+    //         Destroy(ballToProcess);
+    //        //wait till next frame
+    //         yield return new WaitForEndOfFrame();
+    //         // Spawn a new ball
+        
+    //     }
+        
+    //     // Exit loop if no balls are left in the queue
+    //     if (ballsInScoreZone.Count == 0)
+    //         break;
+        
+    // }
+    Invoke("CheckBallsBetweenScoreZones",0.5f);
+  
+}
+     public int CheckBallsBetweenScoreZones()
+    { // let's get array of game obejcts of type Ball
+        //wait for 2 seconds
+        // yield return new WaitForSeconds(2);
+        GameObject[] activeBalls = GameObject.FindGameObjectsWithTag("Ball");
+        float leftX = leftScoreZone.transform.position.x;
+        float rightX = rightScoreZone.transform.position.x;
+        int count = 0;
+        foreach (GameObject ball in activeBalls)
+        {
+            if (ball.transform.position.x > leftX && ball.transform.position.x < rightX)
+            {
+                count++;
+            }
+        }
+        countOfBallsBwScoreZone = count;
+        //Debug.Log("count of balls bw score zone "+countOfBallsBwScoreZone);
+         if(countOfBallsBwScoreZone==0)
+    { //Debug.Log("enetered sumi");
+        GameObject ballToProcess = ballsInScoreZone.Dequeue();
+        SpawnNewBall(ballToProcess);
+        Invoke("Destroy(ballToProcess)",2f);
+    }
+        return count;
+    }
+
     public void Start()
     {
         TimerText.text = "02:30";
@@ -168,7 +236,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             ballSplittingActiveForPlayer = 0;
     }
      public void SpawnNewBall(GameObject CurrentBall)
-    {   Debug.Log("spawning new");
+    { // Debug.Log("spawning when no of balls "+ countOfBallsBwScoreZone);
         GameObject newBall = Instantiate(CurrentBall, Vector2.zero, Quaternion.identity); // Spawning the ball at the center for now
         // GameObject newBall = newBallComponent.gameObject;
         Ball newBallComponent = newBall.GetComponent<Ball>();
@@ -200,14 +268,15 @@ public class GameManager : MonoBehaviourPunCallbacks
             SetTime(currentTime);
             float threshold = 0.05f; // Small threshold value to account for precision errors
             if (currentSplitIndex < ballSplitTimes.Count && Mathf.Abs(currentTime - ballSplitTimes[currentSplitIndex]) < threshold)
-            { Debug.Log("currentTime "+currentTime);
+            { //Debug.Log("currentTime "+currentTime);
             // Here, initiate the ball split logic. Depending on your implementation, you might call a function or set a flag.
-            StartCoroutine(RandomizePowerUpActivePlayer());
+            // StartCoroutine(RandomizePowerUpActivePlayer());
 
 
             // Move to the next time checkpoint
-            currentSplitIndex++;
+            // currentSplitIndex++;
              }
+             //CheckBallsBetweenScoreZones();
         }
     }
 
