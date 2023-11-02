@@ -271,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: MoveOppScaff
   currentSceneName: 
+  startMenu: {fileID: 0}
 --- !u!1 &122686472
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,6 +932,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: UpdatedGame
   currentSceneName: 
+  startMenu: {fileID: 0}
 --- !u!1 &432448785
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,6 +1241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: FreezeScaff
   currentSceneName: 
+  startMenu: {fileID: 0}
 --- !u!1 &1008560058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1521,6 +1524,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: VasviScene
   currentSceneName: 
+  startMenu: {fileID: 0}
 --- !u!1 &1448058934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,8 +1671,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52e38590a8bc314cbe2cc93a7449ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: ShootingScene
+  sceneName: ShootingScaff
   currentSceneName: 
+  startMenu: {fileID: 0}
 --- !u!1 &1666104988
 GameObject:
   m_ObjectHideFlags: 0
@@ -1991,6 +1996,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Start Scene
   currentSceneName: 
+  startMenu: {fileID: 0}
 --- !u!114 &1779802783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2233,6 +2239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: MagnifyScaff
   currentSceneName: 
+  startMenu: {fileID: 0}
 --- !u!1 &1913873861
 GameObject:
   m_ObjectHideFlags: 0
@@ -2515,6 +2522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: TeamDash
   currentSceneName: 
+  startMenu: {fileID: 0}
 --- !u!1 &1974504518
 GameObject:
   m_ObjectHideFlags: 0
