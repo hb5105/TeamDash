@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
     //for analytics
     public TrackAnalytics trackAnalytics;
+{   public ScoreZone leftScoreZone;
+    public ScoreZone rightScoreZone;
     public static GameManager instance; // Singleton
     public int scorePlayer1, scorePlayer2;
     public ScoreText scoreTextLeft, scoreTextRight;
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     //public GameObject nextTutorialMenu;
     //public GameObject tutorialTxtPrompt;
     public Ball ballPrefab;
+    public GameObject ballGameObject;
     public CountDown countDown;
     public BallText ballText;
     public WordGenerator wordGeneratorPlayer1;
@@ -48,12 +51,21 @@ public class GameManager : MonoBehaviourPunCallbacks
     public HashSet<char> wordSet2 = new HashSet<char>();
     [SerializeField] private float timeInSeconds;
     [SerializeField] private TextMeshProUGUI timerText;
+    public int countOfBallsBwScoreZone = 0;
+
+    public Queue<GameObject> ballsInScoreZone = new Queue<GameObject>();
 
     private string res1;
     private string res2;
     public float currentTime;
     public float startTimeWord;
     public float endTimeWord;
+    private string res1Temp;
+    private string res2Temp;
+    private List<int> pos1 = new List<int>();
+    private List<int> pos2 = new List<int>();
+
+    private float currentTime;
     //public GunMovement player1GunMovement; // Assign this to player 1's paddle in the editor
     //public GunMovement player2GunMovement; // Assign this to player 2's paddle in the editor
 
@@ -74,7 +86,70 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
     
-    
+public void AddBallToQueue(GameObject ball)
+{
+    ballsInScoreZone.Enqueue(ball);
+    ballGameObject = ball;
+    StartCoroutine(ProcessBallQueue(ballGameObject));
+}
+
+private IEnumerator ProcessBallQueue(GameObject ballGameObject)
+{
+    // Wait for the end of the frame, ensuring all collisions for this frame are processed
+    yield return new WaitForEndOfFrame();
+    // Debug.Log("balls in score zone pbq"+ballsInScoreZone.Count);
+
+    // Check if total balls - balls in scorezone is less than or equal to the desired count
+    // while ( ballsInScoreZone.Count>1 )
+    // {
+    //     GameObject ballToProcess = ballsInScoreZone.Dequeue();
+    //     // ballComponent = ballToProcess.GetComponent<Ball>();
+        
+    //     // Check if the ball has already been destroyed
+    //     if (ballToProcess != null)
+    //     {
+            
+    //         Destroy(ballToProcess);
+    //        //wait till next frame
+    //         yield return new WaitForEndOfFrame();
+    //         // Spawn a new ball
+        
+    //     }
+        
+    //     // Exit loop if no balls are left in the queue
+    //     if (ballsInScoreZone.Count == 0)
+    //         break;
+        
+    // }
+    Invoke("CheckBallsBetweenScoreZones",0.5f);
+  
+}
+     public int CheckBallsBetweenScoreZones()
+    { // let's get array of game obejcts of type Ball
+        //wait for 2 seconds
+        // yield return new WaitForSeconds(2);
+        GameObject[] activeBalls = GameObject.FindGameObjectsWithTag("Ball");
+        float leftX = leftScoreZone.transform.position.x;
+        float rightX = rightScoreZone.transform.position.x;
+        int count = 0;
+        foreach (GameObject ball in activeBalls)
+        {
+            if (ball.transform.position.x > leftX && ball.transform.position.x < rightX)
+            {
+                count++;
+            }
+        }
+        countOfBallsBwScoreZone = count;
+        //Debug.Log("count of balls bw score zone "+countOfBallsBwScoreZone);
+         if(countOfBallsBwScoreZone==0)
+    { //Debug.Log("enetered sumi");
+        GameObject ballToProcess = ballsInScoreZone.Dequeue();
+        SpawnNewBall(ballToProcess);
+        Invoke("Destroy(ballToProcess)",2f);
+    }
+        return count;
+    }
+
     public void Start()
     {
         TimerText.text = "02:30";
@@ -102,13 +177,19 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         res1 = "";
         res2 = "";
+        res1Temp = "";
+        res2Temp = "";
+        //pos1.Clear();
+        //pos2.Clear();
         for (int i = 0; i < word1.Length; i++)
         {
             res1 = res1 + "_";
+            res1Temp = res1Temp + word1[i];
         }
         for (int i = 0; i < word2.Length; i++)
         {
             res2 = res2 + "_";
+            res2Temp = res2Temp + word2[i];
         }
         foreach (char c in word1)
         {
@@ -118,7 +199,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             wordSet2.Add(c);
         }
-        UpdateScores(res1, res2);
+        UpdateScores(res1, res2, res1Temp, res2Temp, pos1, pos2);
         remainingChars = new List<char>(wordSet1);
         remainingChars.AddRange(new List<char>(wordSet2));
         if (PhotonNetwork.IsConnected) 
@@ -174,7 +255,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             ballSplittingActiveForPlayer = 0;
     }
      public void SpawnNewBall(GameObject CurrentBall)
-    {   Debug.Log("spawning new");
+    { // Debug.Log("spawning when no of balls "+ countOfBallsBwScoreZone);
         GameObject newBall = Instantiate(CurrentBall, Vector2.zero, Quaternion.identity); // Spawning the ball at the center for now
         // GameObject newBall = newBallComponent.gameObject;
         Ball newBallComponent = newBall.GetComponent<Ball>();
@@ -206,14 +287,15 @@ public class GameManager : MonoBehaviourPunCallbacks
             SetTime(currentTime);
             float threshold = 0.05f; // Small threshold value to account for precision errors
             if (currentSplitIndex < ballSplitTimes.Count && Mathf.Abs(currentTime - ballSplitTimes[currentSplitIndex]) < threshold)
-            { Debug.Log("currentTime "+currentTime);
+            { //Debug.Log("currentTime "+currentTime);
             // Here, initiate the ball split logic. Depending on your implementation, you might call a function or set a flag.
-            StartCoroutine(RandomizePowerUpActivePlayer());
+            // StartCoroutine(RandomizePowerUpActivePlayer());
 
 
             // Move to the next time checkpoint
-            currentSplitIndex++;
+            // currentSplitIndex++;
              }
+             //CheckBallsBetweenScoreZones();
         }
     }
 
@@ -269,10 +351,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         
     }
 
-    public void UpdateScores(string res1, string res2)
+    public void UpdateScores(string res1, string res2, string res1Temp, string res2Temp, List<int> pos1, List<int> pos2)
     {
-        scoreTextLeft.SetScore(res1);
-        scoreTextRight.SetScore(res2);
+        scoreTextLeft.SetScore(res1, res1Temp, pos1);
+        scoreTextRight.SetScore(res2, res2Temp, pos2);
     }
 
     public bool IsWordCompleted(string playerProgress, string targetWord)
@@ -289,12 +371,16 @@ public class GameManager : MonoBehaviourPunCallbacks
             word1 = wordGeneratorPlayer1.textBox.text;
 
             res1 = "";
+            res1Temp = "";
+            pos1.Clear();
 
             for (int i = 0; i < word1.Length; i++)
             {
                 res1 = res1 + "_";
+                res1Temp = res1Temp + word1[i];
+
             }
-            
+
             foreach (char c in word1)
             {
                 wordSet1.Add(c);
@@ -308,10 +394,13 @@ public class GameManager : MonoBehaviourPunCallbacks
             word2 = wordGeneratorPlayer2.textBox.text;
 
             res2 = "";
+            res2Temp = "";
+            pos2.Clear();
 
             for (int i = 0; i < word2.Length; i++)
             {
                 res2 = res2 + "_";
+                res2Temp = res2Temp + word2[i];
             }
 
             foreach (char c in word2)
@@ -343,6 +432,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             scorePlayer1 += 1;
 
             wordSet1.Remove(currChar); // remove from wordSet
+            pos1.Add(pos);
+            UpdateScores(res1, res2, res1Temp, res2Temp, pos1, pos2);
 
             if (IsWordCompleted(res1, word1))
             {
@@ -369,6 +460,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                     GameEnd();
                 }
             }
+            Debug.Log(string.Join(", ", pos1));
         }
         else if (id == 2 && !res2.Contains(curr))
         {
@@ -378,7 +470,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             scorePlayer2 += 1;
 
             wordSet2.Remove(currChar);
-        
+            pos2.Add(pos);
+            UpdateScores(res1, res2, res1Temp, res2Temp, pos1, pos2);
+
             if (IsWordCompleted(res2, word2))
             {   wallToggle.SwitchToPointedWalls();
                 numWords2 += 1;
@@ -402,8 +496,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
         }
-        
-        UpdateScores(res1, res2);
+
+        UpdateScores(res1, res2, res1Temp, res2Temp, pos1, pos2);
         remainingChars = new List<char>(wordSet1);
         remainingChars.AddRange(new List<char>(wordSet2));
         //if (id == 1 && scorePlayer1 > 0 && scorePlayer1 % 3 == 0)
