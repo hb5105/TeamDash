@@ -10,6 +10,8 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    //for analytics
+    public TrackAnalytics trackAnalytics;
     public static GameManager instance; // Singleton
     public int scorePlayer1, scorePlayer2;
     public ScoreText scoreTextLeft, scoreTextRight;
@@ -50,6 +52,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private string res1;
     private string res2;
     public float currentTime;
+    public float startTimeWord;
+    public float endTimeWord;
     //public GunMovement player1GunMovement; // Assign this to player 1's paddle in the editor
     //public GunMovement player2GunMovement; // Assign this to player 2's paddle in the editor
 
@@ -74,6 +78,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void Start()
     {
         TimerText.text = "02:30";
+
         wordSet1 = new HashSet<char>();
         wordSet2 = new HashSet<char>();
         gameOverText.text = "";
@@ -87,6 +92,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         textBoxPlayer1 = wordGeneratorPlayer1.textBox;
         textBoxPlayer2 = wordGeneratorPlayer2.textBox;
         currentTime = timeInSeconds;
+        startTimeWord = currentTime;
         word1 = textBoxPlayer1.text;
         word2 = textBoxPlayer2.text;
         scorePlayer1 = 0;
@@ -219,6 +225,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (currentTime <= 0)
         {
             // Game Over
+            endTimeWord = currentTime;
+            trackAnalytics.CollectWordData(word1, startTimeWord, endTimeWord, 1, 0);
+            trackAnalytics.CollectWordData(word2, startTimeWord, endTimeWord, 1, 0);
             GameEnd();
         }
     }
@@ -277,7 +286,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             // Update word for player 1
             wordGeneratorPlayer1.OnWordCompleted();
-
             word1 = wordGeneratorPlayer1.textBox.text;
 
             res1 = "";
@@ -343,11 +351,21 @@ public class GameManager : MonoBehaviourPunCallbacks
 
                 if(numWords1 < 3)
                 {
+                    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+                    endTimeWord = currentTime;
+                    Debug.Log("trackAnalytics: " + (trackAnalytics != null));
+                    Debug.Log(word1);
+                    Debug.Log(startTimeWord);
+                    Debug.Log(endTimeWord);
+                    trackAnalytics.CollectWordData(word1, startTimeWord, endTimeWord, 0, 0);
+                    startTimeWord = currentTime;
                     UpdateWord(id);
                     
                 }
                 else
                 {
+                    endTimeWord = currentTime;
+                    trackAnalytics.CollectWordData(word1, startTimeWord, endTimeWord, 0, 1);
                     GameEnd();
                 }
             }
@@ -367,10 +385,19 @@ public class GameManager : MonoBehaviourPunCallbacks
 
                 if (numWords2 < 3)
                 {
+                    endTimeWord = currentTime;
+                    Debug.Log("trackAnalytics: " + (trackAnalytics != null));
+                    Debug.Log(word2);
+                    Debug.Log(startTimeWord);
+                    Debug.Log(endTimeWord);
+                    trackAnalytics.CollectWordData(word2, startTimeWord, endTimeWord, 0, 0);
+                    startTimeWord = currentTime;
                     UpdateWord(id);
                 }
                 else
                 {
+                    endTimeWord = currentTime;
+                    trackAnalytics.CollectWordData(word2, startTimeWord, endTimeWord, 0, 1);
                     GameEnd();
                 }
             }

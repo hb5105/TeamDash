@@ -19,9 +19,13 @@ public class PlayerShootData
 }
 public class PlayerWordData
 {
-    public int bulletUsed = 0;
-    public int ballShot = 0;
-    public int timeStamp = 0;
+    public int wordCompleted = 0;
+    public int threeCharWords = 0;
+    public int fourCharWords = 0;
+    public int fiveCharWords = 0;
+    public int wordCompleteTimeStamp = 0;
+    public int hasTimerEnded = 0;
+    public int hasHangmanEnded = 0;
 }
 public class TrackAnalytics : MonoBehaviour
 {
@@ -129,17 +133,48 @@ public class TrackAnalytics : MonoBehaviour
     {
         PlayerShootData playerShootData = new PlayerShootData();
         playerShootData.bulletUsed = 1;
-        playerShootData.timeStamp = (int)gameManager.currentTime;
+        playerShootData.timeStamp = 150 - (int)gameManager.currentTime;
         if (hasHit)
         {
             playerShootData.ballShot = 1;
         }
         string json = JsonUtility.ToJson(playerShootData);
-        RestClient.Post("https://csci-526-shooting-default-rtdb.firebaseio.com//.json", playerShootData);
+        RestClient.Post("https://csci-526-shooting-default-rtdb.firebaseio.com/.json", playerShootData);
     }
 
-    public void CollectWordData()
+    public void CollectWordData(string hangmanWord, float startTimeWord, float endTimeWord, int hasGameTimerEnded, int hasHangmanEnded)
     {
+        PlayerWordData playerWordData = new PlayerWordData();
+        // check what word the player was on
+        if (hangmanWord.Length == 3)
+        {
+            playerWordData.threeCharWords = 1;
+        }
+        else if (hangmanWord.Length == 4)
+        {
+            playerWordData.fourCharWords = 1;
+        }
+        else if(hangmanWord.Length == 5)
+        {
+            playerWordData.fiveCharWords = 1;
+        }
 
+        //check if word was completed or timer ran out
+        if(hasGameTimerEnded == 0)
+        {
+            playerWordData.wordCompleteTimeStamp = (int)(startTimeWord - endTimeWord);
+        }
+        else if (hasGameTimerEnded == 1)
+        {
+            playerWordData.hasTimerEnded= 1;
+        }
+
+        // check if game was completed by solving hangman
+        if (hasHangmanEnded == 1)
+        {
+            playerWordData.hasHangmanEnded= 1;
+        }
+        string json = JsonUtility.ToJson(playerWordData);
+        RestClient.Post("https://csci-526-words-default-rtdb.firebaseio.com/.json", playerWordData);
     }
 }
