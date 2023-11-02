@@ -92,7 +92,7 @@ foreach (GameObject wall in lowerWalls)
     }
     // Debug.Log("split ball method called");
     getUpperAndLowerLimit();
-    float separation = 1f;
+    float separation = 2f;
 
     int count = CheckBallsBetweenScoreZones();
     //Debug.Log("CheckBallsBetweenScoreZones "+count);
