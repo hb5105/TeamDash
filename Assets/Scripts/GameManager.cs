@@ -9,7 +9,13 @@ using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviourPunCallbacks
-{   public ScoreZone leftScoreZone;
+{
+    //Scaffolding Level 1
+    private Scene currentScene;
+    public LevelOneManager levelOneManager;
+    //for analytics
+    public TrackAnalytics trackAnalytics;
+    public ScoreZone leftScoreZone;
     public ScoreZone rightScoreZone;
     public static GameManager instance; // Singleton
     public int scorePlayer1, scorePlayer2;
@@ -54,12 +60,14 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private string res1;
     private string res2;
+    public float currentTime;
+    public float startTimeWord;
+    public float endTimeWord;
     private string res1Temp;
     private string res2Temp;
     private List<int> pos1 = new List<int>();
     private List<int> pos2 = new List<int>();
 
-    private float currentTime;
     public GunMovement player1GunMovement; // Assign this to player 1's paddle in the editor
     public GunMovement player2GunMovement; // Assign this to player 2's paddle in the editor
 
@@ -146,7 +154,10 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
 
     public void Start()
     {
+        currentScene = SceneManager.GetActiveScene();
+        
         TimerText.text = "02:30";
+
         wordSet1 = new HashSet<char>();
         wordSet2 = new HashSet<char>();
         gameOverText.text = "";
@@ -160,6 +171,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
         textBoxPlayer1 = wordGeneratorPlayer1.textBox;
         textBoxPlayer2 = wordGeneratorPlayer2.textBox;
         currentTime = timeInSeconds;
+        startTimeWord = currentTime;
         word1 = textBoxPlayer1.text;
         word2 = textBoxPlayer2.text;
         scorePlayer1 = 0;
@@ -299,6 +311,9 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
         if (currentTime <= 0)
         {
             // Game Over
+            endTimeWord = currentTime;
+            trackAnalytics.CollectWordData(word1, startTimeWord, endTimeWord, 1, 0);
+            trackAnalytics.CollectWordData(word2, startTimeWord, endTimeWord, 1, 0);
             GameEnd();
         }
     }
@@ -357,7 +372,6 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
         {
             // Update word for player 1
             wordGeneratorPlayer1.OnWordCompleted();
-
             word1 = wordGeneratorPlayer1.textBox.text;
 
             res1 = "";
@@ -412,7 +426,8 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
         // Update word based on player
         string playerWord = (id == 1) ? textBoxPlayer1.text : textBoxPlayer2.text;
         int pos = playerWord.IndexOf(currChar);
-        if (pos == -1) return;  // exit if currChar is not in playerWord
+        if (pos == -1) return; // exit if currChar is not in playerWord
+
 
         if (id == 1 && !res1.Contains(curr))
         {
@@ -424,19 +439,33 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
             wordSet1.Remove(currChar); // remove from wordSet
             pos1.Add(pos);
             UpdateScores(res1, res2, res1Temp, res2Temp, pos1, pos2);
+            //check if level 1 scene, toggle helpful bubble for player
+            if (currentScene.name == "Level1Basics")
+            {
+                StartCoroutine(levelOneManager.ToggleWordBubbles(1));
+            }
 
             if (IsWordCompleted(res1, word1))
             {
                 wallToggle.SwitchToPointedWalls();
                 numWords1 += 1;
-
+                //check if level 1 scene, toggle helpful bubble for player
+                if (currentScene.name == "Level1Basics")
+                {
+                    StartCoroutine(levelOneManager.ToggleWordBubbles(2));
+                }
                 if(numWords1 < 3)
                 {
+                    endTimeWord = currentTime;
+                    trackAnalytics.CollectWordData(word1, startTimeWord, endTimeWord, 0, 0);
+                    startTimeWord = currentTime;
                     UpdateWord(id);
                     
                 }
                 else
                 {
+                    endTimeWord = currentTime;
+                    trackAnalytics.CollectWordData(word1, startTimeWord, endTimeWord, 0, 1);
                     GameEnd();
                 }
             }
@@ -452,17 +481,32 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
             wordSet2.Remove(currChar);
             pos2.Add(pos);
             UpdateScores(res1, res2, res1Temp, res2Temp, pos1, pos2);
+            //check if level 1 scene, toggle helpful bubble for player
+            if (currentScene.name == "Level1Basics")
+            {
+                StartCoroutine(levelOneManager.ToggleWordBubbles(3));
+            }
 
             if (IsWordCompleted(res2, word2))
             {   wallToggle.SwitchToPointedWalls();
                 numWords2 += 1;
+                //check if level 1 scene, toggle helpful bubble for player
+                if (currentScene.name == "Level1Basics")
+                {
+                    StartCoroutine(levelOneManager.ToggleWordBubbles(4));
+                }
 
                 if (numWords2 < 3)
                 {
+                    endTimeWord = currentTime;
+                    trackAnalytics.CollectWordData(word2, startTimeWord, endTimeWord, 0, 0);
+                    startTimeWord = currentTime;
                     UpdateWord(id);
                 }
                 else
                 {
+                    endTimeWord = currentTime;
+                    trackAnalytics.CollectWordData(word2, startTimeWord, endTimeWord, 0, 1);
                     GameEnd();
                 }
             }

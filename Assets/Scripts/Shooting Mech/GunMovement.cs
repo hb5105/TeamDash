@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 
 public class GunMovement : MonoBehaviour
-{ 
+{
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float bulletSpeed = 10f;
