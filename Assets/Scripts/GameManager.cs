@@ -49,6 +49,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private string res1;
     private string res2;
+    private string res1Temp;
+    private string res2Temp;
+    private List<int> pos1 = new List<int>();
+    private List<int> pos2 = new List<int>();
+
     private float currentTime;
     //public GunMovement player1GunMovement; // Assign this to player 1's paddle in the editor
     //public GunMovement player2GunMovement; // Assign this to player 2's paddle in the editor
@@ -96,13 +101,19 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         res1 = "";
         res2 = "";
+        res1Temp = "";
+        res2Temp = "";
+        //pos1.Clear();
+        //pos2.Clear();
         for (int i = 0; i < word1.Length; i++)
         {
             res1 = res1 + "_";
+            res1Temp = res1Temp + word1[i];
         }
         for (int i = 0; i < word2.Length; i++)
         {
             res2 = res2 + "_";
+            res2Temp = res2Temp + word2[i];
         }
         foreach (char c in word1)
         {
@@ -112,7 +123,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             wordSet2.Add(c);
         }
-        UpdateScores(res1, res2);
+        UpdateScores(res1, res2, res1Temp, res2Temp, pos1, pos2);
         remainingChars = new List<char>(wordSet1);
         remainingChars.AddRange(new List<char>(wordSet2));
         if (PhotonNetwork.IsConnected) 
@@ -260,10 +271,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         
     }
 
-    public void UpdateScores(string res1, string res2)
+    public void UpdateScores(string res1, string res2, string res1Temp, string res2Temp, List<int> pos1, List<int> pos2)
     {
-        scoreTextLeft.SetScore(res1);
-        scoreTextRight.SetScore(res2);
+        scoreTextLeft.SetScore(res1, res1Temp, pos1);
+        scoreTextRight.SetScore(res2, res2Temp, pos2);
     }
 
     public bool IsWordCompleted(string playerProgress, string targetWord)
@@ -281,12 +292,16 @@ public class GameManager : MonoBehaviourPunCallbacks
             word1 = wordGeneratorPlayer1.textBox.text;
 
             res1 = "";
+            res1Temp = "";
+            pos1.Clear();
 
             for (int i = 0; i < word1.Length; i++)
             {
                 res1 = res1 + "_";
+                res1Temp = res1Temp + word1[i];
+
             }
-            
+
             foreach (char c in word1)
             {
                 wordSet1.Add(c);
@@ -300,10 +315,13 @@ public class GameManager : MonoBehaviourPunCallbacks
             word2 = wordGeneratorPlayer2.textBox.text;
 
             res2 = "";
+            res2Temp = "";
+            pos2.Clear();
 
             for (int i = 0; i < word2.Length; i++)
             {
                 res2 = res2 + "_";
+                res2Temp = res2Temp + word2[i];
             }
 
             foreach (char c in word2)
@@ -335,6 +353,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             scorePlayer1 += 1;
 
             wordSet1.Remove(currChar); // remove from wordSet
+            pos1.Add(pos);
+            UpdateScores(res1, res2, res1Temp, res2Temp, pos1, pos2);
 
             if (IsWordCompleted(res1, word1))
             {
@@ -351,6 +371,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                     GameEnd();
                 }
             }
+            Debug.Log(string.Join(", ", pos1));
         }
         else if (id == 2 && !res2.Contains(curr))
         {
@@ -360,7 +381,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             scorePlayer2 += 1;
 
             wordSet2.Remove(currChar);
-        
+            pos2.Add(pos);
+            UpdateScores(res1, res2, res1Temp, res2Temp, pos1, pos2);
+
             if (IsWordCompleted(res2, word2))
             {   wallToggle.SwitchToPointedWalls();
                 numWords2 += 1;
@@ -375,8 +398,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
         }
-        
-        UpdateScores(res1, res2);
+
+        UpdateScores(res1, res2, res1Temp, res2Temp, pos1, pos2);
         remainingChars = new List<char>(wordSet1);
         remainingChars.AddRange(new List<char>(wordSet2));
         //if (id == 1 && scorePlayer1 > 0 && scorePlayer1 % 3 == 0)
