@@ -11,8 +11,13 @@ public class PlayerPUData
     public int movePowerUsed = 0;
     public int noPowerUsed = 0;
 }
-
 public class PlayerShootData
+{
+    public int bulletUsed = 0;
+    public int ballShot = 0;
+    public int timeStamp = 0;
+}
+public class PlayerWordData
 {
     public int bulletUsed = 0;
     public int ballShot = 0;
@@ -131,5 +136,10 @@ public class TrackAnalytics : MonoBehaviour
         }
         string json = JsonUtility.ToJson(playerShootData);
         RestClient.Post("https://csci-526-shooting-default-rtdb.firebaseio.com//.json", playerShootData);
+    }
+
+    public void CollectWordData()
+    {
+
     }
 }
