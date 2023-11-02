@@ -26,7 +26,7 @@ public class WallToggle : MonoBehaviour
     public GameObject pointedField;
     public GameObject player1Paddle;
     public GameObject player2Paddle;
-    public GameObject ball;
+    // public GameObject ball;
     public GameObject scoreZoneLeft;
     public GameObject scoreZoneRight;
     public void Start()

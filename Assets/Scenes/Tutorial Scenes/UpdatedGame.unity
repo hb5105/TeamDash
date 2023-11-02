@@ -176,6 +176,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 114446513}
     - target: {fileID: 4068566543489661195, guid: b600639e334874860801db8e2181417c, type: 3}
+      propertyPath: leftScoreZone
+      value: 
+      objectReference: {fileID: 1734721509}
+    - target: {fileID: 4068566543489661195, guid: b600639e334874860801db8e2181417c, type: 3}
       propertyPath: levelOverMenu
       value: 
       objectReference: {fileID: 661327585}
@@ -183,6 +187,10 @@ PrefabInstance:
       propertyPath: scoreTextLeft
       value: 
       objectReference: {fileID: 1821172118}
+    - target: {fileID: 4068566543489661195, guid: b600639e334874860801db8e2181417c, type: 3}
+      propertyPath: rightScoreZone
+      value: 
+      objectReference: {fileID: 1734721508}
     - target: {fileID: 4068566543489661195, guid: b600639e334874860801db8e2181417c, type: 3}
       propertyPath: scoreTextRight
       value: 
@@ -642,6 +650,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1965567177}
     - target: {fileID: 2156427103293656332, guid: 6742f3df417b740699a67b908ac474f1, type: 3}
+      propertyPath: leftScoreZone
+      value: 
+      objectReference: {fileID: 1734721509}
+    - target: {fileID: 2156427103293656332, guid: 6742f3df417b740699a67b908ac474f1, type: 3}
       propertyPath: player1Powerup
       value: 
       objectReference: {fileID: 877742441}
@@ -649,6 +661,10 @@ PrefabInstance:
       propertyPath: player2Powerup
       value: 
       objectReference: {fileID: 877742440}
+    - target: {fileID: 2156427103293656332, guid: 6742f3df417b740699a67b908ac474f1, type: 3}
+      propertyPath: rightScoreZone
+      value: 
+      objectReference: {fileID: 1734721508}
     - target: {fileID: 2156427103293656332, guid: 6742f3df417b740699a67b908ac474f1, type: 3}
       propertyPath: moveOpponentImage
       value: 
@@ -2514,6 +2530,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4895810016046144544, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
+      propertyPath: leftScoreZone
+      value: 
+      objectReference: {fileID: 1734721509}
+    - target: {fileID: 4895810016046144544, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
+      propertyPath: rightScoreZone
+      value: 
+      objectReference: {fileID: 1734721508}
     - target: {fileID: 5097130131938271001, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.47
@@ -2676,6 +2700,28 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
+--- !u!114 &1734721508 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6774465268420395381, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
+  m_PrefabInstance: {fileID: 1734721507}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023482328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6042bdf992ce8e64f9f7aec717748bd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1734721509 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1802044158966960181, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
+  m_PrefabInstance: {fileID: 1734721507}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990223683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6042bdf992ce8e64f9f7aec717748bd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1741198507 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8808870469792221078, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
