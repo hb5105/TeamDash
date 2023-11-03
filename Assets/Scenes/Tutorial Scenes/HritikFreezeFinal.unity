@@ -857,6 +857,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScaffoldingRightFreeze
       objectReference: {fileID: 0}
+    - target: {fileID: 5673919821056754943, guid: 7d381c4b72c2f4503ab7f4fa491c5684, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8590792798280579980, guid: 7d381c4b72c2f4503ab7f4fa491c5684, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.02
