@@ -147,7 +147,6 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
     { //Debug.Log("enetered sumi");
         GameObject ballToProcess = ballsInScoreZone.Dequeue();
         SpawnNewBall(ballToProcess);
-        Invoke("Destroy(ballToProcess)",2f);
     }
         return count;
     }
