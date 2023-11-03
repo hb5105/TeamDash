@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52e38590a8bc314cbe2cc93a7449ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: MoveOppScaff
+  sceneName: HritikMoveOpponentFinal
   currentSceneName: 
   startMenu: {fileID: 0}
 --- !u!1 &122686472
@@ -2505,7 +2505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52e38590a8bc314cbe2cc93a7449ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: FreezeScaff
+  sceneName: HritikFreezeFinal
   currentSceneName: 
   startMenu: {fileID: 0}
 --- !u!1 &1008560058
@@ -4146,7 +4146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52e38590a8bc314cbe2cc93a7449ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: MagnifyScaff
+  sceneName: HritikMagnifyFinal
   currentSceneName: 
   startMenu: {fileID: 0}
 --- !u!1 &1913873861
