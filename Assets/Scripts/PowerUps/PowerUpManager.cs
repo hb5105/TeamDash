@@ -112,6 +112,8 @@ public class PowerUpManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != ""&& !p2PowerUpActive)
         {
 
+            player1Powerup.gameObject.SetActive(true);
+            p1Timer.SetActive(true);
             ActivatePowerUp(paddle1, p1powerup);
             p1PowerUpActive = true;
 
@@ -125,6 +127,8 @@ public class PowerUpManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Slash) && !p2PowerUpActive && p2powerup != ""&& !p1PowerUpActive)
         {
+            player2Powerup.gameObject.SetActive(true);
+            p2Timer.SetActive(true);
             ActivatePowerUp(paddle2, p2powerup);
             p2PowerUpActive = true;
 
@@ -285,7 +289,7 @@ public class PowerUpManager : MonoBehaviour
     void DeactivateP1PowerUp()
     {
         p1powerup = "";
-        //player1Powerup.gameObject.SetActive(false);
+        player1Powerup.gameObject.SetActive(false);
         p1Timer.SetActive(false);
         p1PowerUpActive = false;
         p1PowerUpTimer = 5f;  // Resetting the timer
@@ -319,7 +323,7 @@ public class PowerUpManager : MonoBehaviour
     void DeactivateP2PowerUp()
     {
         p2powerup = "";
-        //player2Powerup.gameObject.SetActive(false);
+        player2Powerup.gameObject.SetActive(false);
         p2Timer.SetActive(false);
         p2PowerUpActive = false;
         p2PowerUpTimer = 5f;  // Resetting the timer
