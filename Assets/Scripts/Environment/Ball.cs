@@ -59,7 +59,7 @@ public class Ball : MonoBehaviour
         // Add a 5-second delay before starting the ball's movement.
         //Invoke(nameof(InitialPush), 2f);
         }
-
+        GetComponent<SpriteRenderer>().color = Color.black;
     }
 
     // Moves the Ball to Random Angle in the Left Direction
@@ -240,7 +240,6 @@ public class Ball : MonoBehaviour
             {   
                 trackAnalytics.CollectPUNoScoreData(1);
                 // Debug.Log("entered paddle 1");
-                this.GetComponent<SpriteRenderer>().color = Color.red;
                 List<char> wordList1 = new List<char>(gameManager.wordSet1);
                 // Check if the list has any elements to prevent possible ArgumentOutOfRangeException
                 if (wordList1.Count > 0)
@@ -265,7 +264,6 @@ public class Ball : MonoBehaviour
             if (paddle.id == 2)
             {
                 trackAnalytics.CollectPUNoScoreData(2);
-                this.GetComponent<SpriteRenderer>().color = Color.blue;
                 List<char> wordList2 = new List<char>(gameManager.wordSet2);
                 // Check if the list has any elements to prevent possible ArgumentOutOfRangeException
                 if (wordList2.Count > 0)

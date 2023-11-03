@@ -166,14 +166,14 @@ RectTransform:
   m_GameObject: {fileID: 206710197}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.83333325, y: 0.83333325, z: 0.83333325}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1834421663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 351.5, y: -239.77}
+  m_AnchoredPosition: {x: -107.08334, y: -449.8083}
   m_SizeDelta: {x: 41.0886, y: 18.204}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &206710199
@@ -881,14 +881,14 @@ RectTransform:
   m_GameObject: {fileID: 750920585}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.83333325, y: 0.83333325, z: 0.83333325}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1834421663}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -362.8178, y: -239.77}
+  m_AnchoredPosition: {x: -702.34814, y: -449.8083}
   m_SizeDelta: {x: 41.0886, y: 18.204}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &750920587
@@ -1533,12 +1533,18 @@ PrefabInstance:
       addedObject: {fileID: 536172248}
     - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       insertIndex: 7
+      addedObject: {fileID: 206710198}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 8
+      addedObject: {fileID: 750920586}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 9
       addedObject: {fileID: 1444439676}
     - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 14
+      insertIndex: 16
       addedObject: {fileID: 1623677883}
     - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 15
+      insertIndex: 17
       addedObject: {fileID: 349553145}
     - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       insertIndex: -1
@@ -2195,21 +2201,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1589278280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8e0da749d34f94e9876c1ac256ee0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ballScriptRef: {fileID: 0}
-  powerUpManager: {fileID: 0}
-  gameManager: {fileID: 0}
 --- !u!4 &1611430142 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5097130131938271001, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
@@ -2690,6 +2681,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 17.342
       objectReference: {fileID: 0}
+    - target: {fileID: 2655994959412683736, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3152691925378877901, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -2865,7 +2860,7 @@ PrefabInstance:
     - target: {fileID: 7320258014860167301, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
       propertyPath: trackAnalytics
       value: 
-      objectReference: {fileID: 1589278280}
+      objectReference: {fileID: 1996549742}
     - target: {fileID: 7898139529462525469, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -3656,6 +3651,4 @@ SceneRoots:
   - {fileID: 209535990}
   - {fileID: 278951562}
   - {fileID: 1039242613}
-  - {fileID: 206710198}
-  - {fileID: 750920586}
   - {fileID: 1996549741}
