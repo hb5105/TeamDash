@@ -242,15 +242,15 @@ public class Ball : MonoBehaviour
                 }
                 // Debug.Log("powerup active"+FindObjectOfType<PowerUpManager>().p1PowerUpActive);
                 // Debug.Log("powerup name"+FindObjectOfType<PowerUpManager>().p1powerup);
-                if(FindObjectOfType<PowerUpManager>().p1PowerUpActive && FindObjectOfType<PowerUpManager>().p1powerup == "SplitBall"){
-                        var splitPowerUp = this.gameObject.GetComponent<BallSplitPowerUp>();
-                        if(!splitPowerUp){
-                            Debug.Log("split powerup null");
-                        }
-                        if(splitPowerUp){
-                            splitPowerUp.SplitBall(this.gameObject, paddle.id);
-                        }
-                }
+                // if(FindObjectOfType<PowerUpManager>().p1PowerUpActive && FindObjectOfType<PowerUpManager>().p1powerup == "SplitBall"){
+                //         var splitPowerUp = this.gameObject.GetComponent<BallSplitPowerUp>();
+                //         if(!splitPowerUp){
+                //             Debug.Log("split powerup null");
+                //         }
+                //         if(splitPowerUp){
+                //             splitPowerUp.SplitBall(this.gameObject, paddle.id);
+                //         }
+                // }
             }
 
             if (paddle.id == 2)

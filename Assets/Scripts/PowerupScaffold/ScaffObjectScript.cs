@@ -5,11 +5,11 @@ public class ScaffObjectScript : MonoBehaviour
     public GameObject p1PowerUpIndicator; // Drag the GameObject for Paddle1's PowerUp Indicator here in the inspector
     public GameObject p2PowerUpIndicator; // Drag the GameObject for Paddle2's PowerUp Indicator here in the inspector
 
-    private ScaffPowerUpManager powerUpManager;
+    private ScaffSplitPowerUpManager powerUpManager;
 
     private void Start()
     {
-        powerUpManager = GetComponent<ScaffPowerUpManager>();
+        powerUpManager = GetComponent<ScaffSplitPowerUpManager>();
         if (powerUpManager == null)
         {
             Debug.LogError("ScaffPowerUpManager not found on this GameObject!");
@@ -23,8 +23,10 @@ public class ScaffObjectScript : MonoBehaviour
     {
         // Check the state of the powerups and update the indicators
         if (!string.IsNullOrEmpty(powerUpManager.p1powerup) && !powerUpManager.p1PowerUpActive)
-        {
-            ShowP1PowerUpIndicator();
+        {   
+            if(powerUpManager.player1powerupcount<=2 && powerUpManager.p1powerup==powerUpManager.testing_powerup){
+                ShowP1PowerUpIndicator();
+            }
         }
         else
         {
@@ -33,7 +35,10 @@ public class ScaffObjectScript : MonoBehaviour
 
         if (!string.IsNullOrEmpty(powerUpManager.p2powerup) && !powerUpManager.p2PowerUpActive)
         {
-            ShowP2PowerUpIndicator();
+            if(powerUpManager.player2powerupcount<=2 && powerUpManager.p2powerup==powerUpManager.testing_powerup){
+                ShowP2PowerUpIndicator();
+            }
+            // ShowP2PowerUpIndicator();
         }
         else
         {
