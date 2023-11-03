@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class ScaffObjectScript : MonoBehaviour
+public class ScaffObjectScriptSplit : MonoBehaviour
 {
     public GameObject p1PowerUpIndicator; // Drag the GameObject for Paddle1's PowerUp Indicator here in the inspector
     public GameObject p2PowerUpIndicator; // Drag the GameObject for Paddle2's PowerUp Indicator here in the inspector
 
-    private ScaffPowerUpManager powerUpManager;
+    private ScaffSplitPowerUpManager powerUpManager;
 
     private void Start()
     {
-        powerUpManager = GetComponent<ScaffPowerUpManager>();
+        powerUpManager = GetComponent<ScaffSplitPowerUpManager>();
         if (powerUpManager == null)
         {
             Debug.LogError("ScaffPowerUpManager not found on this GameObject!");
