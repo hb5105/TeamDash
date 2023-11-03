@@ -2289,6 +2289,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4682266200077181739, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4983225771697861878, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -117
@@ -3158,6 +3162,10 @@ PrefabInstance:
       propertyPath: scoreTextLeft
       value: 
       objectReference: {fileID: 685792884}
+    - target: {fileID: 4068566543489661195, guid: b600639e334874860801db8e2181417c, type: 3}
+      propertyPath: timeInSeconds
+      value: 99999
+      objectReference: {fileID: 0}
     - target: {fileID: 4068566543489661195, guid: b600639e334874860801db8e2181417c, type: 3}
       propertyPath: ballGameObject
       value: 
