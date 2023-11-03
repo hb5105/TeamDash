@@ -2017,6 +2017,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballTag: Ball
   gameManager: {fileID: 1872166391}
+  trackAnalytics: {fileID: 0}
 --- !u!50 &670356031
 Rigidbody2D:
   serializedVersion: 4
@@ -4295,6 +4296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1af555ae0e32caf4bbedbbf3bbcacac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trackAnalytics: {fileID: 0}
   paddleLeft: {fileID: 1171992670}
   paddleRight: {fileID: 230168840}
   rb2d: {fileID: 1709948867}
@@ -5023,6 +5025,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de17fd14788504b49885f68f470bb4ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelOneManager: {fileID: 0}
+  trackAnalytics: {fileID: 0}
   leftScoreZone: {fileID: 0}
   rightScoreZone: {fileID: 0}
   scorePlayer1: 0
@@ -5055,6 +5059,9 @@ MonoBehaviour:
   timeInSeconds: 150
   timerText: {fileID: 1728526040}
   countOfBallsBwScoreZone: 0
+  currentTime: 0
+  startTimeWord: 0
+  endTimeWord: 0
   player1GunMovement: {fileID: 0}
   player2GunMovement: {fileID: 0}
 --- !u!4 &1872166392
