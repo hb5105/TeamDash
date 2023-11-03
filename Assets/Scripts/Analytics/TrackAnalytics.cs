@@ -9,6 +9,7 @@ public class PlayerPUData
     public int freezePowerUsed = 0;
     public int magnifyPowerUsed = 0;
     public int movePowerUsed = 0;
+    public int splitPowerUsed = 0;
     public int noPowerUsed = 0;
 }
 public class PlayerShootData
@@ -52,6 +53,9 @@ public class TrackAnalytics : MonoBehaviour
                     case "Magnify":
                         playerPUData.magnifyPowerUsed = 1;
                         break;
+                    case "SplitBall":
+                        playerPUData.splitPowerUsed = 1;
+                        break;
                 }
             }
             else { playerPUData.noPowerUsed = 1; }
@@ -70,6 +74,9 @@ public class TrackAnalytics : MonoBehaviour
                         break;
                     case "Magnify":
                         playerPUData.magnifyPowerUsed = 1;
+                        break;
+                    case "SplitBall":
+                        playerPUData.splitPowerUsed = 1;
                         break;
                 }
             }
@@ -101,6 +108,9 @@ public class TrackAnalytics : MonoBehaviour
                     case "Magnify":
                         playerPUData.magnifyPowerUsed = 1;
                         break;
+                    case "SplitBall":
+                        playerPUData.splitPowerUsed = 1;
+                        break;
                 }
             }
             else { playerPUData.noPowerUsed = 1; }
@@ -120,6 +130,9 @@ public class TrackAnalytics : MonoBehaviour
                         break;
                     case "Magnify":
                         playerPUData.magnifyPowerUsed = 1;
+                        break;
+                    case "SplitBall":
+                        playerPUData.splitPowerUsed = 1;
                         break;
                 }
             }

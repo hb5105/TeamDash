@@ -15,12 +15,12 @@ public class PaddleSizePowerUp : MonoBehaviour
             Debug.LogError("Paddle component missing on " + gameObject.name);
         }
 
-        originalSize = paddle.transform.localScale;
     }
 
     public void ActivatePowerUp()
     {
         // Increase the size of the paddle by the specified multiplier
+        originalSize = paddle.transform.localScale;
         paddle.transform.localScale = new Vector3(originalSize.x, originalSize.y * sizeMultiplier, originalSize.z);
 
         // After the power-up duration, reset the paddle's size
