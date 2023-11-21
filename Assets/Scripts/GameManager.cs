@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 public void AddBallToQueue(GameObject ball)
 {
     ballsInScoreZone.Enqueue(ball);
+    Debug.Log("ball added to scorezonequeue");
     ballGameObject = ball;
     StartCoroutine(ProcessBallQueue(ballGameObject));
 }
@@ -99,31 +100,31 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
 {
     // Wait for the end of the frame, ensuring all collisions for this frame are processed
     yield return new WaitForEndOfFrame();
-    // Debug.Log("balls in score zone pbq"+ballsInScoreZone.Count);
+        // Debug.Log("balls in score zone pbq"+ballsInScoreZone.Count);
 
-    // Check if total balls - balls in scorezone is less than or equal to the desired count
-    // while ( ballsInScoreZone.Count>1 )
-    // {
-    //     GameObject ballToProcess = ballsInScoreZone.Dequeue();
-    //     // ballComponent = ballToProcess.GetComponent<Ball>();
-        
-    //     // Check if the ball has already been destroyed
-    //     if (ballToProcess != null)
-    //     {
-            
-    //         Destroy(ballToProcess);
-    //        //wait till next frame
-    //         yield return new WaitForEndOfFrame();
-    //         // Spawn a new ball
-        
-    //     }
-        
-    //     // Exit loop if no balls are left in the queue
-    //     if (ballsInScoreZone.Count == 0)
-    //         break;
-        
-    // }
-    Invoke("CheckBallsBetweenScoreZones",0.5f);
+        // Check if total balls - balls in scorezone is less than or equal to the desired count
+        // while ( ballsInScoreZone.Count>1 )
+        // {
+        //     GameObject ballToProcess = ballsInScoreZone.Dequeue();
+        //     // ballComponent = ballToProcess.GetComponent<Ball>();
+
+        //     // Check if the ball has already been destroyed
+        //     if (ballToProcess != null)
+        //     {
+
+        //         Destroy(ballToProcess);
+        //        //wait till next frame
+        //         yield return new WaitForEndOfFrame();
+        //         // Spawn a new ball
+
+        //     }
+
+        //     // Exit loop if no balls are left in the queue
+        //     if (ballsInScoreZone.Count == 0)
+        //         break;
+
+        // }
+        Invoke("CheckBallsBetweenScoreZones",0.5f);
   
 }
      public int CheckBallsBetweenScoreZones()
@@ -142,9 +143,17 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
             }
         }
         countOfBallsBwScoreZone = count;
-        //Debug.Log("count of balls bw score zone "+countOfBallsBwScoreZone);
-         if(countOfBallsBwScoreZone==0)
-    { //Debug.Log("enetered sumi");
+        Debug.Log("count of balls bw score zone "+countOfBallsBwScoreZone + "balls in queue"+ ballsInScoreZone.Count);
+         if(countOfBallsBwScoreZone == 0)
+    {
+            if(ballsInScoreZone.Count == 0)
+            {
+                Debug.Log("no balls in scorezonequeue");
+            }
+            else
+            {
+                Debug.Log("spawning new ball");
+            }
         GameObject ballToProcess = ballsInScoreZone.Dequeue();
         SpawnNewBall(ballToProcess);
     }
@@ -259,6 +268,8 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
     }
      public void SpawnNewBall(GameObject CurrentBall)
     { // Debug.Log("spawning when no of balls "+ countOfBallsBwScoreZone);
+        //extract gameObject from ballPrefab
+        CurrentBall = this.ballPrefab.gameObject;
         GameObject newBall = Instantiate(CurrentBall, Vector2.zero, Quaternion.identity); // Spawning the ball at the center for now
         // GameObject newBall = newBallComponent.gameObject;
         Ball newBallComponent = newBall.GetComponent<Ball>();
@@ -298,7 +309,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
             // Move to the next time checkpoint
             // currentSplitIndex++;
              }
-             //CheckBallsBetweenScoreZones();
+             CheckBallsBetweenScoreZones();
         }
     }
 

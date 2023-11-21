@@ -155,7 +155,7 @@ public class PowerUpManager : MonoBehaviour
             }
         }
         if(flag==0){
-            Debug.Log("No ball between score zones");
+            //Debug.Log("No ball between score zones");
             ball=null;
         }
     }

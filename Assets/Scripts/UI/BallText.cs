@@ -41,7 +41,7 @@ public class BallText : MonoBehaviour
         if(!isClonedBall)
         {
         tmp.SetText(gameManager.remainingChars[idx].ToString().ToUpper());
-        Debug.Log("Start called and text is "+gameManager.remainingChars[idx].ToString().ToUpper()+tmp.text);
+        //Debug.Log("Start called and text is "+gameManager.remainingChars[idx].ToString().ToUpper()+tmp.text);
         }
     }
 
@@ -59,7 +59,7 @@ public class BallText : MonoBehaviour
             Debug.LogError("setText: tmp is null (TextMeshPro component not found)!");
             return;
         }
-        Debug.Log("setText called and text is "+tchar+tmp.text);
+        //Debug.Log("setText called and text is "+tchar+tmp.text);
         tmp.text = tchar.ToUpper();
         // Debug.Log("setText called and text is "+tmp.text);
     }
@@ -78,10 +78,10 @@ public class BallText : MonoBehaviour
             Debug.LogError("tmp is null (TextMeshPro component not found)!");
             return;
         }
-        Debug.Log("InitializeText called and text is "+text);
+        //Debug.Log("InitializeText called and text is "+text);
 
         tmp.SetText(text.ToUpper());
-        Debug.Log("InitializeText2 called and text is "+tmp.text);
+        //Debug.Log("InitializeText2 called and text is "+tmp.text);
     }
 
 }
