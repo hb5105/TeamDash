@@ -121,53 +121,80 @@ public class ScaffPowerUpManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != ""&& !p2PowerUpActive)
-        {
+        //if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != ""&& !p2PowerUpActive)
+        //{
 
+        //    ActivatePowerUp(paddle1, p1powerup);
+        //    p1PowerUpActive = true;
+        //    // player1Powerup.color = Color.green;
+
+        //    // if (p1powerup == "MoveOpponent")
+        //    // {
+        //    //     player1Powerup.text = "Move Opponent";
+        //    // }
+        //    // else
+        //    // {
+        //    //     player1Powerup.text = p1powerup;
+        //    // }
+        //    Transform timerTransform = p1Timer.transform.Find("Timer1");
+        //    Image timerImage = timerTransform.GetComponent<Image>();
+        //    SetPowerUpImage(player1Powerup, p1powerup, timerImage);
+
+
+        //    p1powerup = "";
+        //    Invoke("DeactivateP1PowerUp", powerUpActiveDuration);
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.Slash) && !p2PowerUpActive && p2powerup != ""&& !p1PowerUpActive)
+        //{
+        //    ActivatePowerUp(paddle2, p2powerup);
+        //    p2PowerUpActive = true;
+        //    // player2Powerup.color = Color.green;
+
+        //    // if (p2powerup == "MoveOpponent")
+        //    // {
+        //    //     player2Powerup.text = "Move Opponent";
+        //    // }
+        //    // else
+        //    // {
+        //    //     player2Powerup.text = p2powerup;
+        //    // }
+
+
+        //    Transform timerTransform = p2Timer.transform.Find("Timer2");
+        //    Image timerImage = timerTransform.GetComponent<Image>();
+        //    SetPowerUpImage(player2Powerup, p2powerup, timerImage);
+
+        //    p2powerup = "";
+        //    Invoke("DeactivateP2PowerUp", powerUpActiveDuration);
+        //}
+
+
+        if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != "")
+        {
             ActivatePowerUp(paddle1, p1powerup);
             p1PowerUpActive = true;
-            // player1Powerup.color = Color.green;
-
-            // if (p1powerup == "MoveOpponent")
-            // {
-            //     player1Powerup.text = "Move Opponent";
-            // }
-            // else
-            // {
-            //     player1Powerup.text = p1powerup;
-            // }
             Transform timerTransform = p1Timer.transform.Find("Timer1");
             Image timerImage = timerTransform.GetComponent<Image>();
             SetPowerUpImage(player1Powerup, p1powerup, timerImage);
-
-            
             p1powerup = "";
             Invoke("DeactivateP1PowerUp", powerUpActiveDuration);
         }
 
-        if (Input.GetKeyDown(KeyCode.Slash) && !p2PowerUpActive && p2powerup != ""&& !p1PowerUpActive)
+        if (Input.GetKeyDown(KeyCode.Slash) && !p2PowerUpActive && p2powerup != "")
         {
             ActivatePowerUp(paddle2, p2powerup);
             p2PowerUpActive = true;
-            // player2Powerup.color = Color.green;
-
-            // if (p2powerup == "MoveOpponent")
-            // {
-            //     player2Powerup.text = "Move Opponent";
-            // }
-            // else
-            // {
-            //     player2Powerup.text = p2powerup;
-            // }
-
-
             Transform timerTransform = p2Timer.transform.Find("Timer2");
             Image timerImage = timerTransform.GetComponent<Image>();
             SetPowerUpImage(player2Powerup, p2powerup, timerImage);
-
             p2powerup = "";
             Invoke("DeactivateP2PowerUp", powerUpActiveDuration);
         }
+
+
+
+
     }
 
     void AssignRandomPowerUp()
