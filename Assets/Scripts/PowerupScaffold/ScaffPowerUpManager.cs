@@ -13,12 +13,12 @@ public class ScaffPowerUpManager : MonoBehaviour
     private Paddle paddle1;
     private Paddle paddle2;
 
-    public int player1powerupcount=1;
+    public int player1powerupcount = 1;
     public int player2powerupcount = 1;
 
 
 
-    public string testing_powerup ="";
+    public string testing_powerup = "";
 
     public string p1powerup = "";
     public string p2powerup = "";
@@ -35,16 +35,21 @@ public class ScaffPowerUpManager : MonoBehaviour
     public float p1PowerUpTimer = 5f;  // New timer for player 1
     public float p2PowerUpTimer = 5f;  // New timer for player 2
 
+
+    //USED TO DEFINE THE TIMER FOR TIMER COIN IMAGE
+    private float p1CurrentPowerUpTimer = 5f;
+    private float p2CurrentPowerUpTimer = 5f;
+
     public GameObject p1Timer;
     public GameObject p2Timer;
 
-        public Image player1Powerup;
+    public Image player1Powerup;
     public Image player2Powerup;
 
-    public Image freezeImage;    
-    public Image magnifyImage;   
-    public Image moveOpponentImage;  
-    public Image splitPowerupImage; 
+    public Image freezeImage;
+    public Image magnifyImage;
+    public Image moveOpponentImage;
+    public Image splitPowerupImage;
 
     private void Start()
     {
@@ -76,7 +81,7 @@ public class ScaffPowerUpManager : MonoBehaviour
                 Image childImage = childTransform.GetComponent<Image>();
                 if (childImage != null)
                 {
-                    childImage.fillAmount = Mathf.InverseLerp(0, 5, p1PowerUpTimer);
+                    childImage.fillAmount = Mathf.InverseLerp(0, p1CurrentPowerUpTimer, p1PowerUpTimer);
                 }
                 else
                 {
@@ -94,7 +99,7 @@ public class ScaffPowerUpManager : MonoBehaviour
             p2PowerUpTimer = p2PowerUpTimer > 0 ? (p2PowerUpTimer - Time.deltaTime) : 0;
             TimeSpan time = TimeSpan.FromSeconds(p2PowerUpTimer);                       // set the time value
             string seconds = time.ToString("ss");
-            char secondDigit = seconds.Length > 1 ? seconds[1] : seconds[0]; 
+            char secondDigit = seconds.Length > 1 ? seconds[1] : seconds[0];
 
             // p2Timer.GetComponentInChildren<TextMeshProUGUI>().text = secondDigit.ToString();
             // p2Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
@@ -108,7 +113,7 @@ public class ScaffPowerUpManager : MonoBehaviour
                 Image childImage = childTransform.GetComponent<Image>();
                 if (childImage != null)
                 {
-                    childImage.fillAmount = Mathf.InverseLerp(0, 5, p2PowerUpTimer);
+                    childImage.fillAmount = Mathf.InverseLerp(0, p2CurrentPowerUpTimer, p2PowerUpTimer);
                 }
                 else
                 {
@@ -121,53 +126,84 @@ public class ScaffPowerUpManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != ""&& !p2PowerUpActive)
-        {
+        //if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != ""&& !p2PowerUpActive)
+        //{
 
+        //    ActivatePowerUp(paddle1, p1powerup);
+        //    p1PowerUpActive = true;
+        //    // player1Powerup.color = Color.green;
+
+        //    // if (p1powerup == "MoveOpponent")
+        //    // {
+        //    //     player1Powerup.text = "Move Opponent";
+        //    // }
+        //    // else
+        //    // {
+        //    //     player1Powerup.text = p1powerup;
+        //    // }
+        //    Transform timerTransform = p1Timer.transform.Find("Timer1");
+        //    Image timerImage = timerTransform.GetComponent<Image>();
+        //    SetPowerUpImage(player1Powerup, p1powerup, timerImage);
+
+
+        //    p1powerup = "";
+        //    Invoke("DeactivateP1PowerUp", powerUpActiveDuration);
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.Slash) && !p2PowerUpActive && p2powerup != ""&& !p1PowerUpActive)
+        //{
+        //    ActivatePowerUp(paddle2, p2powerup);
+        //    p2PowerUpActive = true;
+        //    // player2Powerup.color = Color.green;
+
+        //    // if (p2powerup == "MoveOpponent")
+        //    // {
+        //    //     player2Powerup.text = "Move Opponent";
+        //    // }
+        //    // else
+        //    // {
+        //    //     player2Powerup.text = p2powerup;
+        //    // }
+
+
+        //    Transform timerTransform = p2Timer.transform.Find("Timer2");
+        //    Image timerImage = timerTransform.GetComponent<Image>();
+        //    SetPowerUpImage(player2Powerup, p2powerup, timerImage);
+
+        //    p2powerup = "";
+        //    Invoke("DeactivateP2PowerUp", powerUpActiveDuration);
+        //}
+
+
+        if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != "")
+        {
             ActivatePowerUp(paddle1, p1powerup);
             p1PowerUpActive = true;
-            // player1Powerup.color = Color.green;
-
-            // if (p1powerup == "MoveOpponent")
-            // {
-            //     player1Powerup.text = "Move Opponent";
-            // }
-            // else
-            // {
-            //     player1Powerup.text = p1powerup;
-            // }
+            p1PowerUpTimer = (p1powerup == "Freeze") ? 3f : 5f;
+            p1CurrentPowerUpTimer = p1PowerUpTimer;
             Transform timerTransform = p1Timer.transform.Find("Timer1");
             Image timerImage = timerTransform.GetComponent<Image>();
             SetPowerUpImage(player1Powerup, p1powerup, timerImage);
-
-            
             p1powerup = "";
             Invoke("DeactivateP1PowerUp", powerUpActiveDuration);
         }
 
-        if (Input.GetKeyDown(KeyCode.Slash) && !p2PowerUpActive && p2powerup != ""&& !p1PowerUpActive)
+        if (Input.GetKeyDown(KeyCode.Slash) && !p2PowerUpActive && p2powerup != "")
         {
             ActivatePowerUp(paddle2, p2powerup);
             p2PowerUpActive = true;
-            // player2Powerup.color = Color.green;
-
-            // if (p2powerup == "MoveOpponent")
-            // {
-            //     player2Powerup.text = "Move Opponent";
-            // }
-            // else
-            // {
-            //     player2Powerup.text = p2powerup;
-            // }
-
-
+            p2PowerUpTimer = (p2powerup == "Freeze") ? 3f : 5f;
+            p2CurrentPowerUpTimer = p2PowerUpTimer;
             Transform timerTransform = p2Timer.transform.Find("Timer2");
             Image timerImage = timerTransform.GetComponent<Image>();
             SetPowerUpImage(player2Powerup, p2powerup, timerImage);
-
             p2powerup = "";
             Invoke("DeactivateP2PowerUp", powerUpActiveDuration);
         }
+
+
+
+
     }
 
     void AssignRandomPowerUp()
@@ -279,7 +315,7 @@ public class ScaffPowerUpManager : MonoBehaviour
 
 
     void DeactivateP1PowerUp()
-    {   
+    {
         player1powerupcount++;
 
         // player1Powerup.text = "";
@@ -293,11 +329,11 @@ public class ScaffPowerUpManager : MonoBehaviour
         // p1Timer.GetComponentInChildren<TextMeshProUGUI>().text = secondDigit.ToString();
         // p1Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
         // p1Timer.GetComponent<Image>().color = Color.red;
-                //player1Powerup.gameObject.SetActive(false);
+        //player1Powerup.gameObject.SetActive(false);
         p1Timer.SetActive(false);
         p1PowerUpActive = false;
         p1PowerUpTimer = 5f;  // Resetting the timer
-        TimeSpan time = TimeSpan.FromSeconds(p1PowerUpTimer);                       
+        TimeSpan time = TimeSpan.FromSeconds(p1PowerUpTimer);
         string seconds = time.ToString("ss");
         char secondDigit = seconds.Length > 1 ? seconds[1] : seconds[0];
 
@@ -309,7 +345,7 @@ public class ScaffPowerUpManager : MonoBehaviour
             Image childImage = childTransform.GetComponent<Image>();
             if (childImage != null)
             {
-                childImage.fillAmount = Mathf.InverseLerp(0, 5, p1PowerUpTimer);
+                childImage.fillAmount = Mathf.InverseLerp(0, p1CurrentPowerUpTimer, p1PowerUpTimer);
             }
             else
             {
@@ -356,7 +392,7 @@ public class ScaffPowerUpManager : MonoBehaviour
             Image childImage = childTransform.GetComponent<Image>();
             if (childImage != null)
             {
-                childImage.fillAmount = Mathf.InverseLerp(0, 5, p2PowerUpTimer);
+                childImage.fillAmount = Mathf.InverseLerp(0, p2CurrentPowerUpTimer, p2PowerUpTimer);
             }
             else
             {
@@ -371,9 +407,9 @@ public class ScaffPowerUpManager : MonoBehaviour
     }
 
     void AssignPowerUpToP1()
-    {   
-                player1Powerup.gameObject.SetActive(true);
-                // p1Timer.SetActive(true);
+    {
+        player1Powerup.gameObject.SetActive(true);
+        // p1Timer.SetActive(true);
         if (player1powerupcount < 2)
         {
             // player1Powerup.color = Color.red;
@@ -393,15 +429,15 @@ public class ScaffPowerUpManager : MonoBehaviour
             //     player1Powerup.text = p1powerup;
             // }
 
-        Transform timerTransform = p1Timer.transform.Find("Timer1");
-        Image timerImage = timerTransform.GetComponent<Image>();
-        SetPowerUpImage(player1Powerup, p1powerup, timerImage);
+            Transform timerTransform = p1Timer.transform.Find("Timer1");
+            Image timerImage = timerTransform.GetComponent<Image>();
+            SetPowerUpImage(player1Powerup, p1powerup, timerImage);
 
         }
         else
         {
             int last = 0;
-       
+
             if (testing_powerup == "Freeze")
             {
                 last = 1;
@@ -427,9 +463,9 @@ public class ScaffPowerUpManager : MonoBehaviour
 
             // p1powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
             // p1PowerUpTimer = 5f;  // Resetting the timer
-        Transform timerTransform = p1Timer.transform.Find("Timer1");
-        Image timerImage = timerTransform.GetComponent<Image>();
-        SetPowerUpImage(player1Powerup, p1powerup, timerImage);
+            Transform timerTransform = p1Timer.transform.Find("Timer1");
+            Image timerImage = timerTransform.GetComponent<Image>();
+            SetPowerUpImage(player1Powerup, p1powerup, timerImage);
 
 
 
@@ -442,7 +478,15 @@ public class ScaffPowerUpManager : MonoBehaviour
             //     player1Powerup.text = p1powerup;
             // }
         }
-
+        if (p1powerup == "Freeze")
+        {
+            p1PowerUpTimer = 3f;
+        }
+        else
+        {
+            p1PowerUpTimer = 5f;
+        }
+        p1CurrentPowerUpTimer = p1PowerUpTimer;
     }
 
     void AssignPowerUpToP2()
@@ -466,12 +510,13 @@ public class ScaffPowerUpManager : MonoBehaviour
             //     player2Powerup.text = p2powerup;
             // }
             Transform timerTransform = p2Timer.transform.Find("Timer2");
-        Image timerImage = timerTransform.GetComponent<Image>();
-        SetPowerUpImage(player2Powerup, p2powerup, timerImage);
+            Image timerImage = timerTransform.GetComponent<Image>();
+            SetPowerUpImage(player2Powerup, p2powerup, timerImage);
         }
-        else {
+        else
+        {
             int last = 0;
-       
+
             if (testing_powerup == "Freeze")
             {
                 last = 1;
@@ -506,12 +551,20 @@ public class ScaffPowerUpManager : MonoBehaviour
             //     player2Powerup.text = p2powerup;
             // }
 
-        Transform timerTransform = p2Timer.transform.Find("Timer2");
-        Image timerImage = timerTransform.GetComponent<Image>();
-        SetPowerUpImage(player2Powerup, p2powerup, timerImage);
+            Transform timerTransform = p2Timer.transform.Find("Timer2");
+            Image timerImage = timerTransform.GetComponent<Image>();
+            SetPowerUpImage(player2Powerup, p2powerup, timerImage);
         }
 
-        
+        if (p2powerup == "Freeze")
+        {
+            p2PowerUpTimer = 3f;
+        }
+        else
+        {
+            p2PowerUpTimer = 5f;
+        }
+        p2CurrentPowerUpTimer = p2PowerUpTimer;
     }
     void SetPowerUpImage(Image imageComponent, string powerUpName, Image timerImage)
     {
