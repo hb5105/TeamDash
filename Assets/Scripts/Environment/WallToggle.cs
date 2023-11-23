@@ -10,8 +10,8 @@ public class WallToggle : MonoBehaviour
     public GameObject[] pointedWalls;   // Drag your '^' and 'v' walls here
     public TextMeshProUGUI ScoreTextLeft;
     public TextMeshProUGUI ScoreTextRight;
-    public Image Bg1;
-    public Image Bg2;
+    //public Image Bg1;
+    //public Image Bg2;
     public TextMeshProUGUI Word1;
     public TextMeshProUGUI Word2;
     public Image Powerup1;
@@ -73,11 +73,11 @@ public class WallToggle : MonoBehaviour
         rectTransform = ScoreTextRight.rectTransform;
         rectTransform.anchoredPosition = new Vector2(237, 145);
 
-        rectTransform = Bg1.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(-117, 145);
+        //rectTransform = Bg1.rectTransform;
+        //rectTransform.anchoredPosition = new Vector2(-117, 145);
 
-        rectTransform = Bg2.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(121, 145);
+        //rectTransform = Bg2.rectTransform;
+        //rectTransform.anchoredPosition = new Vector2(121, 145);
 
         rectTransform = Word1.rectTransform;
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -117);
