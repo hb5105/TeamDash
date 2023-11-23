@@ -70,7 +70,7 @@ EditorBuildSettings:
     guid: 34df6a9f406a6a8449f6bbb06e111b27
   - enabled: 1
     path: Assets/Scenes/Tutorial Scenes/FlickingScaff.unity
-    guid: 3d5b702375f744dce809a862e9454fa1
+    guid: 68905edcad8064164988b13aa8dd6e9e
   - enabled: 1
     path: Assets/Scenes/Tutorial Scenes/ShootingScaff.unity
     guid: 117f3ee0c4fdd45819669ff5c8b95552

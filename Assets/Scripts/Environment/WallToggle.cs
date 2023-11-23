@@ -10,8 +10,8 @@ public class WallToggle : MonoBehaviour
     public GameObject[] pointedWalls;   // Drag your '^' and 'v' walls here
     public TextMeshProUGUI ScoreTextLeft;
     public TextMeshProUGUI ScoreTextRight;
-    public Image Bg1;
-    public Image Bg2;
+    //public Image Bg1;
+    //public Image Bg2;
     public TextMeshProUGUI Word1;
     public TextMeshProUGUI Word2;
     public Image Powerup1;
@@ -29,6 +29,7 @@ public class WallToggle : MonoBehaviour
     // public GameObject ball;
     public GameObject scoreZoneLeft;
     public GameObject scoreZoneRight;
+    public GameObject scoreBoard;
     public void Start()
     {
         Camera mainCam = Camera.main;  
@@ -68,16 +69,16 @@ public class WallToggle : MonoBehaviour
         pointedField.SetActive(true);
 
         RectTransform rectTransform = ScoreTextLeft.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(-117,145);
+        rectTransform.anchoredPosition = new Vector2(-186,224);
 
         rectTransform = ScoreTextRight.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(237, 145);
+        rectTransform.anchoredPosition = new Vector2(304, 224);
 
-        rectTransform = Bg1.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(-117, 145);
+        //rectTransform = Bg1.rectTransform;
+        //rectTransform.anchoredPosition = new Vector2(-117, 145);
 
-        rectTransform = Bg2.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(121, 145);
+        //rectTransform = Bg2.rectTransform;
+        //rectTransform.anchoredPosition = new Vector2(121, 145);
 
         rectTransform = Word1.rectTransform;
         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -117);
@@ -109,13 +110,13 @@ public class WallToggle : MonoBehaviour
         // rectTransform = p2Bullet.GetComponent<RectTransform>();
         // rectTransform.anchoredPosition = new Vector2(200, -160);
 
-        player1Paddle.transform.position = new Vector3(-11, 0, gameObject.transform.position.z);
+        player1Paddle.transform.position = new Vector3(-11, 1, gameObject.transform.position.z);
         Vector3 paddle1Scale = player1Paddle.transform.localScale;
         paddle1Scale.x = 0.6f;
         paddle1Scale.y = 2f;
         player1Paddle.transform.localScale = paddle1Scale;
 
-        player2Paddle.transform.position = new Vector3(11, 0, gameObject.transform.position.z);
+        player2Paddle.transform.position = new Vector3(11, 1, gameObject.transform.position.z);
         Vector3 paddle2Scale = player2Paddle.transform.localScale;
         paddle2Scale.x = 0.6f;
         paddle2Scale.y = 2f;
@@ -130,6 +131,6 @@ public class WallToggle : MonoBehaviour
 
         scoreZoneRight.transform.position = new Vector3(13, 0, gameObject.transform.position.z);
 
-
+        scoreBoard.SetActive(false);
     }
 }
