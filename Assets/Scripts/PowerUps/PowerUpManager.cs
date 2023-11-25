@@ -32,11 +32,18 @@ public class PowerUpManager : MonoBehaviour
     public float p1PowerUpTimer = 5f;  // New timer for player 1
     public float p2PowerUpTimer = 5f;  // New timer for player 2
 
+        //USED TO DEFINE THE TIMER FOR TIMER COIN IMAGE
+    private float p1CurrentPowerUpTimer = 5f;
+    private float p2CurrentPowerUpTimer = 5f;
+
     public GameObject p1Timer;
     public GameObject p2Timer;
 
     public Image player1Powerup;
     public Image player2Powerup;
+
+    public GameObject player1FreezeObject; // Freeze GameObject for player 1
+    public GameObject player2FreezeObject; // Freeze GameObject for player 2
 
     public Image freezeImage;    
     public Image magnifyImage;   
@@ -48,7 +55,9 @@ public class PowerUpManager : MonoBehaviour
         Paddle[] paddles = FindObjectsOfType<Paddle>();
         paddle1 = paddles[0].id == 1 ? paddles[0] : paddles[1];
         paddle2 = paddles[1].id == 2 ? paddles[1] : paddles[0];
-         AssignRandomPowerUp();
+        player1FreezeObject.SetActive(false);
+        player2FreezeObject.SetActive(false);
+        AssignRandomPowerUp();
     }
 
     private void Update()
@@ -69,7 +78,7 @@ public class PowerUpManager : MonoBehaviour
                 Image childImage = childTransform.GetComponent<Image>();
                 if (childImage != null)
                 {
-                    childImage.fillAmount = Mathf.InverseLerp(0, 5, p1PowerUpTimer);
+                    childImage.fillAmount = Mathf.InverseLerp(0, p1CurrentPowerUpTimer, p1PowerUpTimer);
                 }
                 else
                 {
@@ -96,7 +105,7 @@ public class PowerUpManager : MonoBehaviour
                 Image childImage = childTransform.GetComponent<Image>();
                 if (childImage != null)
                 {
-                    childImage.fillAmount = Mathf.InverseLerp(0, 5, p2PowerUpTimer);
+                    childImage.fillAmount = Mathf.InverseLerp(0, p2CurrentPowerUpTimer, p2PowerUpTimer);
                 }
                 else
                 {
@@ -109,13 +118,15 @@ public class PowerUpManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != ""&& !p2PowerUpActive)
+        if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != "")
         {
 
             player1Powerup.gameObject.SetActive(true);
             p1Timer.SetActive(true);
             ActivatePowerUp(paddle1, p1powerup);
             p1PowerUpActive = true;
+            p1PowerUpTimer = (p1powerup == "Freeze") ? 3f : 5f;
+            p1CurrentPowerUpTimer = p1PowerUpTimer;
 
             Transform timerTransform = p1Timer.transform.Find("Timer1");
             Image timerImage = timerTransform.GetComponent<Image>();
@@ -125,12 +136,14 @@ public class PowerUpManager : MonoBehaviour
             Invoke("DeactivateP1PowerUp", powerUpActiveDuration);
         }
 
-        if (Input.GetKeyDown(KeyCode.Slash) && !p2PowerUpActive && p2powerup != ""&& !p1PowerUpActive)
+        if (Input.GetKeyDown(KeyCode.Slash) && !p2PowerUpActive && p2powerup != "")
         {
             player2Powerup.gameObject.SetActive(true);
             p2Timer.SetActive(true);
             ActivatePowerUp(paddle2, p2powerup);
             p2PowerUpActive = true;
+            p2PowerUpTimer = (p2powerup == "Freeze") ? 3f : 5f;
+            p2CurrentPowerUpTimer = p2PowerUpTimer;
 
             Transform timerTransform = p2Timer.transform.Find("Timer2");
             Image timerImage = timerTransform.GetComponent<Image>();
@@ -246,6 +259,19 @@ public class PowerUpManager : MonoBehaviour
                     return;
                 }
                 freezePowerUp.FreezeOpponent();
+
+                // Activate the appropriate freeze GameObject
+                if (paddle == paddle1)
+                {
+                    player2FreezeObject.SetActive(true);
+                     // Freeze player 2
+                     StartCoroutine(DeactivateFreezeObject(player2FreezeObject));
+                }
+                else if (paddle == paddle2)
+                {
+                    player1FreezeObject.SetActive(true); // Freeze player 1
+                    StartCoroutine(DeactivateFreezeObject(player1FreezeObject));
+                }
                 break;
             case "Magnify":
                 var sizePowerUp = paddle.gameObject.GetComponent<PaddleSizePowerUp>();
@@ -288,6 +314,7 @@ public class PowerUpManager : MonoBehaviour
    
     void DeactivateP1PowerUp()
     {
+        player2FreezeObject.SetActive(false);
         p1powerup = "";
         player1Powerup.gameObject.SetActive(false);
         p1Timer.SetActive(false);
@@ -305,7 +332,7 @@ public class PowerUpManager : MonoBehaviour
             Image childImage = childTransform.GetComponent<Image>();
             if (childImage != null)
             {
-                childImage.fillAmount = Mathf.InverseLerp(0, 5, p1PowerUpTimer);
+                childImage.fillAmount = Mathf.InverseLerp(0, p1CurrentPowerUpTimer, p1PowerUpTimer);
             }
             else
             {
@@ -317,11 +344,13 @@ public class PowerUpManager : MonoBehaviour
             Debug.LogError("Child with the specified name not found!");
         }
 
+        // player2FreezeObject.SetActive(false);
         Invoke("AssignPowerUpToP1", powerUpCooldown);
     }
 
     void DeactivateP2PowerUp()
     {
+        player1FreezeObject.SetActive(false);
         p2powerup = "";
         player2Powerup.gameObject.SetActive(false);
         p2Timer.SetActive(false);
@@ -339,7 +368,7 @@ public class PowerUpManager : MonoBehaviour
             Image childImage = childTransform.GetComponent<Image>();
             if (childImage != null)
             {
-                childImage.fillAmount = Mathf.InverseLerp(0, 5, p2PowerUpTimer);
+                childImage.fillAmount = Mathf.InverseLerp(0, p2CurrentPowerUpTimer, p2PowerUpTimer);
             }
             else
             {
@@ -351,6 +380,7 @@ public class PowerUpManager : MonoBehaviour
             Debug.LogError("Child with the specified name not found!");
         }
 
+        
         Invoke("AssignPowerUpToP2", powerUpCooldown);
     }
 
@@ -364,6 +394,15 @@ public class PowerUpManager : MonoBehaviour
             p1powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
         }
         p1PowerUpTimer = 5f;  // Resetting the timer
+        if (p1powerup == "Freeze")
+        {
+            p1PowerUpTimer = 3f;
+        }
+        else
+        {
+            p1PowerUpTimer = 5f;
+        }
+        p1CurrentPowerUpTimer = p1PowerUpTimer;
 
         Transform timerTransform = p1Timer.transform.Find("Timer1");
         Image timerImage = timerTransform.GetComponent<Image>();
@@ -377,6 +416,16 @@ public class PowerUpManager : MonoBehaviour
 
         p2powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
         p2PowerUpTimer = 5f;  // Resetting the timer
+        if (p2powerup == "Freeze")
+        {
+            p2PowerUpTimer = 3f;
+        }
+        else
+        {
+            p2PowerUpTimer = 5f;
+        }
+        p2CurrentPowerUpTimer = p2PowerUpTimer;
+
         if(p2powerup == "SplitBall" && ballsInScoreZone == 2 ){
             p2powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
         }
@@ -384,4 +433,11 @@ public class PowerUpManager : MonoBehaviour
         Image timerImage = timerTransform.GetComponent<Image>();
         SetPowerUpImage(player2Powerup, p2powerup, timerImage);
     }
+
+    private IEnumerator DeactivateFreezeObject(GameObject freezeObject)
+{
+    yield return new WaitForSeconds(3f); // Wait for 3 seconds
+    freezeObject.SetActive(false);
+}
+
 }

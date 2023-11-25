@@ -3,11 +3,15 @@ using TMPro;
 using System;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
+using System.Collections;
 
 public class ScaffPowerUpManager : MonoBehaviour
 {
     public enum PowerUpType { None, Freeze, MoveOpponent, Magnify, BallSplit } // Added BallSplit
     private PowerUpType[] powerUpArray = { PowerUpType.Freeze, PowerUpType.MoveOpponent, PowerUpType.Magnify, PowerUpType.BallSplit };
+
+    public GameObject player1FreezeObject; // Freeze GameObject for player 1
+    public GameObject player2FreezeObject; // Freeze GameObject for player 2
 
 
     private Paddle paddle1;
@@ -56,6 +60,8 @@ public class ScaffPowerUpManager : MonoBehaviour
         Paddle[] paddles = FindObjectsOfType<Paddle>();
         paddle1 = paddles[0].id == 1 ? paddles[0] : paddles[1];
         paddle2 = paddles[1].id == 2 ? paddles[1] : paddles[0];
+        player1FreezeObject.SetActive(false);
+        player2FreezeObject.SetActive(false);
         AssignRandomPowerUp();
     }
 
@@ -291,6 +297,16 @@ public class ScaffPowerUpManager : MonoBehaviour
                     return;
                 }
                 freezePowerUp.FreezeOpponent();
+
+                // Activate the appropriate freeze GameObject
+                if (paddle == paddle1)
+                {
+                    player2FreezeObject.SetActive(true); // Freeze player 2
+                }
+                else if (paddle == paddle2)
+                {
+                    player1FreezeObject.SetActive(true); // Freeze player 1
+                }
                 break;
             case "Magnify":
                 var sizePowerUp = paddle.gameObject.GetComponent<PaddleSizePowerUp>();
@@ -357,6 +373,8 @@ public class ScaffPowerUpManager : MonoBehaviour
             Debug.LogError("Child with the specified name not found!");
         }
 
+        player2FreezeObject.SetActive(false);
+
         Invoke("AssignPowerUpToP1", powerUpCooldown);
     }
 
@@ -403,6 +421,8 @@ public class ScaffPowerUpManager : MonoBehaviour
         {
             Debug.LogError("Child with the specified name not found!");
         }
+
+        player1FreezeObject.SetActive(false);
         Invoke("AssignPowerUpToP2", powerUpCooldown);
     }
 
