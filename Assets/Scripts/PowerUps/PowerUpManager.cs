@@ -38,6 +38,9 @@ public class PowerUpManager : MonoBehaviour
     public Image player1Powerup;
     public Image player2Powerup;
 
+    public GameObject player1FreezeObject; // Freeze GameObject for player 1
+    public GameObject player2FreezeObject; // Freeze GameObject for player 2
+
     public Image freezeImage;    
     public Image magnifyImage;   
     public Image moveOpponentImage;  
@@ -48,7 +51,9 @@ public class PowerUpManager : MonoBehaviour
         Paddle[] paddles = FindObjectsOfType<Paddle>();
         paddle1 = paddles[0].id == 1 ? paddles[0] : paddles[1];
         paddle2 = paddles[1].id == 2 ? paddles[1] : paddles[0];
-         AssignRandomPowerUp();
+        player1FreezeObject.SetActive(false);
+        player2FreezeObject.SetActive(false);
+        AssignRandomPowerUp();
     }
 
     private void Update()
@@ -246,6 +251,16 @@ public class PowerUpManager : MonoBehaviour
                     return;
                 }
                 freezePowerUp.FreezeOpponent();
+
+                // Activate the appropriate freeze GameObject
+                if (paddle == paddle1)
+                {
+                    player2FreezeObject.SetActive(true); // Freeze player 2
+                }
+                else if (paddle == paddle2)
+                {
+                    player1FreezeObject.SetActive(true); // Freeze player 1
+                }
                 break;
             case "Magnify":
                 var sizePowerUp = paddle.gameObject.GetComponent<PaddleSizePowerUp>();
@@ -317,6 +332,7 @@ public class PowerUpManager : MonoBehaviour
             Debug.LogError("Child with the specified name not found!");
         }
 
+        player2FreezeObject.SetActive(false);
         Invoke("AssignPowerUpToP1", powerUpCooldown);
     }
 
@@ -351,6 +367,7 @@ public class PowerUpManager : MonoBehaviour
             Debug.LogError("Child with the specified name not found!");
         }
 
+        player1FreezeObject.SetActive(false);
         Invoke("AssignPowerUpToP2", powerUpCooldown);
     }
 
