@@ -32,6 +32,8 @@ public class Ball : MonoBehaviour
     private float minimumHorizontalVelocity = 1f;  // Adjust as needed
     private float minimumVerticalVelocity = 0.5f;
     private float minimumSpeed = 6f;
+    public WallToggle wallToggle;
+    private bool isScaled = false;
 
     private void AdjustVelocity()
     {
@@ -98,8 +100,22 @@ public class Ball : MonoBehaviour
         }
      
     }
+     public void ScaleBall()
+    {
+        Debug.Log("Current scale of Ball: " + transform.localScale);
+        Vector3 ballScale = transform.localScale;
+        ballScale.x *= 1.5f;
+        ballScale.y *= 1.5f;
+        transform.localScale = ballScale;
+        Debug.Log("New scale of Ball: " + transform.localScale);
+    }
     private void Update()
 {
+   if (!isScaled && wallToggle.isPointedWalls)
+    {
+        ScaleBall();
+        isScaled = true;
+    }
     AdjustVelocity();
     //check if there are no balls in the scene and spawn a new ball
     // Debug.Log("No of balls in update"+GameObject.FindObjectsOfType<Ball>().Length);

@@ -30,6 +30,8 @@ public class WallToggle : MonoBehaviour
     public GameObject scoreZoneLeft;
     public GameObject scoreZoneRight;
     public GameObject scoreBoard;
+
+    public bool isPointedWalls = false; // This is a flag to check if the walls are in their normal state or not
     public void Start()
     {
         Camera mainCam = Camera.main;  
@@ -47,11 +49,12 @@ public class WallToggle : MonoBehaviour
         }
         normalField.SetActive(true);
         pointedField.SetActive(false);
- 
+        isPointedWalls = false;
     }
 
     public void SwitchToPointedWalls()
     {
+        isPointedWalls = true;
         foreach (var wall in normalWalls)
         {
             wall.SetActive(false);
