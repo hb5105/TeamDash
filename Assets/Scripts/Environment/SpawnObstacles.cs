@@ -22,7 +22,8 @@ public class SpawnObstacles : MonoBehaviour
         for (int i = 0; i < P2Obstacles.Length; i++)
         {
             P2Obstacles[i].gameObject.SetActive(false);
-        }
+        } 
+
     }
 
     void Update()
