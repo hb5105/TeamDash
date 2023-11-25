@@ -267,6 +267,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1821172118}
     - target: {fileID: 4068566543489661195, guid: b600639e334874860801db8e2181417c, type: 3}
+      propertyPath: timeInSeconds
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068566543489661195, guid: b600639e334874860801db8e2181417c, type: 3}
       propertyPath: ballGameObject
       value: 
       objectReference: {fileID: 421623683}
@@ -660,6 +664,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 966921275}
     - target: {fileID: 8120156267238666174, guid: ab26a9129c0cc447aa20ab12fdcfd90a, type: 3}
+      propertyPath: isPointedWalls
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8120156267238666174, guid: ab26a9129c0cc447aa20ab12fdcfd90a, type: 3}
       propertyPath: scoreZoneRight
       value: 
       objectReference: {fileID: 1023482328}
@@ -802,6 +810,7 @@ MonoBehaviour:
   gameManager: {fileID: 209535991}
   ballText: {fileID: 1449322681}
   isClonedBall: 0
+  wallToggle: {fileID: 539837858}
 --- !u!50 &382758909
 Rigidbody2D:
   serializedVersion: 4
@@ -3945,6 +3954,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7898139529462525469, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
+      propertyPath: wallToggle
+      value: 
+      objectReference: {fileID: 539837858}
     - target: {fileID: 7898139529462525469, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
       propertyPath: gameManager
       value: 
