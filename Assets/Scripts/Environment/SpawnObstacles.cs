@@ -10,11 +10,15 @@ public class SpawnObstacles : MonoBehaviour
     private bool isQuarterTimeActionDone;
     private bool isThreeQuarterTimeActionDone;
     private bool isFirstWarningDone;
+    private bool isObstaclesHidden;
+
+    public float rotationSpeed = 50f;
     void Start()
     {
         isThreeQuarterTimeActionDone = false;
         isQuarterTimeActionDone = false;
         isFirstWarningDone = false;
+        
         for (int i = 0; i < P1Obstacles.Length; i++)
         {
             P1Obstacles[i].gameObject.SetActive(false);
@@ -23,11 +27,12 @@ public class SpawnObstacles : MonoBehaviour
         {
             P2Obstacles[i].gameObject.SetActive(false);
         } 
-
+        isObstaclesHidden = true;
     }
 
     void Update()
     {
+        System.Random random = new System.Random();
         if (!isFirstWarningDone && (int)gameManager.currentTime == (((int)gameManager.totalTime / 4) * 3) + 4)
         {
             StartCoroutine(StartObstacleWarning());
@@ -37,6 +42,43 @@ public class SpawnObstacles : MonoBehaviour
         {
             SetObstacles();
             isThreeQuarterTimeActionDone = true;
+        }
+
+        if(!isObstaclesHidden)
+        {
+            
+            foreach(GameObject obj in P1Obstacles)
+            {
+                if (obj.activeInHierarchy)
+                {
+                    int randomValue = random.Next(2);
+                    if (obj == P1Obstacles[1])
+                    {
+                        obj.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime, Space.Self);
+                    }
+                    else
+                    {
+                        obj.transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime, Space.Self);
+                    }
+                }
+                
+            }
+            foreach (GameObject obj in P2Obstacles)
+            {
+                if (obj.activeInHierarchy)
+                {
+                    int randomValue = random.Next(2);
+                    if (obj == P2Obstacles[1])
+                    {
+                        obj.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime, Space.Self);
+                    }
+                    else
+                    {
+                        obj.transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime, Space.Self);
+                    }
+                }
+
+            }
         }
     }
 
@@ -65,8 +107,10 @@ public class SpawnObstacles : MonoBehaviour
         P2Obstacles[P2firstIndex].gameObject.SetActive(true);
         P2Obstacles[P2secondIndex].gameObject.SetActive(true);
 
+        isObstaclesHidden = false;
+
         // first player random rotation for obstacles
-        foreach (GameObject obj in P1Obstacles)
+        /*foreach (GameObject obj in P1Obstacles)
         {
             float randomZRotation = UnityEngine.Random.Range(0f, 360f);
             obj.transform.localEulerAngles = new Vector3(0, 0, randomZRotation);
@@ -77,10 +121,10 @@ public class SpawnObstacles : MonoBehaviour
         {
             float randomZRotation = UnityEngine.Random.Range(0f, 360f);
             obj.transform.localEulerAngles = new Vector3(0, 0, randomZRotation);
-        }
+        }*/
 
         StartCoroutine(HideObstacles(P1firstIndex,P1secondIndex, P2firstIndex, P2secondIndex));
-
+        
     }
 
     IEnumerator HideObstacles(int p1index1, int p1index2, int p2index1, int p2index2)
@@ -90,6 +134,7 @@ public class SpawnObstacles : MonoBehaviour
         P1Obstacles[p1index2].gameObject.SetActive(false);
         P2Obstacles[p2index1].gameObject.SetActive(false);
         P2Obstacles[p2index2].gameObject.SetActive(false);
+        isObstaclesHidden = true;
     }
 
     IEnumerator StartObstacleWarning()

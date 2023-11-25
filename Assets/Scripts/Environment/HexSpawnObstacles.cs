@@ -10,6 +10,10 @@ public class HexSpawnObstacles : MonoBehaviour
     private bool isQuarterTimeActionDone;
     
     private bool isSecondWarningDone;
+
+    private bool isObstaclesHidden;
+
+    public float rotationSpeed = 50f;
     void Start()
     {
         
@@ -23,10 +27,12 @@ public class HexSpawnObstacles : MonoBehaviour
         {
             P2Obstacles[i].gameObject.SetActive(false);
         }
+        isObstaclesHidden = true;
     }
 
     void Update()
     {
+        System.Random random = new System.Random();
         if (!isSecondWarningDone && (int)gameManager.currentTime == (((int)gameManager.totalTime / 4)) + 4)
         {
             StartCoroutine(StartObstacleWarning());
@@ -36,6 +42,43 @@ public class HexSpawnObstacles : MonoBehaviour
         {
             SetObstacles();
             isQuarterTimeActionDone = true;
+        }
+
+        if (!isObstaclesHidden)
+        {
+
+            foreach (GameObject obj in P1Obstacles)
+            {
+                if (obj.activeInHierarchy)
+                {
+                    int randomValue = random.Next(2);
+                    if (obj == P1Obstacles[1])
+                    {
+                        obj.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime, Space.Self);
+                    }
+                    else
+                    {
+                        obj.transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime, Space.Self);
+                    }
+                }
+
+            }
+            foreach (GameObject obj in P2Obstacles)
+            {
+                if (obj.activeInHierarchy)
+                {
+                    int randomValue = random.Next(2);
+                    if (obj == P2Obstacles[1])
+                    {
+                        obj.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime, Space.Self);
+                    }
+                    else
+                    {
+                        obj.transform.Rotate(0, 0, -rotationSpeed * Time.deltaTime, Space.Self);
+                    }
+                }
+
+            }
         }
     }
 
@@ -64,8 +107,9 @@ public class HexSpawnObstacles : MonoBehaviour
         P2Obstacles[P2firstIndex].gameObject.SetActive(true);
         P2Obstacles[P2secondIndex].gameObject.SetActive(true);
 
+        isObstaclesHidden = false;
         // first player random rotation for obstacles
-        foreach (GameObject obj in P1Obstacles)
+        /*foreach (GameObject obj in P1Obstacles)
         {
             float randomZRotation = UnityEngine.Random.Range(0f, 360f);
             obj.transform.localEulerAngles = new Vector3(0, 0, randomZRotation);
@@ -76,7 +120,7 @@ public class HexSpawnObstacles : MonoBehaviour
         {
             float randomZRotation = UnityEngine.Random.Range(0f, 360f);
             obj.transform.localEulerAngles = new Vector3(0, 0, randomZRotation);
-        }
+        }*/
 
         StartCoroutine(HideObstacles(P1firstIndex, P1secondIndex, P2firstIndex, P2secondIndex));
 
@@ -89,6 +133,7 @@ public class HexSpawnObstacles : MonoBehaviour
         P1Obstacles[p1index2].gameObject.SetActive(false);
         P2Obstacles[p2index1].gameObject.SetActive(false);
         P2Obstacles[p2index2].gameObject.SetActive(false);
+        isObstaclesHidden = true;
     }
 
     IEnumerator StartObstacleWarning()
