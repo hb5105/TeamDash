@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     //Scaffolding Level 1
     private Scene currentScene;
     public LevelOneManager levelOneManager;
+    // for toggling walls
+    private bool isTerrainToggled;
+    private bool isTerrainWarningDone;
+    public GameObject terrainNotifier;
     //for analytics
     public TrackAnalytics trackAnalytics;
     public ScoreZone leftScoreZone;
@@ -53,6 +57,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public HashSet<char> wordSet1 = new HashSet<char>();
     public HashSet<char> wordSet2 = new HashSet<char>();
     [SerializeField] private float timeInSeconds;
+    public float totalTime;
     [SerializeField] private TextMeshProUGUI timerText;
     public int countOfBallsBwScoreZone = 0;
 
@@ -170,6 +175,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
         wordSet2 = new HashSet<char>();
         gameOverText.text = "";
         isGameOver = false;
+        isTerrainToggled = false;
         //SetTime(150);
         // Initialize words for players
         //nextTutorialMenu.SetActive(false);
@@ -179,6 +185,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
         textBoxPlayer1 = wordGeneratorPlayer1.textBox;
         textBoxPlayer2 = wordGeneratorPlayer2.textBox;
         currentTime = timeInSeconds;
+        totalTime = timeInSeconds;
         startTimeWord = currentTime;
         word1 = textBoxPlayer1.text;
         word2 = textBoxPlayer2.text;
@@ -295,6 +302,16 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
 
     private void Update()
     {
+        if (!isTerrainWarningDone && (int)currentTime == (int)(totalTime / 2 ) + 4)
+        {
+            StartCoroutine(StartObstacleWarning());
+            isTerrainWarningDone = true;
+        }
+        if(!isTerrainToggled && (int)currentTime == (int)(totalTime/2))
+        {
+            wallToggle.SwitchToPointedWalls();
+            isTerrainToggled = true;
+        }
         if (isGameOver == false && !(countDown.isCountDown))
         {
             currentTime -= Time.deltaTime;
@@ -311,6 +328,29 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
              }
              CheckBallsBetweenScoreZones();
         }
+    }
+
+    IEnumerator StartObstacleWarning()
+    {
+        terrainNotifier.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        terrainNotifier.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.25f);
+        terrainNotifier.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        terrainNotifier.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.25f);
+        terrainNotifier.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        terrainNotifier.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.25f);
+        terrainNotifier.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        terrainNotifier.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.25f);
+        terrainNotifier.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        terrainNotifier.gameObject.SetActive(false);
     }
 
     void SetTime(float value)
@@ -457,7 +497,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
 
             if (IsWordCompleted(res1, word1))
             {
-                wallToggle.SwitchToPointedWalls();
+                
                 numWords1 += 1;
                 //check if level 1 scene, toggle helpful bubble for player
                 if (currentScene.name == "Level1Basics")
@@ -498,7 +538,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
             }
 
             if (IsWordCompleted(res2, word2))
-            {   wallToggle.SwitchToPointedWalls();
+            {   
                 numWords2 += 1;
                 //check if level 1 scene, toggle helpful bubble for player
                 if (currentScene.name == "Level1Basics")
