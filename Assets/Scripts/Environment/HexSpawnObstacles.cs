@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnObstacles : MonoBehaviour
+public class HexSpawnObstacles : MonoBehaviour
 {
     public GameManager gameManager;
     public GameObject[] P1Obstacles, P2Obstacles;
     public GameObject obstacleNotifier;
     private bool isQuarterTimeActionDone;
-    private bool isThreeQuarterTimeActionDone;
-    private bool isFirstWarningDone;
+    
+    private bool isSecondWarningDone;
     void Start()
     {
-        isThreeQuarterTimeActionDone = false;
+        
         isQuarterTimeActionDone = false;
-        isFirstWarningDone = false;
+        isSecondWarningDone = false;
         for (int i = 0; i < P1Obstacles.Length; i++)
         {
             P1Obstacles[i].gameObject.SetActive(false);
@@ -27,15 +27,15 @@ public class SpawnObstacles : MonoBehaviour
 
     void Update()
     {
-        if (!isFirstWarningDone && (int)gameManager.currentTime == (((int)gameManager.totalTime / 4) * 3) + 4)
+        if (!isSecondWarningDone && (int)gameManager.currentTime == (((int)gameManager.totalTime / 4)) + 4)
         {
             StartCoroutine(StartObstacleWarning());
-            isFirstWarningDone=true;
+            isSecondWarningDone = true;
         }
-        if (!isThreeQuarterTimeActionDone && (int)gameManager.currentTime == (((int)gameManager.totalTime / 4) * 3))
+        if (!isQuarterTimeActionDone && (int)gameManager.currentTime == (((int)gameManager.totalTime / 4)))
         {
             SetObstacles();
-            isThreeQuarterTimeActionDone = true;
+            isQuarterTimeActionDone = true;
         }
     }
 
@@ -45,7 +45,7 @@ public class SpawnObstacles : MonoBehaviour
         System.Random random = new System.Random();
         int P1firstIndex = random.Next(P1Obstacles.Length);
         int P1secondIndex = random.Next(P1Obstacles.Length);
-        while(P1firstIndex == P1secondIndex)
+        while (P1firstIndex == P1secondIndex)
         {
             P1secondIndex = random.Next(P1Obstacles.Length);
         }
@@ -53,7 +53,7 @@ public class SpawnObstacles : MonoBehaviour
         //second player obstacles index
         int P2firstIndex = random.Next(P2Obstacles.Length);
         int P2secondIndex = random.Next(P2Obstacles.Length);
-        while(P2firstIndex == P2secondIndex)
+        while (P2firstIndex == P2secondIndex)
         {
             P2secondIndex = random.Next(P2Obstacles.Length);
         }
@@ -78,7 +78,7 @@ public class SpawnObstacles : MonoBehaviour
             obj.transform.localEulerAngles = new Vector3(0, 0, randomZRotation);
         }
 
-        StartCoroutine(HideObstacles(P1firstIndex,P1secondIndex, P2firstIndex, P2secondIndex));
+        StartCoroutine(HideObstacles(P1firstIndex, P1secondIndex, P2firstIndex, P2secondIndex));
 
     }
 
