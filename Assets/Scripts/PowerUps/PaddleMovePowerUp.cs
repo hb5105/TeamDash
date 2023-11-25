@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PaddleMovePowerUp : MonoBehaviour
@@ -9,8 +10,8 @@ public class PaddleMovePowerUp : MonoBehaviour
     public GameObject southWall; // Variable for the south wall
 
     public float shiftDistance = 3.0f;
-    public float maxYPosition = 4.5f;
-    public float minYPosition = -4.5f;
+    public float maxYPosition = 3.5f;
+    public float minYPosition = -3.5f;
 
     private static bool powerUpActiveGlobal = false;
 
@@ -26,7 +27,7 @@ public class PaddleMovePowerUp : MonoBehaviour
     }
 public void ShiftOpponentPosition()
 {
-    if ( opponentPaddle)
+    if (opponentPaddle)
     {
         powerUpActiveGlobal = true;
 
@@ -49,10 +50,31 @@ public void ShiftOpponentPosition()
             newYPosition = Mathf.Min(opponentY + shiftDistance, maxYPosition);
         }
 
-        // Move the paddle
-        opponentPaddle.transform.position = new Vector2(opponentPaddle.transform.position.x, newYPosition);
+        // Set the target position for the paddle
+        Vector3 targetPosition = new Vector2(opponentPaddle.transform.position.x, newYPosition);
+
+        // Start the coroutine to move the paddle smoothly to the new position
+        StartCoroutine(MovePaddleSmoothly(opponentPaddle.transform, targetPosition));
     }
 }
+
+    private IEnumerator MovePaddleSmoothly(Transform paddleTransform, Vector3 targetPosition)
+    {
+        float duration = 0.8f; // Duration of the movement in seconds
+        float elapsedTime = 0f;
+
+        Vector3 startPosition = paddleTransform.position;
+
+        while (elapsedTime < duration)
+        {
+            paddleTransform.position = Vector3.Lerp(startPosition, targetPosition, (elapsedTime / duration));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        paddleTransform.position = targetPosition; // Ensure it's exactly at the target in the end
+    }
+
 
     private void FindOpponentPaddle()
     {
