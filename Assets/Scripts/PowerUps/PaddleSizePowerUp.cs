@@ -30,6 +30,19 @@ public class PaddleSizePowerUp : MonoBehaviour
 
     public void DeactivatePowerUp()
     {
-        paddle.transform.localScale = originalSize;
+        if (wallToggle.isPointedWalls)
+        {
+            // If pointed walls are active, set paddle size to paddleScaleAfter
+            //paddle.transform.localScale = new Vector3(0.6f, 2f, originalSize.z);
+            originalSize.x = 0.6f;
+            originalSize.y = 2f;
+            paddle.transform.localScale = originalSize;
+        }
+        else
+        {
+            // If pointed walls are not active, reset to original size (paddleScaleBefore)
+            paddle.transform.localScale = originalSize;
+        }
     }
+
 }

@@ -30,6 +30,8 @@ public class WallToggle : MonoBehaviour
     public GameObject scoreZoneLeft;
     public GameObject scoreZoneRight;
     public GameObject scoreBoard;
+    public Vector3 paddleScaleBefore;
+    public Vector3 paddleScaleAfter;
 
     public bool isPointedWalls = false; // This is a flag to check if the walls are in their normal state or not
     public void Start()
@@ -115,14 +117,16 @@ public class WallToggle : MonoBehaviour
 
         player1Paddle.transform.position = new Vector3(-11, 1, gameObject.transform.position.z);
         Vector3 paddle1Scale = player1Paddle.transform.localScale;
-        paddle1Scale.x = 0.6f;
-        paddle1Scale.y = 2f;
+        paddleScaleBefore = paddle1Scale;
+        paddle1Scale.x = paddle1Scale.x*2;
+        paddle1Scale.y = (float)(paddle1Scale.y*1.54);
+        paddleScaleAfter = paddle1Scale;
         player1Paddle.transform.localScale = paddle1Scale;
 
         player2Paddle.transform.position = new Vector3(11, 1, gameObject.transform.position.z);
         Vector3 paddle2Scale = player2Paddle.transform.localScale;
-        paddle2Scale.x = 0.6f;
-        paddle2Scale.y = 2f;
+        paddle2Scale.x = paddle2Scale.x * 2;
+        paddle2Scale.y = (float)(paddle2Scale.y * 1.54);
         player2Paddle.transform.localScale = paddle2Scale;
 
         // Vector3 ballScale = ball.transform.localScale;
