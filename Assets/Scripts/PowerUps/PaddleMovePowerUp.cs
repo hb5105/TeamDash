@@ -12,6 +12,8 @@ public class PaddleMovePowerUp : MonoBehaviour
     public float shiftDistance = 3.0f;
     public float maxYPosition = 3.5f;
     public float minYPosition = -3.5f;
+    public WallToggle wallToggle;
+
 
     private static bool powerUpActiveGlobal = false;
 

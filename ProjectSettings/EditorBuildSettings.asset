@@ -83,4 +83,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial Scenes/HritikMoveOpponentFinal.unity
     guid: 1778b6c9334c14ec480ca451a62a7252
+  - enabled: 1
+    path: Assets/Scenes/Tutorial Scenes/BallSplitLatest.unity
+    guid: 77eaea4df8875428295ee91e4396d6a7
   m_configObjects: {}

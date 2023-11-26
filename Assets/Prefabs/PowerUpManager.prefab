@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6961926090727082540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2129055926769775041}
+  - component: {fileID: 4884919601360274561}
+  - component: {fileID: 4165193846024261693}
+  - component: {fileID: 789276272586348357}
+  - component: {fileID: 5031427331177046719}
+  m_Layer: 0
+  m_Name: PowerUpManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2129055926769775041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6961926090727082540}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.9425111, y: 0.10661376, z: 0.009005494}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4884919601360274561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6961926090727082540}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8b207d9758504154aa17e95c5831bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftScoreZone: {fileID: 0}
+  rightScoreZone: {fileID: 0}
+  ballsInScoreZone: 0
+  p1powerup: 
+  p2powerup: 
+  p1PowerUpActive: 0
+  p2PowerUpActive: 0
+  p1PowerUpTimer: 5
+  p2PowerUpTimer: 5
+  p1Timer: {fileID: 0}
+  p2Timer: {fileID: 0}
+  player1Powerup: {fileID: 0}
+  player2Powerup: {fileID: 0}
+  freezeImage: {fileID: 0}
+  magnifyImage: {fileID: 0}
+  moveOpponentImage: {fileID: 0}
+  splitPowerupImage: {fileID: 0}
+--- !u!114 &4165193846024261693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6961926090727082540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4dc2c8430b20df448572f7defe7c9c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftScoreZone: {fileID: 0}
+  rightScoreZone: {fileID: 0}
+  ballsInScoreZone: 0
+  testing_powerup: SplitBall
+  player1powerupcount: 1
+  player2powerupcount: 1
+  p1powerup: 
+  p2powerup: 
+  p1PowerUpActive: 0
+  p2PowerUpActive: 0
+  p1PowerUpTimer: 5
+  p2PowerUpTimer: 5
+  p1Timer: {fileID: 0}
+  p2Timer: {fileID: 0}
+  player1Powerup: {fileID: 0}
+  player2Powerup: {fileID: 0}
+  freezeImage: {fileID: 0}
+  magnifyImage: {fileID: 0}
+  moveOpponentImage: {fileID: 0}
+  splitPowerupImage: {fileID: 0}
+--- !u!114 &789276272586348357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6961926090727082540}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f21f06420e76f40fdaecececa5645fd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  p1PowerUpIndicator: {fileID: 0}
+  p2PowerUpIndicator: {fileID: 0}
+--- !u!114 &5031427331177046719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6961926090727082540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0077a4d264bc74373a9877fc59824cf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  p1PowerUpIndicator: {fileID: 0}
+  p2PowerUpIndicator: {fileID: 0}

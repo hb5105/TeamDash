@@ -115,7 +115,7 @@ public class ScaffSplitPowerUpManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != ""&& !p2PowerUpActive)
+        if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != "")
         {
 
             ActivatePowerUp(paddle1, p1powerup);
@@ -129,7 +129,7 @@ public class ScaffSplitPowerUpManager : MonoBehaviour
             Invoke("DeactivateP1PowerUp", powerUpActiveDuration);
         }
 
-        if (Input.GetKeyDown(KeyCode.Slash) && !p2PowerUpActive && p2powerup != ""&& !p1PowerUpActive)
+        if (Input.GetKeyDown(KeyCode.Slash) && !p2PowerUpActive && p2powerup != "")
         {
             ActivatePowerUp(paddle2, p2powerup);
             p2PowerUpActive = true;
@@ -174,6 +174,10 @@ public class ScaffSplitPowerUpManager : MonoBehaviour
         p2powerup = testing_powerup;
         if(p2powerup == "SplitBall" && ballsInScoreZone == 2 ){
             p2powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
+        }
+        if(p1powerup == "SplitBall"  && p2powerup == "SplitBall")
+        {
+            p1powerup= powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
         }
         Transform timerTransform2 = p2Timer.transform.Find("Timer2");
         Image timerImage2 = timerTransform2.GetComponent<Image>();
@@ -384,6 +388,10 @@ public class ScaffSplitPowerUpManager : MonoBehaviour
             if(p1powerup == "SplitBall" && ballsInScoreZone == 2 ){
             p1powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
              }
+            if (p1powerup == "SplitBall" && p2powerup == "SplitBall")
+            {
+                p1powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
+            }
             p1PowerUpTimer = 5f;  // Resetting the timer
 
 
@@ -424,9 +432,14 @@ public class ScaffSplitPowerUpManager : MonoBehaviour
                 last = 4;
             }
             // player1Powerup.color = Color.red;
+        
             p1Timer.SetActive(true);
 
             p1powerup = powerUpArray[Random.Range(0, last)].ToString();
+            if (p1powerup == "SplitBall" && p2powerup == "SplitBall")
+            {
+                p1powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
+            }
             p1PowerUpTimer = 5f;  // Resetting the timer
 
             // p1powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
@@ -476,7 +489,10 @@ public class ScaffSplitPowerUpManager : MonoBehaviour
             if(p2powerup == "SplitBall" && ballsInScoreZone == 2 ){
             p2powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
             }
-
+            if (p1powerup == "SplitBall" && p2powerup == "SplitBall")
+            {
+                p2powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
+            }
             // if (p2powerup == "MoveOpponent")
             // {
             //     player2Powerup.text = "Move Opponent";
@@ -510,9 +526,14 @@ public class ScaffSplitPowerUpManager : MonoBehaviour
                 last = 4;
             }
             // player2Powerup.color = Color.red;
+           
             p2Timer.SetActive(true);
 
             p2powerup = powerUpArray[Random.Range(0, last)].ToString();
+            if (p1powerup == "SplitBall" && p2powerup == "SplitBall")
+            {
+                p2powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
+            }
             p2PowerUpTimer = 5f;  // Resetting the timer
 
 
