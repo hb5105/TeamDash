@@ -133,7 +133,7 @@ public class PowerUpManager : MonoBehaviour
             SetPowerUpImage(player1Powerup, p1powerup, timerImage);
 
             //p1powerup = "";
-            Invoke("DeactivateP1PowerUp", powerUpActiveDuration);
+            Invoke("DeactivateP1PowerUp", p1CurrentPowerUpTimer);
         }
 
         if (Input.GetKeyDown(KeyCode.Slash) && !p2PowerUpActive && p2powerup != "")
@@ -150,7 +150,7 @@ public class PowerUpManager : MonoBehaviour
             SetPowerUpImage(player2Powerup, p2powerup, timerImage);
 
             //p2powerup = "";
-            Invoke("DeactivateP2PowerUp", powerUpActiveDuration);
+            Invoke("DeactivateP2PowerUp", p2CurrentPowerUpTimer);
         }
     }
     public void getBallBetweenScoreZones(){
