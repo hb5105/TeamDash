@@ -9,6 +9,7 @@ public class PowerUpManager : MonoBehaviour
 {
     public enum PowerUpType { None, Freeze, Magnify, MoveOpponent, SplitBall}
     private PowerUpType[] powerUpArray = { PowerUpType.Freeze, PowerUpType.Magnify, PowerUpType.MoveOpponent,PowerUpType.SplitBall};
+    
     private PowerUpType[] powerUpArrayWithoutSplitBall = { PowerUpType.Freeze, PowerUpType.Magnify, PowerUpType.MoveOpponent};
     private Paddle paddle1;
     private Paddle paddle2;

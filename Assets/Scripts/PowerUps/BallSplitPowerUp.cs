@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class BallSplitPowerUp : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class BallSplitPowerUp : MonoBehaviour
     public ScoreZone leftScoreZone;
     public ScoreZone rightScoreZone;
     void Start(){
-        ballSplittingActiveForPlayer = Random.Range(1,101)%2==0? 1:2;
+        ballSplittingActiveForPlayer = 0==0? 1:2;
     }
     public int CheckBallsBetweenScoreZones()
     { // let's get array of game obejcts of type Ball
@@ -81,8 +82,8 @@ foreach (GameObject wall in lowerWalls)
 }
 
 
-//Debug.Log("Upper limit: " + upperLimit);
-//Debug.Log("Lower limit: " + lowerLimit);
+        Debug.Log("Upper limit: " + upperLimit);
+        Debug.Log("Lower limit: " + lowerLimit);
     }
     
  public void SplitBall(GameObject originalBall, float paddleId)
@@ -92,7 +93,11 @@ foreach (GameObject wall in lowerWalls)
     }
     // Debug.Log("split ball method called");
     getUpperAndLowerLimit();
-    float separation = 2f;
+        Debug.Log("Upper limit: " + upperLimit);
+        Debug.Log("Lower limit: " + lowerLimit);
+        upperLimit = upperLimit - 0.5f;
+        lowerLimit = lowerLimit + 0.5f;
+        float separation = 2f;
 
     int count = CheckBallsBetweenScoreZones();
     //Debug.Log("CheckBallsBetweenScoreZones "+count);
@@ -131,33 +136,20 @@ foreach (GameObject wall in lowerWalls)
     Debug.Log("originalBallText "+originalBallText);
      rb1.velocity = originalRb.velocity;
         rb2.velocity = originalRb.velocity;
-    // // Ensure they don't exceed the boundary after split
-         Debug.Log("initial rb1.position.y "+rb1.position.y);
-        separation = rb1.position.y+separation<= upperLimit? separation: 0;
-         rb1.position = new Vector2(rb1.position.x, rb1.position.y + separation);
-         Debug.Log("later rb1.position.y and separation"+rb1.position.y + " "+separation);
-        Debug.Log("initial rb2.position.y "+rb2.position.y);
-        separation = rb2.position.y-separation>= lowerLimit? separation: 0;
-            rb2.position = new Vector2(rb2.position.x, rb2.position.y - separation);
-            Debug.Log("later rb2.position.y and separation"+rb2.position.y + " "+separation);
-        // Debug.Log("rb1.position.y "+rb1.position.y);
-        // Debug.Log("rb2.position.y "+rb2.position.y);
-        // if (paddleId == 1) // If Player 1 hit the ball
-        // {
-        //     rb1.velocity = originalRb.velocity;
-        //     rb2.velocity = new Vector2(Mathf.Abs(rb2.velocity.x), rb1.velocity.y);
-        // }
-        // else if (paddleId == 2) // If Player 2 hit the ball
-        // {
-        //     rb1.velocity = new Vector2(Mathf.Abs(rb1.velocity.x), rb1.velocity.y);
-        //     rb2.velocity = new Vector2(Mathf.Abs(rb2.velocity.x), rb2.velocity.y);
-        // }
-       
-        // give some gap in the y coordinates of both
-        // rb1.position = new Vector2(rb1.position.x, rb1.position.y );
-        // rb2.position = new Vector2(rb2.position.x, rb2.position.y );
-    // Ensure references are set for ballClone1
-     BallText ballText1 = ballClone1.transform.GetChild(0).GetComponent<BallText>();
+        // // Ensure they don't exceed the boundary after split
+        // For ballClone1: Adjust position.y and then assign a new Vector2 to rb1.position
+        float newY1 = Math.Min(rb1.position.y + separation, upperLimit);
+        Debug.Log("New Y1" + newY1);
+        rb1.position = new Vector2(rb1.position.x, newY1);
+        Debug.Log("Ball position Y: " + rb1.position.y);
+
+        // For ballClone2: Adjust position.y and then assign a new Vector2 to rb2.position
+        float newY2 = Math.Max( rb2.position.y - separation, lowerLimit);
+        Debug.Log("New Y2" + newY1);
+        rb2.position = new Vector2(rb2.position.x, newY2);
+        Debug.Log("Ball2 position Y: " + rb2.position.y);
+
+        BallText ballText1 = ballClone1.transform.GetChild(0).GetComponent<BallText>();
     if (ballText1 == null)
     {
         Debug.LogError("No BallText component on ballClone1.");
