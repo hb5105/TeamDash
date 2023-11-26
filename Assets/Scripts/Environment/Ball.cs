@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Proyecto26;
+using TMPro;
 
 [System.Serializable]
 public class PlayerData   
@@ -36,6 +37,9 @@ public class Ball : MonoBehaviour
     private bool isScaled = false;
     private bool isSpeedIncreased = false;
     private float defaultSpeed = 1f;
+    public Sprite normalSprite;  
+    public Sprite flickedSprite;
+    public TextMeshPro ballChildText;
 
     private void AdjustVelocity()
     {
@@ -107,19 +111,18 @@ public class Ball : MonoBehaviour
     {
         Debug.Log("Current scale of Ball: " + transform.localScale);
         Vector3 ballScale = transform.localScale;
-        ballScale.x *= 1.5f;
-        ballScale.y *= 1.5f;
+        ballScale.x *= 1.35f;
+        ballScale.y *= 1.35f;
         transform.localScale = ballScale;
         Debug.Log("New scale of Ball: " + transform.localScale);
     } 
     private void Update()
     {
-        //Debug.Log("isSpeedIncreased" + isSpeedIncreased + " Ball Velocity " + rb2d.velocity.magnitude + " defaultSpeed " + defaultSpeed);
         if (isSpeedIncreased && rb2d.velocity.magnitude <= defaultSpeed)
         {
-            Debug.Log(rb2d.velocity.magnitude);
-            Debug.Log(moveSpeed);
+            GetComponent<SpriteRenderer>().sprite = normalSprite;
             GetComponent<SpriteRenderer>().color = Color.black;
+            ballChildText.rectTransform.anchoredPosition = new Vector2(ballChildText.rectTransform.anchoredPosition.x, 0f);
             isSpeedIncreased = false;
         }
         if (!isScaled && wallToggle.isPointedWalls)
@@ -257,7 +260,9 @@ public class Ball : MonoBehaviour
             rb2d.velocity = new Vector2(rb2d.velocity.x, newYVelocity);
             // Debug.Log("Ball Velocity after collision: " + rb2d.velocity);
             AdjustVelocity();
-            GetComponent<SpriteRenderer>().color = Color.red;
+            GetComponent<SpriteRenderer>().sprite = flickedSprite;
+            GetComponent<SpriteRenderer>().color = Color.white;
+            ballChildText.rectTransform.anchoredPosition = new Vector2(ballChildText.rectTransform.anchoredPosition.x, -0.7f);
             isSpeedIncreased = true;
         }
         else{
