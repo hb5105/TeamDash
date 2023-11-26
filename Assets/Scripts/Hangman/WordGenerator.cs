@@ -11,9 +11,14 @@ public class WordGenerator : MonoBehaviour
     // Start is called before the first frame update
     public TextMeshProUGUI textBox; // Reference to the Text element in the Inspector
 
-    // List of random words to choose from
-    private static List<string> randomWords = new List<string> { "CAT","DOG", "DOWN" ,"FOUR" ,"WATER", "OCEAN" , "VIBE", "VIBE", "GAZE", "HAZE"};
-    private static List<string> randomWordsCopy = new List<string> { "CAT", "DOG", "DOWN", "FOUR", "WATER", "OCEAN", "VIBE", "VIBE", "GAZE", "HAZE" };
+    // Lists of random words based on length
+    private static List<string> threeLetterWords = new List<string> { "RUN", "KIT" };
+    private static List<string> fourLetterWords = new List<string> { "GOAL", "BALL" };
+    private static List<string> fiveLetterWords = new List<string> { "SCORE", "GRASS" };
+
+    // Current list being used
+    private static List<string> currentList = new List<string> { "RUN", "KIT" };
+    private int listIndex = 0;
 
     // Static variable to store the initial word
     private static string initialWord = null;
@@ -29,6 +34,9 @@ public class WordGenerator : MonoBehaviour
             return;
         }
 
+        // Start with the 3-letter words
+        currentList = new List<string>(threeLetterWords);
+
         // If initialWord is null, assign a random word to it
         if (initialWord == null)
         {
@@ -41,17 +49,23 @@ public class WordGenerator : MonoBehaviour
     // Method to get a random word
     private string GetRandomWord()
     {
-        // Check if the list is empty
-        if (randomWords.Count == 0)
+        if (currentList.Count == 0)
         {
-            // If the list is empty, refill it from the copy
-            randomWords = new List<string>(randomWordsCopy);
-            Debug.Log("List was empty. Refilled from copy.");
+            // Move to the next list of words based on their length
+            listIndex++;
+            if (listIndex == 1) currentList = new List<string>(fourLetterWords);
+            else if (listIndex == 2) currentList = new List<string>(fiveLetterWords);
+            else
+            {
+                Debug.Log("All words used. Restarting with 3-letter words.");
+                listIndex = 0;
+                currentList = new List<string>(threeLetterWords);
+            }
         }
 
-        currIndex = Random.Range(0, randomWords.Count);
-        currWord = randomWords[currIndex];
-        randomWords.RemoveAt(currIndex);
+        currIndex = Random.Range(0, currentList.Count);
+        currWord = currentList[currIndex];
+        currentList.RemoveAt(currIndex);
 
         return currWord;
     }
@@ -62,3 +76,4 @@ public class WordGenerator : MonoBehaviour
         textBox.text = GetRandomWord();
     }
 }
+
