@@ -149,7 +149,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
             }
         }
         countOfBallsBwScoreZone = count;
-        Debug.Log("count of balls bw score zone "+countOfBallsBwScoreZone + "balls in queue"+ ballsInScoreZone.Count);
+        //Debug.Log("count of balls bw score zone "+countOfBallsBwScoreZone + "balls in queue"+ ballsInScoreZone.Count);
          if(countOfBallsBwScoreZone == 0)
     {
             if(ballsInScoreZone.Count == 0)

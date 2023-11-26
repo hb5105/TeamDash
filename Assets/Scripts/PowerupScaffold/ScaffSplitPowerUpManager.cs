@@ -295,7 +295,9 @@ public class ScaffSplitPowerUpManager : MonoBehaviour
     void DeactivateP1PowerUp()
     {
         //player1Powerup.gameObject.SetActive(false);
+
         player1powerupcount++;
+        player1Powerup.gameObject.SetActive(false);
         p1Timer.SetActive(false);
         p1PowerUpActive = false;
         p1PowerUpTimer = 5f;  // Resetting the timer
@@ -330,6 +332,7 @@ public class ScaffSplitPowerUpManager : MonoBehaviour
     {
         //player2Powerup.gameObject.SetActive(false);
         player2powerupcount++;
+        player2Powerup.gameObject.SetActive(false);
         p2Timer.SetActive(false);
         p2PowerUpActive = false;
         p2PowerUpTimer = 5f;  // Resetting the timer

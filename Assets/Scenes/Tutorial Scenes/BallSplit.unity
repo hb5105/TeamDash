@@ -2554,6 +2554,7 @@ MonoBehaviour:
   gameManager: {fileID: 209535991}
   ballText: {fileID: 91850910}
   isClonedBall: 0
+  wallToggle: {fileID: 0}
 --- !u!50 &1135472110
 Rigidbody2D:
   serializedVersion: 4
@@ -4259,6 +4260,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7898139529462525469, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
+      propertyPath: wallToggle
+      value: 
+      objectReference: {fileID: 539837858}
     - target: {fileID: 7898139529462525469, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
       propertyPath: gameManager
       value: 
