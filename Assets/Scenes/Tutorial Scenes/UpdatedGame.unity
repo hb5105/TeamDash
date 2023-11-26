@@ -5092,6 +5092,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3152691925378877901, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
+      propertyPath: northWall
+      value: 
+      objectReference: {fileID: 710539740}
+    - target: {fileID: 3152691925378877901, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
+      propertyPath: southWall
+      value: 
+      objectReference: {fileID: 1744753977}
+    - target: {fileID: 3152691925378877901, guid: aa5be791f7e4845d1a27d1631846b99a, type: 3}
       propertyPath: wallToggle
       value: 
       objectReference: {fileID: 539837858}

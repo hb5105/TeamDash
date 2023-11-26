@@ -33,22 +33,38 @@ public void ShiftOpponentPosition()
     {
         powerUpActiveGlobal = true;
 
+        // Adjust shiftDistance based on isPointedWalls
+        float playAreaHeight;
+        if (wallToggle.isPointedWalls)
+        {
+            // Height when pointed walls are active
+            playAreaHeight = 5.11f - (-5.11f); 
+        }
+        else
+        {
+            // Height when normal walls are active
+            playAreaHeight = 3.4f - (-5.11f); 
+        }
+
+        // Set shiftDistance as a proportion of play area height
+        float proportionFactor = 0.2f; // Example: 20% of play area height
+        shiftDistance = playAreaHeight * proportionFactor;
+
         // Get the Y-coordinate of the opponent's paddle
         float opponentY = opponentPaddle.transform.position.y;
 
-        // Determine if the opponent is above or below the center (0,0)
-        bool isAboveCenter = opponentY > 0;
+        // Determine if the opponent is above or below the dynamic center
+        float centerYPosition = (wallToggle.isPointedWalls) ? 0.0f : (northWall.transform.position.y + southWall.transform.position.y) / 2;
+        bool isAboveCenter = opponentY > centerYPosition;
 
-        // Calculate new Y position based on the opponent's position relative to the center
+        // Calculate new Y position based on the opponent's position relative to the dynamic center
         float newYPosition;
         if (isAboveCenter)
         {
-            // If the opponent is above the center, move towards the south wall
             newYPosition = Mathf.Max(opponentY - shiftDistance, minYPosition);
         }
         else
         {
-            // If the opponent is below the center, move towards the north wall
             newYPosition = Mathf.Min(opponentY + shiftDistance, maxYPosition);
         }
 
@@ -62,7 +78,7 @@ public void ShiftOpponentPosition()
 
     private IEnumerator MovePaddleSmoothly(Transform paddleTransform, Vector3 targetPosition)
     {
-        float duration = 0.8f; // Duration of the movement in seconds
+        float duration = 0.3f; // Duration of the movement in seconds
         float elapsedTime = 0f;
 
         Vector3 startPosition = paddleTransform.position;
