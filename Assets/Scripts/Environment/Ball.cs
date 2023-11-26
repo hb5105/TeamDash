@@ -34,6 +34,8 @@ public class Ball : MonoBehaviour
     private float minimumSpeed = 6f;
     public WallToggle wallToggle;
     private bool isScaled = false;
+    private bool isSpeedIncreased = false;
+    private float defaultSpeed = 1f;
 
     private void AdjustVelocity()
     {
@@ -62,6 +64,7 @@ public class Ball : MonoBehaviour
         //Invoke(nameof(InitialPush), 2f);
         }
         GetComponent<SpriteRenderer>().color = Color.black;
+        defaultSpeed = rb2d.velocity.magnitude;
     }
 
     // Moves the Ball to Random Angle in the Left Direction
@@ -108,22 +111,30 @@ public class Ball : MonoBehaviour
         ballScale.y *= 1.5f;
         transform.localScale = ballScale;
         Debug.Log("New scale of Ball: " + transform.localScale);
-    }
+    } 
     private void Update()
-{
-   if (!isScaled && wallToggle.isPointedWalls)
     {
-        ScaleBall();
-        isScaled = true;
+        //Debug.Log("isSpeedIncreased" + isSpeedIncreased + " Ball Velocity " + rb2d.velocity.magnitude + " defaultSpeed " + defaultSpeed);
+        if (isSpeedIncreased && rb2d.velocity.magnitude <= defaultSpeed)
+        {
+            Debug.Log(rb2d.velocity.magnitude);
+            Debug.Log(moveSpeed);
+            GetComponent<SpriteRenderer>().color = Color.black;
+            isSpeedIncreased = false;
+        }
+        if (!isScaled && wallToggle.isPointedWalls)
+        {
+            ScaleBall();
+            isScaled = true;
+        }
+        AdjustVelocity();
+        //check if there are no balls in the scene and spawn a new ball
+        // Debug.Log("No of balls in update"+GameObject.FindObjectsOfType<Ball>().Length);
+        if (!GameManager.isGameOver && GameObject.FindObjectsOfType<Ball>().Length == 0)
+        {
+            gameManager.SpawnNewBall(this.gameObject);
+        }
     }
-    AdjustVelocity();
-    //check if there are no balls in the scene and spawn a new ball
-    // Debug.Log("No of balls in update"+GameObject.FindObjectsOfType<Ball>().Length);
-    if (!GameManager.isGameOver && GameObject.FindObjectsOfType<Ball>().Length == 0)
-    {
-        gameManager.SpawnNewBall(this.gameObject);
-    }
-}
     // private void ChangeBallDirection()
     // {
     //     Rigidbody2D rb = GetComponent<Rigidbody2D>();
@@ -246,6 +257,8 @@ public class Ball : MonoBehaviour
             rb2d.velocity = new Vector2(rb2d.velocity.x, newYVelocity);
             // Debug.Log("Ball Velocity after collision: " + rb2d.velocity);
             AdjustVelocity();
+            GetComponent<SpriteRenderer>().color = Color.red;
+            isSpeedIncreased = true;
         }
         else{
             rb2d.velocity=rb2d.velocity.normalized*moveSpeed;
