@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public float totalTime;
     [SerializeField] private TextMeshProUGUI timerText;
     public int countOfBallsBwScoreZone = 0;
+    public GameObject pauseButton;
 
     public Queue<GameObject> ballsInScoreZone = new Queue<GameObject>();
 
@@ -382,6 +383,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
         //{
             // gameOverMenu.SetActive(true);
             levelOverMenu.SetActive(true);
+        pauseButton.SetActive(false);
             isGameOver = true;
             if(isGameOver == true)
             {

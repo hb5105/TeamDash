@@ -5,6 +5,7 @@ public class PaddleSizePowerUp : MonoBehaviour
     private Paddle paddle;
     public float sizeMultiplier = 1.5f;
     public float powerUpDuration = 5f;
+    public WallToggle wallToggle;
     private Vector3 originalSize;
 
     private void Start()
