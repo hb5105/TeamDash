@@ -63,9 +63,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Tutorial Scenes/UpdatedGame.unity
     guid: 33bd99587b4c44a9a9157d10f5fadca8
   - enabled: 1
-    path: Assets/Scenes/Tutorial Scenes/Level1Basics.unity
-    guid: 57a83be5834818146babe03fd02e9f3a
-  - enabled: 1
     path: Assets/Scenes/Tutorial Scenes/BallSplit.unity
     guid: 34df6a9f406a6a8449f6bbb06e111b27
   - enabled: 1
