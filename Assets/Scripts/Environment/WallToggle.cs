@@ -73,11 +73,11 @@ public class WallToggle : MonoBehaviour
         normalField.SetActive(false);
         pointedField.SetActive(true);
 
-        RectTransform rectTransform = ScoreTextLeft.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(-186,224);
+        // RectTransform rectTransform = ScoreTextLeft.rectTransform;
+        // rectTransform.anchoredPosition = new Vector2(-186,224);
 
-        rectTransform = ScoreTextRight.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(304, 224);
+        // rectTransform = ScoreTextRight.rectTransform;
+        // rectTransform.anchoredPosition = new Vector2(304, 224);
 
         //rectTransform = Bg1.rectTransform;
         //rectTransform.anchoredPosition = new Vector2(-117, 145);
@@ -85,23 +85,23 @@ public class WallToggle : MonoBehaviour
         //rectTransform = Bg2.rectTransform;
         //rectTransform.anchoredPosition = new Vector2(121, 145);
 
-        rectTransform = Word1.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -117);
+        // rectTransform = Word1.rectTransform;
+        // rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -117);
 
-        rectTransform = Word2.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -117);
+        // rectTransform = Word2.rectTransform;
+        // rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, -117);
 
-        rectTransform = Powerup1.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(-301, 204);
+        // rectTransform = Powerup1.rectTransform;
+        // rectTransform.anchoredPosition = new Vector2(-301, 204);
 
-        rectTransform = Powerup2.rectTransform;
-        rectTransform.anchoredPosition = new Vector2(301, 204);
+        // rectTransform = Powerup2.rectTransform;
+        // rectTransform.anchoredPosition = new Vector2(301, 204);
 
-        rectTransform = p1Timer.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = new Vector2(-301, 204);
+        // rectTransform = p1Timer.GetComponent<RectTransform>();
+        // rectTransform.anchoredPosition = new Vector2(-301, 204);
 
-        rectTransform = p2Timer.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = new Vector2(301, 204);
+        // rectTransform = p2Timer.GetComponent<RectTransform>();
+        // rectTransform.anchoredPosition = new Vector2(301, 204);
 
         // rectTransform = p1BulletLeft.rectTransform;
         // rectTransform.anchoredPosition = new Vector2(-200, -160);
