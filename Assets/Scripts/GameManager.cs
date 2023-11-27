@@ -303,16 +303,20 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
 
     private void Update()
     {
-        if (!isTerrainWarningDone && (int)currentTime == (int)(totalTime / 2 ) + 4)
+        if(!(currentScene.name == "BasicsUpdated"))
         {
-            StartCoroutine(StartObstacleWarning());
-            isTerrainWarningDone = true;
+            if (!isTerrainWarningDone && (int)currentTime == (int)(totalTime / 2 ) + 4)
+            {
+                StartCoroutine(StartObstacleWarning());
+                isTerrainWarningDone = true;
+            }
+            if(!isTerrainToggled && (int)currentTime == (int)(totalTime/2))
+            {
+                wallToggle.SwitchToPointedWalls();
+                isTerrainToggled = true;
+            }
         }
-        if(!isTerrainToggled && (int)currentTime == (int)(totalTime/2))
-        {
-            wallToggle.SwitchToPointedWalls();
-            isTerrainToggled = true;
-        }
+        
         if (isGameOver == false && !(countDown.isCountDown))
         {
             currentTime -= Time.deltaTime;
