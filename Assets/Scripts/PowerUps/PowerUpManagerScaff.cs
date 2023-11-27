@@ -180,7 +180,14 @@ public class PowerUpManagerScaff : MonoBehaviour
     void AssignRandomPowerUp()
     {
         p1powerup = testing_powerup;
-        p2powerup = testing_powerup;
+
+        if(testing_powerup=="SplitBall"){
+            p2powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
+        }
+        else{
+            p2powerup = testing_powerup;
+        }
+        // p2powerup = testing_powerup;
         
         // p1powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
         // if(p1powerup == "SplitBall" && ballsInScoreZone == 2 ){
@@ -398,7 +405,7 @@ public class PowerUpManagerScaff : MonoBehaviour
     void AssignPowerUpToP1()
     {
         player1Powerup.gameObject.SetActive(true);
-        p1Timer.SetActive(true);
+        
 
         // p1powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
         // if(p1powerup == "SplitBall" && ballsInScoreZone == 2 ){
@@ -425,12 +432,18 @@ public class PowerUpManagerScaff : MonoBehaviour
             {
                 last = 3;
             }
-            else if (testing_powerup == "BallSplit")
+            else if (testing_powerup == "SplitBall")
             {
                 last = 4;
             }
 
             p1powerup = powerUpArray[Random.Range(0, last)].ToString();
+            if(p2powerup=="SplitBall"&&p1powerup=="SplitBall"){
+                p1powerup = powerUpArrayWithoutSplitBall[Random.Range(0, 3)].ToString();
+            }
+            if(p1powerup == "SplitBall" && ballsInScoreZone == 2 ){
+            p1powerup = powerUpArrayWithoutSplitBall[Random.Range(0, 3)].ToString();
+            }
 
         }
         p1PowerUpTimer = 5f;  // Resetting the timer
@@ -443,6 +456,8 @@ public class PowerUpManagerScaff : MonoBehaviour
             p1PowerUpTimer = 5f;
         }
 
+        p1Timer.SetActive(true);
+
         p1CurrentPowerUpTimer = p1PowerUpTimer;
         Transform timerTransform = p1Timer.transform.Find("Timer1");
         Image timerImage = timerTransform.GetComponent<Image>();
@@ -452,7 +467,7 @@ public class PowerUpManagerScaff : MonoBehaviour
     void AssignPowerUpToP2()
     {
         player2Powerup.gameObject.SetActive(true);
-        p2Timer.SetActive(true);
+        
 
         if(player2powerupcount<2){
             p2powerup=testing_powerup;
@@ -474,15 +489,23 @@ public class PowerUpManagerScaff : MonoBehaviour
             {
                 last = 3;
             }
-            else if (testing_powerup == "BallSplit")
+            else if (testing_powerup == "SplitBall")
             {
                 last = 4;
             }
 
             p2powerup = powerUpArray[Random.Range(0, last)].ToString();
+            
+            if(p2powerup=="SplitBall"&&p1powerup=="SplitBall"){
+                p2powerup = powerUpArrayWithoutSplitBall[Random.Range(0, 3)].ToString();
+            }
+                    if(p2powerup == "SplitBall" && ballsInScoreZone == 2 ){
+            p2powerup = powerUpArrayWithoutSplitBall[Random.Range(0, 3)].ToString();
         }
 
-        p2powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
+        }
+
+        // p2powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
         
         p2PowerUpTimer = 5f;  // Resetting the timer
         if (p2powerup == "Freeze")
@@ -498,6 +521,7 @@ public class PowerUpManagerScaff : MonoBehaviour
         // if(p2powerup == "SplitBall" && ballsInScoreZone == 2 ){
         //     p2powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
         // }
+        p2Timer.SetActive(true);
         Transform timerTransform = p2Timer.transform.Find("Timer2");
         Image timerImage = timerTransform.GetComponent<Image>();
         SetPowerUpImage(player2Powerup, p2powerup, timerImage);
