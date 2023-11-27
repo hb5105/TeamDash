@@ -387,12 +387,12 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
             isGameOver = true;
             if(isGameOver == true)
             {
-                if(scorePlayer1 > scorePlayer2)
+                if(numWords1 > numWords2)
                 {
                     // Display Game Over message and winner's name
                     gameOverText.text = "Game Over\nPlayer 1 Wins!";
                 }
-                else if(scorePlayer2 > scorePlayer1)
+                else if(numWords2 > numWords1)
                 {
                     // Display Game Over message and winner's name
                     gameOverText.text = "Game Over\nPlayer 2 Wins!";
@@ -506,7 +506,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
                 {
                     StartCoroutine(levelOneManager.ToggleWordBubbles(2));
                 }
-                if(numWords1 < 3)
+                if(numWords1 < 2)
                 {
                     endTimeWord = currentTime;
                     trackAnalytics.CollectWordData(word1, startTimeWord, endTimeWord, 0, 0);
@@ -548,7 +548,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
                     StartCoroutine(levelOneManager.ToggleWordBubbles(4));
                 }
 
-                if (numWords2 < 3)
+                if (numWords2 < 2)
                 {
                     endTimeWord = currentTime;
                     trackAnalytics.CollectWordData(word2, startTimeWord, endTimeWord, 0, 0);
