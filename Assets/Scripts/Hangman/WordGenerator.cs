@@ -12,12 +12,12 @@ public class WordGenerator : MonoBehaviour
     public TextMeshProUGUI textBox; // Reference to the Text element in the Inspector
 
     // Lists of random words based on length
-    private static List<string> threeLetterWords = new List<string> { "RUN", "KIT" };
-    private static List<string> fourLetterWords = new List<string> { "GOAL", "BALL" };
-    private static List<string> fiveLetterWords = new List<string> { "SCORE", "GRASS" };
+    private static List<string> threeLetterWords = new List<string> { };
+    private static List<string> fourLetterWords = new List<string> { "GOAL" };
+    private static List<string> fiveLetterWords = new List<string> { "SCORE"};
 
     // Current list being used
-    private static List<string> currentList = new List<string> { "RUN", "KIT" };
+    private static List<string> currentList = new List<string> { };
     private int listIndex = 0;
 
     // Static variable to store the initial word

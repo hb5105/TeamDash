@@ -510,7 +510,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
                 {
                     StartCoroutine(levelOneManager.ToggleWordBubbles(2));
                 }
-                if(numWords1 < 2)
+                if(numWords1 < 3)
                 {
                     endTimeWord = currentTime;
                     trackAnalytics.CollectWordData(word1, startTimeWord, endTimeWord, 0, 0);
@@ -552,7 +552,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
                     StartCoroutine(levelOneManager.ToggleWordBubbles(4));
                 }
 
-                if (numWords2 < 2)
+                if (numWords2 < 3)
                 {
                     endTimeWord = currentTime;
                     trackAnalytics.CollectWordData(word2, startTimeWord, endTimeWord, 0, 0);
