@@ -8272,7 +8272,7 @@ MonoBehaviour:
   p2powerup: 
   player1powerupcount: 1
   player2powerupcount: 1
-  testing_powerup: SplitBall
+  testing_powerup: MoveOpponent
   p1PowerUpActive: 0
   p2PowerUpActive: 0
   p1PowerUpTimer: 5
