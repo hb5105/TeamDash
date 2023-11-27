@@ -104,8 +104,8 @@ public class Ball : MonoBehaviour
     {
         Debug.Log("Current scale of Ball: " + transform.localScale);
         Vector3 ballScale = transform.localScale;
-        ballScale.x = 0.6f;
-        ballScale.y = 0.6f;
+        ballScale.x = 0.7f;
+        ballScale.y = 0.7f;
         transform.localScale = ballScale;
         Debug.Log("New scale of Ball: " + transform.localScale);
     }
