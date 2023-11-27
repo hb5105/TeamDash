@@ -492,7 +492,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
             pos1.Add(pos);
             UpdateScores(res1, res2, res1Temp, res2Temp, pos1, pos2);
             //check if level 1 scene, toggle helpful bubble for player
-            if (currentScene.name == "Level1Basics")
+            if (currentScene.name == "BasicsUpdated")
             {
                 StartCoroutine(levelOneManager.ToggleWordBubbles(1));
             }
@@ -502,7 +502,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
                 
                 numWords1 += 1;
                 //check if level 1 scene, toggle helpful bubble for player
-                if (currentScene.name == "Level1Basics")
+                if (currentScene.name == "BasicsUpdated")
                 {
                     StartCoroutine(levelOneManager.ToggleWordBubbles(2));
                 }
@@ -534,7 +534,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
             pos2.Add(pos);
             UpdateScores(res1, res2, res1Temp, res2Temp, pos1, pos2);
             //check if level 1 scene, toggle helpful bubble for player
-            if (currentScene.name == "Level1Basics")
+            if (currentScene.name == "BasicsUpdated")
             {
                 StartCoroutine(levelOneManager.ToggleWordBubbles(3));
             }
@@ -543,7 +543,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
             {   
                 numWords2 += 1;
                 //check if level 1 scene, toggle helpful bubble for player
-                if (currentScene.name == "Level1Basics")
+                if (currentScene.name == "BasicsUpdated")
                 {
                     StartCoroutine(levelOneManager.ToggleWordBubbles(4));
                 }
