@@ -347,7 +347,7 @@ PrefabInstance:
       objectReference: {fileID: 1821172118}
     - target: {fileID: 4068566543489661195, guid: b600639e334874860801db8e2181417c, type: 3}
       propertyPath: timeInSeconds
-      value: 30
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4068566543489661195, guid: b600639e334874860801db8e2181417c, type: 3}
       propertyPath: ballGameObject
