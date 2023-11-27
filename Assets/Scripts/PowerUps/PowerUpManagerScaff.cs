@@ -1,37 +1,35 @@
-﻿using UnityEngine;
+using UnityEngine;
 using TMPro;
 using System;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
 using System.Collections;
 
-public class ScaffPowerUpManager : MonoBehaviour
+public class PowerUpManagerScaff : MonoBehaviour
 {
-    public enum PowerUpType { None, Freeze, MoveOpponent, Magnify, BallSplit } // Added BallSplit
-    private PowerUpType[] powerUpArray = { PowerUpType.Freeze, PowerUpType.MoveOpponent, PowerUpType.Magnify, PowerUpType.BallSplit };
-
-    public GameObject player1FreezeObject; // Freeze GameObject for player 1
-    public GameObject player2FreezeObject; // Freeze GameObject for player 2
-
-
+    public enum PowerUpType { None, Freeze, MoveOpponent, Magnify, SplitBall}
+    private PowerUpType[] powerUpArray = { PowerUpType.Freeze, PowerUpType.MoveOpponent , PowerUpType.Magnify, PowerUpType.SplitBall};
+    
+    private PowerUpType[] powerUpArrayWithoutSplitBall = { PowerUpType.Freeze, PowerUpType.Magnify, PowerUpType.MoveOpponent};
     private Paddle paddle1;
     private Paddle paddle2;
 
-    public int player1powerupcount = 1;
-    public int player2powerupcount = 1;
+    private Ball ball;
+    private Ball[] balls; 
 
-
-
-    public string testing_powerup = "";
+    public ScoreZone leftScoreZone;
+    public ScoreZone rightScoreZone;
+    public int ballsInScoreZone = 0;
 
     public string p1powerup = "";
     public string p2powerup = "";
 
+    public int player1powerupcount = 1;
+    public int player2powerupcount = 1;
+    public string testing_powerup = "";
+
     public bool p1PowerUpActive = false;
     public bool p2PowerUpActive = false;
-
-    // public TextMeshProUGUI player1Powerup;
-    // public TextMeshProUGUI player2Powerup;
 
     private float powerUpCooldown = 10f;
     private float powerUpActiveDuration = 10f;
@@ -39,8 +37,7 @@ public class ScaffPowerUpManager : MonoBehaviour
     public float p1PowerUpTimer = 5f;  // New timer for player 1
     public float p2PowerUpTimer = 5f;  // New timer for player 2
 
-
-    //USED TO DEFINE THE TIMER FOR TIMER COIN IMAGE
+        //USED TO DEFINE THE TIMER FOR TIMER COIN IMAGE
     private float p1CurrentPowerUpTimer = 5f;
     private float p2CurrentPowerUpTimer = 5f;
 
@@ -50,10 +47,13 @@ public class ScaffPowerUpManager : MonoBehaviour
     public Image player1Powerup;
     public Image player2Powerup;
 
-    public Image freezeImage;
-    public Image magnifyImage;
-    public Image moveOpponentImage;
-    public Image splitPowerupImage;
+    public GameObject player1FreezeObject; // Freeze GameObject for player 1
+    public GameObject player2FreezeObject; // Freeze GameObject for player 2
+
+    public Image freezeImage;    
+    public Image magnifyImage;   
+    public Image moveOpponentImage;  
+    public Image splitPowerupImage;  
 
     private void Start()
     {
@@ -66,7 +66,7 @@ public class ScaffPowerUpManager : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   getBallBetweenScoreZones();
         // Decrementing the timers when the powerups are active
         if (p1PowerUpActive)
         {
@@ -74,10 +74,6 @@ public class ScaffPowerUpManager : MonoBehaviour
             TimeSpan time = TimeSpan.FromSeconds(p1PowerUpTimer);                       // set the time value
             string seconds = time.ToString("ss");
             char secondDigit = seconds.Length > 1 ? seconds[1] : seconds[0];
-
-            // p1Timer.GetComponentInChildren<TextMeshProUGUI>().text = secondDigit.ToString();
-            // p1Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
-            // p1Timer.GetComponent<Image>().color = Color.green;
 
             // Assuming p1Timer is a GameObject
             Transform childTransform = p1Timer.transform.Find("Timer1");
@@ -98,7 +94,6 @@ public class ScaffPowerUpManager : MonoBehaviour
             {
                 Debug.LogError("Child with the specified name not found!");
             }
-
         }
         if (p2PowerUpActive)
         {
@@ -106,10 +101,6 @@ public class ScaffPowerUpManager : MonoBehaviour
             TimeSpan time = TimeSpan.FromSeconds(p2PowerUpTimer);                       // set the time value
             string seconds = time.ToString("ss");
             char secondDigit = seconds.Length > 1 ? seconds[1] : seconds[0];
-
-            // p2Timer.GetComponentInChildren<TextMeshProUGUI>().text = secondDigit.ToString();
-            // p2Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
-            // p2Timer.GetComponent<Image>().color = Color.green;
 
             // Assuming p2Timer is a GameObject
             Transform childTransform = p2Timer.transform.Find("Timer2");
@@ -132,129 +123,107 @@ public class ScaffPowerUpManager : MonoBehaviour
             }
         }
 
-        //if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != ""&& !p2PowerUpActive)
-        //{
-
-        //    ActivatePowerUp(paddle1, p1powerup);
-        //    p1PowerUpActive = true;
-        //    // player1Powerup.color = Color.green;
-
-        //    // if (p1powerup == "MoveOpponent")
-        //    // {
-        //    //     player1Powerup.text = "Move Opponent";
-        //    // }
-        //    // else
-        //    // {
-        //    //     player1Powerup.text = p1powerup;
-        //    // }
-        //    Transform timerTransform = p1Timer.transform.Find("Timer1");
-        //    Image timerImage = timerTransform.GetComponent<Image>();
-        //    SetPowerUpImage(player1Powerup, p1powerup, timerImage);
-
-
-        //    p1powerup = "";
-        //    Invoke("DeactivateP1PowerUp", powerUpActiveDuration);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Slash) && !p2PowerUpActive && p2powerup != ""&& !p1PowerUpActive)
-        //{
-        //    ActivatePowerUp(paddle2, p2powerup);
-        //    p2PowerUpActive = true;
-        //    // player2Powerup.color = Color.green;
-
-        //    // if (p2powerup == "MoveOpponent")
-        //    // {
-        //    //     player2Powerup.text = "Move Opponent";
-        //    // }
-        //    // else
-        //    // {
-        //    //     player2Powerup.text = p2powerup;
-        //    // }
-
-
-        //    Transform timerTransform = p2Timer.transform.Find("Timer2");
-        //    Image timerImage = timerTransform.GetComponent<Image>();
-        //    SetPowerUpImage(player2Powerup, p2powerup, timerImage);
-
-        //    p2powerup = "";
-        //    Invoke("DeactivateP2PowerUp", powerUpActiveDuration);
-        //}
-
-
         if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != "")
         {
+
+            player1Powerup.gameObject.SetActive(true);
+            p1Timer.SetActive(true);
             ActivatePowerUp(paddle1, p1powerup);
             p1PowerUpActive = true;
             p1PowerUpTimer = (p1powerup == "Freeze") ? 3f : 5f;
             p1CurrentPowerUpTimer = p1PowerUpTimer;
+
             Transform timerTransform = p1Timer.transform.Find("Timer1");
             Image timerImage = timerTransform.GetComponent<Image>();
             SetPowerUpImage(player1Powerup, p1powerup, timerImage);
-            p1powerup = "";
-            Invoke("DeactivateP1PowerUp", powerUpActiveDuration);
+
+            //p1powerup = "";
+            Invoke("DeactivateP1PowerUp", p1CurrentPowerUpTimer);
         }
 
         if (Input.GetKeyDown(KeyCode.Slash) && !p2PowerUpActive && p2powerup != "")
         {
+            player2Powerup.gameObject.SetActive(true);
+            p2Timer.SetActive(true);
             ActivatePowerUp(paddle2, p2powerup);
             p2PowerUpActive = true;
             p2PowerUpTimer = (p2powerup == "Freeze") ? 3f : 5f;
             p2CurrentPowerUpTimer = p2PowerUpTimer;
+
             Transform timerTransform = p2Timer.transform.Find("Timer2");
             Image timerImage = timerTransform.GetComponent<Image>();
             SetPowerUpImage(player2Powerup, p2powerup, timerImage);
-            p2powerup = "";
-            Invoke("DeactivateP2PowerUp", powerUpActiveDuration);
+
+            //p2powerup = "";
+            Invoke("DeactivateP2PowerUp", p2CurrentPowerUpTimer);
         }
-
-
-
-
     }
-
+    public void getBallBetweenScoreZones(){
+         GameObject[] activeBalls = GameObject.FindGameObjectsWithTag("Ball");
+        float leftX = leftScoreZone.transform.position.x;
+        float rightX = rightScoreZone.transform.position.x;
+        int flag =0;
+        ballsInScoreZone = 0;
+        foreach (GameObject ballobj in activeBalls)
+        {
+            if (ballobj.transform.position.x > leftX && ballobj.transform.position.x < rightX)
+            {   flag=1;
+                ball = ballobj.GetComponent<Ball>();
+                ballsInScoreZone++;
+            }
+        }
+        if(flag==0){
+            //Debug.Log("No ball between score zones");
+            ball=null;
+        }
+    }
     void AssignRandomPowerUp()
     {
-
         p1powerup = testing_powerup;
-        //if(p1powerup == "SplitBall" && ballsInScoreZone == 2 ){
-        //    p1powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
-        //}
+        p2powerup = testing_powerup;
+        
+        // p1powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
+        // if(p1powerup == "SplitBall" && ballsInScoreZone == 2 ){
+        //     p1powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
+        // }
         Transform timerTransform1 = p1Timer.transform.Find("Timer1");
         Image timerImage1 = timerTransform1.GetComponent<Image>();
         SetPowerUpImage(player1Powerup, p1powerup, timerImage1);
 
 
-
-        p2powerup = testing_powerup;
-
-        //if(p2powerup == "SplitBall" && ballsInScoreZone == 2 ){
-        //    p2powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
-        //}
+        // p2powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
+        // if(p2powerup == "SplitBall" && ballsInScoreZone == 2 ){
+        //     p2powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
+        // }
         Transform timerTransform2 = p2Timer.transform.Find("Timer2");
         Image timerImage2 = timerTransform2.GetComponent<Image>();
         SetPowerUpImage(player2Powerup, p2powerup, timerImage2);
-        // //change from here
-        // player1Powerup.color = Color.red;
-        // if (p1powerup == "MoveOpponent")
-        // {
-        //     player1Powerup.text = "Move Opponent";
-        // }
-        // else
-        // {
-        //     player1Powerup.text = p1powerup;
-        // }
+    }
 
-        // player2Powerup.color = Color.red;
-        // if (p2powerup == "MoveOpponent")
-        // {
-        //     player2Powerup.text = "Move Opponent";
-        // }
-        // else
-        // {
-        //     player2Powerup.text = p2powerup;
-        // }
-
-
+    void SetPowerUpImage(Image imageComponent, string powerUpName, Image timerImage)
+    {
+        switch (powerUpName)
+        {
+            case "Freeze":
+                imageComponent.sprite = freezeImage.sprite;
+                timerImage.sprite = freezeImage.sprite;
+                break;
+            case "Magnify":
+                imageComponent.sprite = magnifyImage.sprite;
+                timerImage.sprite = magnifyImage.sprite;
+                break;
+            case "MoveOpponent":
+                imageComponent.sprite = moveOpponentImage.sprite;
+                timerImage.sprite = moveOpponentImage.sprite;
+                break;
+            case "SplitBall":
+                imageComponent.sprite = splitPowerupImage.sprite;
+                timerImage.sprite = splitPowerupImage.sprite;
+                break;
+            default:
+                Debug.LogError("Unknown power-up: " + powerUpName);
+                break;
+        }
     }
 
     //void ActivatePowerUp(Paddle paddle, string powerUpName)
@@ -275,17 +244,19 @@ public class ScaffPowerUpManager : MonoBehaviour
     //    }
     //}
     void ActivatePowerUp(Paddle paddle, string powerUpName)
-    {
+    {   
+        // balls = FindObjectsOfType<Ball>();
+        // ball = balls.Length>0 ? balls[0] : null;
         if (paddle == null)
         {
             Debug.LogError("Paddle is null in ActivatePowerUp method.");
             return;
         }
-        // if (powerUpName=="SplitBall" && ball == null)
-        // {
-        //     Debug.LogError("Ball is null in ActivatePowerUp method.");
-        //     return;
-        // }
+        if (powerUpName=="SplitBall" && ball == null)
+        {
+            Debug.LogError("Ball is null in ActivatePowerUp method.");
+            return;
+        }
 
         switch (powerUpName)
         {
@@ -301,11 +272,14 @@ public class ScaffPowerUpManager : MonoBehaviour
                 // Activate the appropriate freeze GameObject
                 if (paddle == paddle1)
                 {
-                    player2FreezeObject.SetActive(true); // Freeze player 2
+                    player2FreezeObject.SetActive(true);
+                     // Freeze player 2
+                     StartCoroutine(DeactivateFreezeObject(player2FreezeObject));
                 }
                 else if (paddle == paddle2)
                 {
                     player1FreezeObject.SetActive(true); // Freeze player 1
+                    StartCoroutine(DeactivateFreezeObject(player1FreezeObject));
                 }
                 break;
             case "Magnify":
@@ -326,30 +300,37 @@ public class ScaffPowerUpManager : MonoBehaviour
                 }
                 movePowerUp.ShiftOpponentPosition();
                 break;
+            case "SplitBall":
+                var splitPowerUp = ball.gameObject.GetComponent<BallSplitPowerUp>();
+                if (splitPowerUp == null)
+                {
+                    Debug.LogError("BallSplitPowerUp script is missing on paddle " + paddle.id);
+                    return;
+                }
+                StartCoroutine(CallSplitBall(ball.gameObject, paddle.id, splitPowerUp));
+                // splitPowerUp.SplitBall(ball.gameObject, paddle.id);
+                break;
+
         }
     }
-
-
+        
+    private IEnumerator CallSplitBall(GameObject ballGameObject, float paddleId, BallSplitPowerUp splitPowerUp)
+    {
+        //wait until end of frame to call split ball
+        yield return new WaitForEndOfFrame();
+        splitPowerUp.SplitBall(ballGameObject, paddleId);
+    }
+   
     void DeactivateP1PowerUp()
     {
         player1powerupcount++;
-
-        // player1Powerup.text = "";
-        // p1Timer.SetActive(false);
-        // p1PowerUpActive = false;
-        // p1PowerUpTimer = 5f;  // Resetting the timer
-        // TimeSpan time = TimeSpan.FromSeconds(p1PowerUpTimer);                       // set the time value
-        // string seconds = time.ToString("ss");
-        // char secondDigit = seconds.Length > 1 ? seconds[1] : seconds[0];
-
-        // p1Timer.GetComponentInChildren<TextMeshProUGUI>().text = secondDigit.ToString();
-        // p1Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
-        // p1Timer.GetComponent<Image>().color = Color.red;
-        //player1Powerup.gameObject.SetActive(false);
+        player2FreezeObject.SetActive(false);
+        p1powerup = "";
+        player1Powerup.gameObject.SetActive(false);
         p1Timer.SetActive(false);
         p1PowerUpActive = false;
         p1PowerUpTimer = 5f;  // Resetting the timer
-        TimeSpan time = TimeSpan.FromSeconds(p1PowerUpTimer);
+        TimeSpan time = TimeSpan.FromSeconds(p1PowerUpTimer);                       
         string seconds = time.ToString("ss");
         char secondDigit = seconds.Length > 1 ? seconds[1] : seconds[0];
 
@@ -373,28 +354,16 @@ public class ScaffPowerUpManager : MonoBehaviour
             Debug.LogError("Child with the specified name not found!");
         }
 
-        player2FreezeObject.SetActive(false);
-
+        // player2FreezeObject.SetActive(false);
         Invoke("AssignPowerUpToP1", powerUpCooldown);
     }
 
     void DeactivateP2PowerUp()
     {
         player2powerupcount++;
-
-        // player2Powerup.text = "";
-        // p2Timer.SetActive(false);
-        // p2PowerUpActive = false;
-        // p2PowerUpTimer = 5f;  // Resetting the timer
-        // TimeSpan time = TimeSpan.FromSeconds(p2PowerUpTimer);                       // set the time value
-        // string seconds = time.ToString("ss");
-        // char secondDigit = seconds.Length > 1 ? seconds[1] : seconds[0];
-
-        // p2Timer.GetComponentInChildren<TextMeshProUGUI>().text = secondDigit.ToString();
-        // p2Timer.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
-        // p2Timer.GetComponent<Image>().color = Color.red;
-
-        //player2Powerup.gameObject.SetActive(false);
+        player1FreezeObject.SetActive(false);
+        p2powerup = "";
+        player2Powerup.gameObject.SetActive(false);
         p2Timer.SetActive(false);
         p2PowerUpActive = false;
         p2PowerUpTimer = 5f;  // Resetting the timer
@@ -422,40 +391,25 @@ public class ScaffPowerUpManager : MonoBehaviour
             Debug.LogError("Child with the specified name not found!");
         }
 
-        player1FreezeObject.SetActive(false);
+        
         Invoke("AssignPowerUpToP2", powerUpCooldown);
     }
 
     void AssignPowerUpToP1()
     {
         player1Powerup.gameObject.SetActive(true);
-        // p1Timer.SetActive(true);
-        if (player1powerupcount < 2)
-        {
-            // player1Powerup.color = Color.red;
-            p1Timer.SetActive(true);
+        p1Timer.SetActive(true);
 
-            p1powerup = testing_powerup;
-            p1PowerUpTimer = 5f;  // Resetting the timer
+        // p1powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
+        // if(p1powerup == "SplitBall" && ballsInScoreZone == 2 ){
+        //     p1powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
+        // }
 
-
-
-            // if (p1powerup == "MoveOpponent")
-            // {
-            //     player1Powerup.text = "Move Opponent";
-            // }
-            // else
-            // {
-            //     player1Powerup.text = p1powerup;
-            // }
-
-            Transform timerTransform = p1Timer.transform.Find("Timer1");
-            Image timerImage = timerTransform.GetComponent<Image>();
-            SetPowerUpImage(player1Powerup, p1powerup, timerImage);
+        if(player1powerupcount<2){
+            p1powerup=testing_powerup;
 
         }
-        else
-        {
+        else{
             int last = 0;
 
             if (testing_powerup == "Freeze")
@@ -475,29 +429,11 @@ public class ScaffPowerUpManager : MonoBehaviour
             {
                 last = 4;
             }
-            // player1Powerup.color = Color.red;
-            p1Timer.SetActive(true);
 
             p1powerup = powerUpArray[Random.Range(0, last)].ToString();
-            p1PowerUpTimer = 5f;  // Resetting the timer
 
-            // p1powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
-            // p1PowerUpTimer = 5f;  // Resetting the timer
-            Transform timerTransform = p1Timer.transform.Find("Timer1");
-            Image timerImage = timerTransform.GetComponent<Image>();
-            SetPowerUpImage(player1Powerup, p1powerup, timerImage);
-
-
-
-            // if (p1powerup == "MoveOpponent")
-            // {
-            //     player1Powerup.text = "Move Opponent";
-            // }
-            // else
-            // {
-            //     player1Powerup.text = p1powerup;
-            // }
         }
+        p1PowerUpTimer = 5f;  // Resetting the timer
         if (p1powerup == "Freeze")
         {
             p1PowerUpTimer = 3f;
@@ -506,26 +442,23 @@ public class ScaffPowerUpManager : MonoBehaviour
         {
             p1PowerUpTimer = 5f;
         }
+
         p1CurrentPowerUpTimer = p1PowerUpTimer;
+        Transform timerTransform = p1Timer.transform.Find("Timer1");
+        Image timerImage = timerTransform.GetComponent<Image>();
+        SetPowerUpImage(player1Powerup, p1powerup, timerImage);
     }
 
     void AssignPowerUpToP2()
     {
         player2Powerup.gameObject.SetActive(true);
+        p2Timer.SetActive(true);
 
-        if (player2powerupcount < 2)
-        {
+        if(player2powerupcount<2){
+            p2powerup=testing_powerup;
 
-            p2Timer.SetActive(true);
-            p2powerup = testing_powerup;
-            p2PowerUpTimer = 5f;  // Resetting the timer
-
-            Transform timerTransform = p2Timer.transform.Find("Timer2");
-            Image timerImage = timerTransform.GetComponent<Image>();
-            SetPowerUpImage(player2Powerup, p2powerup, timerImage);
         }
-        else
-        {
+        else{
             int last = 0;
 
             if (testing_powerup == "Freeze")
@@ -545,28 +478,13 @@ public class ScaffPowerUpManager : MonoBehaviour
             {
                 last = 4;
             }
-            // player2Powerup.color = Color.red;
-            p2Timer.SetActive(true);
 
             p2powerup = powerUpArray[Random.Range(0, last)].ToString();
-            p2PowerUpTimer = 5f;  // Resetting the timer
-
-
-
-            // if (p2powerup == "MoveOpponent")
-            // {
-            //     player2Powerup.text = "Move Opponent";
-            // }
-            // else
-            // {
-            //     player2Powerup.text = p2powerup;
-            // }
-
-            Transform timerTransform = p2Timer.transform.Find("Timer2");
-            Image timerImage = timerTransform.GetComponent<Image>();
-            SetPowerUpImage(player2Powerup, p2powerup, timerImage);
         }
 
+        p2powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
+        
+        p2PowerUpTimer = 5f;  // Resetting the timer
         if (p2powerup == "Freeze")
         {
             p2PowerUpTimer = 3f;
@@ -576,66 +494,19 @@ public class ScaffPowerUpManager : MonoBehaviour
             p2PowerUpTimer = 5f;
         }
         p2CurrentPowerUpTimer = p2PowerUpTimer;
-    }
-    void SetPowerUpImage(Image imageComponent, string powerUpName, Image timerImage)
-    {
-        switch (powerUpName)
-        {
-            case "Freeze":
-                imageComponent.sprite = freezeImage.sprite;
-                timerImage.sprite = freezeImage.sprite;
-                break;
-            case "Magnify":
-                imageComponent.sprite = magnifyImage.sprite;
-                timerImage.sprite = magnifyImage.sprite;
-                break;
-            case "MoveOpponent":
-                imageComponent.sprite = moveOpponentImage.sprite;
-                timerImage.sprite = moveOpponentImage.sprite;
-                break;
-            case "SplitBall":
-                imageComponent.sprite = splitPowerupImage.sprite;
-                timerImage.sprite = splitPowerupImage.sprite;
-                break;
-            default:
-                Debug.LogError("Unknown power-up: " + powerUpName);
-                break;
-        }
+
+        // if(p2powerup == "SplitBall" && ballsInScoreZone == 2 ){
+        //     p2powerup = powerUpArrayWithoutSplitBall[Random.Range(0, powerUpArrayWithoutSplitBall.Length)].ToString();
+        // }
+        Transform timerTransform = p2Timer.transform.Find("Timer2");
+        Image timerImage = timerTransform.GetComponent<Image>();
+        SetPowerUpImage(player2Powerup, p2powerup, timerImage);
     }
 
-    //
+    private IEnumerator DeactivateFreezeObject(GameObject freezeObject)
+{
+    yield return new WaitForSeconds(3f); // Wait for 3 seconds
+    freezeObject.SetActive(false);
+}
 
-    //void AssignPowerUpToP1()
-    //{
-    //    player1Powerup.color = Color.red;
-    //    p1Timer.SetActive(true);
-
-    //    p1powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
-    //    p1PowerUpTimer = 5f;  // Resetting the timer
-    //    if (p1powerup == "MoveOpponent")
-    //    {
-    //        player1Powerup.text = "Move Opponent";
-    //    }
-    //    else
-    //    {
-    //        player1Powerup.text = p1powerup;
-    //    }
-    //}
-
-    //void AssignPowerUpToP2()
-    //{
-    //    player2Powerup.color = Color.red;
-    //    p2Timer.SetActive(true);
-
-    //    p2powerup = powerUpArray[Random.Range(0, powerUpArray.Length)].ToString();
-    //    p2PowerUpTimer = 5f;  // Resetting the timer
-    //    if (p2powerup == "MoveOpponent")
-    //    {
-    //        player2Powerup.text = "Move Opponent";
-    //    }
-    //    else
-    //    {
-    //        player2Powerup.text = p2powerup;
-    //    }
-    //}
 }
