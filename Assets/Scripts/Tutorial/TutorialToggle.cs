@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TutorialToggle : MonoBehaviour
 {
@@ -10,12 +11,20 @@ public class TutorialToggle : MonoBehaviour
     public GameObject[] tutorialParts;
     public GameObject countDown;
     private GameObject currTutorial;
+    public string flickSceneName;
+    public GameObject player1;
+    public GameObject player2;
 
     void Start()
     {
         for(int i = 0; i < tutorialParts.Length; i++)
         {
             tutorialParts[i].SetActive(false);
+        }
+        if (player1 != null && player2 != null && SceneManager.GetActiveScene().name == flickSceneName)
+        {
+            player1.SetActive(false);
+            player2.SetActive(false);
         }
     }
     public void StartScreenOff()
@@ -38,11 +47,21 @@ public class TutorialToggle : MonoBehaviour
         IncrementCurrentTutorial();
         if (currTutorial == null)
         {
+            if (player1 != null && player2 != null && SceneManager.GetActiveScene().name == flickSceneName)
+            {
+                player1.SetActive(true);
+                player2.SetActive(true);
+            }
             return;
         }
         else
         {
             currTutorial.SetActive(true);
+            if (player1 != null && player2 != null && SceneManager.GetActiveScene().name == flickSceneName)
+            {
+                player1.SetActive(false);
+                player2.SetActive(false);
+            }
         }
     }
 
@@ -65,6 +84,10 @@ public class TutorialToggle : MonoBehaviour
         countDown.SetActive(true);
         currTutorial.SetActive(false);
         Time.timeScale = 1f;
-        
+        if (player1 != null && player2 != null && SceneManager.GetActiveScene().name == flickSceneName)
+        {
+            player1.SetActive(true);
+            player2.SetActive(true);
+        }
     }
 }
