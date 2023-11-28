@@ -6646,26 +6646,26 @@ PrefabInstance:
       insertIndex: 4
       addedObject: {fileID: 1737145563}
     - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 6
-      addedObject: {fileID: 265183841}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 7
-      addedObject: {fileID: 601375883}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 8
-      addedObject: {fileID: 388983272}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 15
-      addedObject: {fileID: 174633349}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 16
-      addedObject: {fileID: 312794357}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 20
+      insertIndex: 5
       addedObject: {fileID: 1087029696}
     - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 21
+      insertIndex: 6
       addedObject: {fileID: 1022001384}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 8
+      addedObject: {fileID: 265183841}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 9
+      addedObject: {fileID: 601375883}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 10
+      addedObject: {fileID: 388983272}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 17
+      addedObject: {fileID: 174633349}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 18
+      addedObject: {fileID: 312794357}
     - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       insertIndex: 22
       addedObject: {fileID: 1625710981}
@@ -9903,6 +9903,7 @@ MonoBehaviour:
   paddleLeft: {fileID: 108816304}
   paddleRight: {fileID: 108816306}
   rb2d: {fileID: 1492546278}
+  angleChangePaddleNotTilted: 5
   maxInitialAngle: 0.3
   moveSpeed: 6
   spinStrength: 500
