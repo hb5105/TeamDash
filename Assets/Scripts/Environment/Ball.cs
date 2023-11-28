@@ -20,6 +20,7 @@ public class Ball : MonoBehaviour
     public GameObject paddleLeft;
     public GameObject paddleRight;
     public Rigidbody2D rb2d;
+    public float angleChangePaddleNotTilted = 5f;
     public float maxInitialAngle = 0.3f;
     public float moveSpeed = 1f;
     public float spinStrength = 500f;
@@ -248,9 +249,19 @@ public class Ball : MonoBehaviour
             AdjustVelocity();
         }
         else{
-            rb2d.velocity=rb2d.velocity.normalized*moveSpeed;
+
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            Vector2 currentVelocity = rb.velocity;
+            float angleInRadians = angleChangePaddleNotTilted * Mathf.Deg2Rad;
+            Vector2 newDirection = new Vector2(
+                currentVelocity.x * Mathf.Cos(angleInRadians) - currentVelocity.y * Mathf.Sin(angleInRadians),
+                currentVelocity.x * Mathf.Sin(angleInRadians) + currentVelocity.y * Mathf.Cos(angleInRadians)
+            );
+            rb2d.velocity=newDirection.normalized*moveSpeed;
             AdjustVelocity();
+
         }
+
 
             if (paddle.id == 1)
             {   
