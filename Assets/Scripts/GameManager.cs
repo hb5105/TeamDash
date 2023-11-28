@@ -170,7 +170,7 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
     {
         currentScene = SceneManager.GetActiveScene();
         
-        TimerText.text = "02:30";
+        TimerText.text = "01:00";
 
         wordSet1 = new HashSet<char>();
         wordSet2 = new HashSet<char>();

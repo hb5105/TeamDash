@@ -9,7 +9,7 @@ public class Paddle : MonoBehaviour
     public float moveSpeed = 2f;
     public float tiltAmount = 15.0f;
     public Ball ball;
-    private bool isTilting = false; 
+    private bool isTilting = false;
  
     private float processInput()
 {   

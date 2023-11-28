@@ -14,24 +14,29 @@ public class LevelOneManager : MonoBehaviour
     public GameObject CompleteWordBubble1;
     public GameObject GainLetterBubble2;
     public GameObject CompleteWordBubble2;
+    public TutorialToggle toggle;
     private void Update()
     {
-        if(Input.GetKey(KeyCode.W))
+        if (!toggle.isTutorialActive)
         {
-            MoveControlsUp1.SetActive(false);
+            if(Input.GetKey(KeyCode.W))
+            {
+                MoveControlsUp1.SetActive(false);
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                MoveControlsDown1.SetActive(false);
+            }
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                MoveControlsUp2.SetActive(false);
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                MoveControlsDown2.SetActive(false);
+            }
         }
-        if (Input.GetKey(KeyCode.S))
-        {
-            MoveControlsDown1.SetActive(false);
-        }
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            MoveControlsUp2.SetActive(false);
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            MoveControlsDown2.SetActive(false);
-        }
+        
 
 
     }

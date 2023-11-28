@@ -14,9 +14,12 @@ public class TutorialToggle : MonoBehaviour
     public string flickSceneName;
     public GameObject player1;
     public GameObject player2;
+    public bool isTutorialActive;
 
     void Start()
     {
+        isTutorialActive = true;
+
         for(int i = 0; i < tutorialParts.Length; i++)
         {
             tutorialParts[i].SetActive(false);
@@ -83,6 +86,7 @@ public class TutorialToggle : MonoBehaviour
     {
         countDown.SetActive(true);
         currTutorial.SetActive(false);
+        isTutorialActive = false;
         Time.timeScale = 1f;
         if (player1 != null && player2 != null && SceneManager.GetActiveScene().name == flickSceneName)
         {
