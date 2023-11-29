@@ -51,6 +51,8 @@ public class PowerUpManager : MonoBehaviour
     public Image moveOpponentImage;  
     public Image splitPowerupImage;  
 
+    public GameObject darkScreen;
+
     private void Start()
     {
         Paddle[] paddles = FindObjectsOfType<Paddle>();
@@ -119,6 +121,7 @@ public class PowerUpManager : MonoBehaviour
             }
         }
 
+    if(!darkScreen.activeInHierarchy){
         if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != "")
         {
 
@@ -153,6 +156,7 @@ public class PowerUpManager : MonoBehaviour
             //p2powerup = "";
             Invoke("DeactivateP2PowerUp", p2CurrentPowerUpTimer);
         }
+    }
     }
     public void getBallBetweenScoreZones(){
          GameObject[] activeBalls = GameObject.FindGameObjectsWithTag("Ball");

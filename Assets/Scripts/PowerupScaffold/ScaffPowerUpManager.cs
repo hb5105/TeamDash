@@ -13,6 +13,7 @@ public class ScaffPowerUpManager : MonoBehaviour
     public GameObject player1FreezeObject; // Freeze GameObject for player 1
     public GameObject player2FreezeObject; // Freeze GameObject for player 2
 
+    public TutorialToggle toggle;
 
     private Paddle paddle1;
     private Paddle paddle2;
@@ -180,6 +181,9 @@ public class ScaffPowerUpManager : MonoBehaviour
         //    Invoke("DeactivateP2PowerUp", powerUpActiveDuration);
         //}
 
+if(
+    !toggle.isTutorialActive
+){
 
         if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != "")
         {
@@ -208,6 +212,7 @@ public class ScaffPowerUpManager : MonoBehaviour
         }
 
 
+}
 
 
     }

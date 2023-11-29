@@ -53,7 +53,11 @@ public class PowerUpManagerScaff : MonoBehaviour
     public Image freezeImage;    
     public Image magnifyImage;   
     public Image moveOpponentImage;  
-    public Image splitPowerupImage;  
+    public Image splitPowerupImage; 
+
+    public TutorialToggle toggle; 
+
+    public GameObject darkScreen;
 
     private void Start()
     {
@@ -123,7 +127,8 @@ public class PowerUpManagerScaff : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != "")
+        if(!toggle.isTutorialActive && !darkScreen.activeInHierarchy){
+                    if (Input.GetKeyDown(KeyCode.Q) && !p1PowerUpActive && p1powerup != "")
         {
 
             player1Powerup.gameObject.SetActive(true);
@@ -156,6 +161,8 @@ public class PowerUpManagerScaff : MonoBehaviour
 
             //p2powerup = "";
             Invoke("DeactivateP2PowerUp", p2CurrentPowerUpTimer);
+        }
+    
         }
     }
     public void getBallBetweenScoreZones(){
