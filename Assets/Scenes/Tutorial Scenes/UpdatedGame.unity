@@ -757,7 +757,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3149171860221363812, guid: 53b6f7bb77c854131828ecadfe0d33b4, type: 3}
       propertyPath: m_text
-      value: "Goal: \n\nComplete More words than your opponent!\n\nOR\n\nComplete
+      value: "Goal: \n\nComplete more words than your opponent!\n\nOR\n\nComplete
         3 words first"
       objectReference: {fileID: 0}
     - target: {fileID: 3840569819298013104, guid: 53b6f7bb77c854131828ecadfe0d33b4, type: 3}
@@ -2516,7 +2516,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3764029590820397148, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       propertyPath: m_fontSize
-      value: 25
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 3764029590820397148, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       propertyPath: m_fontColor.b
@@ -2616,7 +2616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5401178555501132783, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       propertyPath: m_fontSize
-      value: 25
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 5401178555501132783, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       propertyPath: m_margin.x
@@ -2987,40 +2987,40 @@ PrefabInstance:
       addedObject: {fileID: 818630366}
     - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       insertIndex: 1
-      addedObject: {fileID: 836663338}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 1797186684}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 1965567176}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 1338572488}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 6
-      addedObject: {fileID: 591543065}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 7
-      addedObject: {fileID: 206710198}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 8
-      addedObject: {fileID: 750920586}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 15
-      addedObject: {fileID: 1623677883}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 16
-      addedObject: {fileID: 349553145}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 20
-      addedObject: {fileID: 560380211}
-    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 21
       addedObject: {fileID: 1619064650}
     - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
-      insertIndex: 22
+      insertIndex: 2
       addedObject: {fileID: 935271124}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 836663338}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 1797186684}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 5
+      addedObject: {fileID: 1965567176}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 6
+      addedObject: {fileID: 1338572488}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 8
+      addedObject: {fileID: 591543065}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 9
+      addedObject: {fileID: 206710198}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 10
+      addedObject: {fileID: 750920586}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 17
+      addedObject: {fileID: 1623677883}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 18
+      addedObject: {fileID: 349553145}
+    - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      insertIndex: 22
+      addedObject: {fileID: 560380211}
     - targetCorrespondingSourceObject: {fileID: 3146612971589449205, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       insertIndex: -1
       addedObject: {fileID: 367960929}
