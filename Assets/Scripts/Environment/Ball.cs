@@ -35,6 +35,9 @@ public class Ball : MonoBehaviour
     private float minimumSpeed = 6f;
     public WallToggle wallToggle;
     private bool isScaled = false;
+    public TrailRenderer trailRenderer;
+    private bool isSpeedIncreased = false;
+    private float defaultSpeed = 1f;
 
     private void AdjustVelocity()
     {
@@ -58,11 +61,13 @@ public class Ball : MonoBehaviour
 
     private void Start()
     {  if(!isClonedBall){
-        InitialPush();
-        // Add a 5-second delay before starting the ball's movement.
-        //Invoke(nameof(InitialPush), 2f);
+            InitialPush();
+            // Add a 5-second delay before starting the ball's movement.
+            //Invoke(nameof(InitialPush), 2f);
         }
         GetComponent<SpriteRenderer>().color = Color.black;
+        if (trailRenderer != null)
+            trailRenderer.enabled = false;
     }
 
     // Moves the Ball to Random Angle in the Left Direction
@@ -112,6 +117,13 @@ public class Ball : MonoBehaviour
     }
     private void Update()
 {
+    if (isSpeedIncreased && rb2d.velocity.magnitude <= defaultSpeed)
+    {
+        if (trailRenderer != null)
+            trailRenderer.enabled = false;
+        isSpeedIncreased = false;
+    }
+
    if (!isScaled && wallToggle.isPointedWalls)
     {
         ScaleBall();
@@ -233,6 +245,8 @@ public class Ball : MonoBehaviour
             // Debug.Log("entered paddle flick");
             // Increase the ball's speed
             // Debug.Log("Ball Velocity before collision: " + rb2d.velocity);
+            if (trailRenderer != null)
+                trailRenderer.enabled = true;
             float speedMultiplier = 3f;  // Adjust as needed
             float angleAdjustment = 2f;
             float tiltDirection=(paddle.transform.rotation.z>0)? 1:-1;
@@ -249,7 +263,8 @@ public class Ball : MonoBehaviour
             AdjustVelocity();
         }
         else{
-
+            if (trailRenderer != null)
+                trailRenderer.enabled = false;
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             Vector2 currentVelocity = rb.velocity;
             float angleInRadians = angleChangePaddleNotTilted * Mathf.Deg2Rad;
