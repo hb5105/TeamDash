@@ -1438,7 +1438,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 700427772}
         m_TargetAssemblyTypeName: UGameToggle, Assembly-CSharp
         m_MethodName: onToggle
         m_Mode: 1
@@ -2609,7 +2609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modal: {fileID: 1466304610}
-  startScreen: {fileID: 0}
+  startScreen: {fileID: 900286961}
   pauseMenu: {fileID: 591543067}
   countDown: {fileID: 335444167}
   darkBg: {fileID: 2044602297}
@@ -4508,7 +4508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7921772460341246554, guid: 8a8cd9077e7c04ded80ed8c3d11279e0, type: 3}
       propertyPath: m_Name
-      value: StartMenu Variant (1)
+      value: StartMenu Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7921772460341246554, guid: 8a8cd9077e7c04ded80ed8c3d11279e0, type: 3}
       propertyPath: m_IsActive
