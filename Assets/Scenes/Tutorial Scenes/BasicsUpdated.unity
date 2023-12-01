@@ -6116,6 +6116,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 447445613255213072, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      propertyPath: m_text
+      value: NET
+      objectReference: {fileID: 0}
     - target: {fileID: 886286543110516905, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -6306,7 +6310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3198561865874079895, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -41.30005
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 3370867674449883936, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6394,7 +6398,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4502146133181655006, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -35
+      value: -29
       objectReference: {fileID: 0}
     - target: {fileID: 4983225771697861878, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6491,6 +6495,10 @@ PrefabInstance:
     - target: {fileID: 6348132689673549501, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -284.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383375346647721239, guid: 01e0d1e3811274df088696c767248a96, type: 3}
+      propertyPath: m_text
+      value: NET
       objectReference: {fileID: 0}
     - target: {fileID: 6406798277782495801, guid: 01e0d1e3811274df088696c767248a96, type: 3}
       propertyPath: m_text
@@ -10180,6 +10188,7 @@ MonoBehaviour:
   ballText: {fileID: 1062439476}
   isClonedBall: 0
   wallToggle: {fileID: 302951776}
+  trailRenderer: {fileID: 0}
 --- !u!4 &1492546277
 Transform:
   m_ObjectHideFlags: 0
@@ -12987,8 +12996,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.0001, y: -34.841812}
-  m_SizeDelta: {x: 408.3517, y: 59.6838}
+  m_AnchoredPosition: {x: 17.594, y: -28.513}
+  m_SizeDelta: {x: 464.042, y: 77.403}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2033358461
 MonoBehaviour:
