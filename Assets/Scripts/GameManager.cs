@@ -170,8 +170,13 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
     {
         currentScene = SceneManager.GetActiveScene();
         
-        TimerText.text = "01:00";
-
+        if((currentScene.name == "UpdatedGame")) {
+            TimerText.text = "02:30";
+        }
+        else {
+            TimerText.text = "01:00";
+        }
+        
         wordSet1 = new HashSet<char>();
         wordSet2 = new HashSet<char>();
         gameOverText.text = "";
@@ -516,13 +521,20 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
                     trackAnalytics.CollectWordData(word1, startTimeWord, endTimeWord, 0, 0);
                     startTimeWord = currentTime;
                     UpdateWord(id);
-                    
                 }
                 else
                 {
-                    endTimeWord = currentTime;
-                    trackAnalytics.CollectWordData(word1, startTimeWord, endTimeWord, 0, 1);
-                    GameEnd();
+                    if((currentScene.name == "UpdatedGame")) {
+                        endTimeWord = currentTime;
+                        trackAnalytics.CollectWordData(word1, startTimeWord, endTimeWord, 0, 1);
+                        GameEnd();
+                    }
+                    else {
+                        endTimeWord = currentTime;
+                        trackAnalytics.CollectWordData(word1, startTimeWord, endTimeWord, 0, 0);
+                        startTimeWord = currentTime;
+                        UpdateWord(id);
+                    }
                 }
             }
             Debug.Log(string.Join(", ", pos1));
@@ -561,9 +573,17 @@ private IEnumerator ProcessBallQueue(GameObject ballGameObject)
                 }
                 else
                 {
-                    endTimeWord = currentTime;
-                    trackAnalytics.CollectWordData(word2, startTimeWord, endTimeWord, 0, 1);
-                    GameEnd();
+                    if((currentScene.name == "UpdatedGame")) {
+                        endTimeWord = currentTime;
+                        trackAnalytics.CollectWordData(word2, startTimeWord, endTimeWord, 0, 1);
+                        GameEnd();
+                    }
+                    else {
+                        endTimeWord = currentTime;
+                        trackAnalytics.CollectWordData(word2, startTimeWord, endTimeWord, 0, 0);
+                        startTimeWord = currentTime;
+                        UpdateWord(id);
+                    }
                 }
             }
         }
