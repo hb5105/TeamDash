@@ -14,7 +14,7 @@ public class WordGenerator : MonoBehaviour
     // Lists of random words based on length
     private static List<string> threeLetterWords = new List<string> { };
     private static List<string> fourLetterWords = new List<string> { "GOAL" };
-    private static List<string> fiveLetterWords = new List<string> { "SCORE"};
+    private static List<string> fiveLetterWords = new List<string> { "SCORE", "GRASS", "FIELD", "FOULS"};
 
     // Current list being used
     private static List<string> currentList = new List<string> { };
